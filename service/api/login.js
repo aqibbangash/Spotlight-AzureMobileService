@@ -10,7 +10,8 @@ exports.post = function(request, response) {
         
         success: function (userId)
         {
-            response.send(statusCodes.OK, { message: 'User has been found.'});
+            
+            
         }
         
     });
