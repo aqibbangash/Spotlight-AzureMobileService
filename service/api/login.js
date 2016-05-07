@@ -6,7 +6,7 @@ exports.post = function(request, response) {
     
     var usersTable = request.service.tables.getTable('users');
     
-    usersTable.where( {id:userId}).read(
+    usersTable.where( {id:userId, password:password}).read(
         
         {
             success: function(res)
