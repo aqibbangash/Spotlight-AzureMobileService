@@ -5,20 +5,13 @@ exports.post = function(request, response) {
     
     
     
-    friendsTable.where( { friend:{like:user_id}}).read(
+    friendsTable.where( { friend:{like:user_id} }).read(
         
         {
             success: function(res)
             {
                 
-                if (res.length > 0)
-                {
-                    response.send(statusCodes.OK, { messages: "Success", user: res});
-                }
-                else
-                {
-                    response.send(statusCodes.OK, { messages: "Fail", user: []});
-                }
+                    response.send(statusCodes.OK, { messages: "Success"});
                 
             }
         }
