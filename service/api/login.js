@@ -4,13 +4,17 @@ exports.post = function(request, response) {
     var password = request.body.password;
     
     
-    var usersTable = request.service.tables.getTable("users");
+    var usersTable = request.service.tables.getTable('users');
     
-    usersTable.find().then(function(result){
-       
-       response.send(statusCodes.OK, { message : 'Hello World!' });
-       
-    })
+    usersTable.lookup(username, {
+            success: function(userRecord) {
+                
+              response.send(statusCodes.OK, { message: 'User has been found.'})
+                
+            }
+            
+        });
+  
     
     
 };
