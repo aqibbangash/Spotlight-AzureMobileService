@@ -3,9 +3,10 @@ exports.post = function(request, response) {
     var username = request.body.username;
     var password = request.body.password;
     
-    var userStable = tables.getTable("users");
     
-    userStable.find().then(function(result){
+    var usersTable = request.service.tables.getTable("users");
+    
+    usersTable.find().then(function(result){
        
        response.send(statusCodes.OK, { message : 'Hello World!' });
        
