@@ -11,7 +11,16 @@ exports.post = function(request, response) {
         {
             success: function(res)
             {
-                response.send(statusCodes.OK, { message: res});
+                
+                if (res.length > 0)
+                {
+                    response.send(statusCodes.OK, { messages: "Success", user: res});
+                }
+                else
+                {
+                    response.send(statusCodes.OK, { messages: "Fail", user: []});
+                }
+                
             }
         }
         
