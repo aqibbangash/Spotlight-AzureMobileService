@@ -12,9 +12,6 @@ exports.post = function(request, response) {
             success: function(res)
             {
                 response.send(statusCodes.OK, { message: res});
-            }, failure: function(a)
-            {
-             response.send(statusCodes.OK, { message: "fail"});   
             }
         }
         
