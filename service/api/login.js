@@ -6,15 +6,15 @@ exports.post = function(request, response) {
     
     var usersTable = request.service.tables.getTable('users');
     
-    usersTable.lookup(username, {
-            success: function(userRecord) {
-                
-              response.send(statusCodes.OK, { message: 'User has been found.'})
-                
-            }
-            
-        });
-  
+//    usersTable.lookup(username, {
+//            success: function(userRecord) {
+//                
+//              response.send(statusCodes.OK, { message: 'User has been found.'})
+//                
+//            }
+//            
+//        });
+//  
     
     
 };
