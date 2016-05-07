@@ -1,17 +1,18 @@
 exports.post = function(request, response) {
     
-    var userId = request.body.id;
+    var userId = request.body.email;
     var password = request.body.password;
     
     
     var usersTable = request.service.tables.getTable('users');
     
-    usersTable.where( {id:id, password:password}).read(
+    usersTable.where( {id:userId, password:password}).read(
+        
         {
             success: function(res)
             {
                 
-                if (res.length>0)
+                if (res.length > 0)
                 {
                     response.send(statusCodes.OK, { messages: "Success", user: res});
                 }
@@ -19,6 +20,7 @@ exports.post = function(request, response) {
                 {
                     response.send(statusCodes.OK, { messages: "Fail", user: []});
                 }
+                
             }
         }
         
