@@ -6,7 +6,21 @@ exports.post = function(request, response) {
     
     var usersTable = request.service.tables.getTable('users');
     
-    response.send(statusCodes.OK, { message: usersTable});
+    usersTable.where( {id:userId}).read(
+        
+        {
+            success: function(res)
+            {
+                response.send(statusCodes.OK, { message: res});
+            }, failure: function(a)
+            {
+             response.send(statusCodes.OK, { message: "fail"});   
+            }
+        }
+        
+    );
+    
+//    response.send(statusCodes.OK, { message: usersTable.});
     
 //    usersTable.lookup( userId, {  
 //        
