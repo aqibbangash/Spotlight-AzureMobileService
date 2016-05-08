@@ -13,7 +13,7 @@ exports.post = function(request, response) {
                     to: to,
                     from: from,
                     subject: 'Forget Password',
-                    text:'Dear '+result[0].first_name+' '+result[0].last_name+',\n\r'+ 'We have received a forgot password request from your side. Your spotlight credentials are'+'\n\r'+'Username: '+result[0].email+'\n\r'+'Password: '+result[0].password+'\n\r\n\r'+'Regards'+'\n\r'+'SpotLightRC Team'
+                    text:'Dear '+result[0].first_name+' '+result[0].last_name+',\n\r'+ 'We have received a forgot password request from your side. Your spotlight credentials are'+'\n\r'+'Email: '+result[0].email+'\n\r'+'Password: '+result[0].password+'\n\r\n\r'+'Regards'+'\n\r'+'SpotLightRC Team'
         }, function(success, message) {
             // If the email failed to send, log it as an error so we can investigate
             if (!success) {
