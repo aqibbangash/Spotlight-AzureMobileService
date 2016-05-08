@@ -7,20 +7,20 @@ exports.post = function(request, response) {
         {
             success: function(result){
                 if(result.length>0){
-                    var to = "murtazhaider@sofittech.com";
+                    var to = result[0].email;
                     var from = "murtazshah@gmail.com";
                     sendgrid.send({
-            to: to,
-            from: from,
-            subject: 'Forget Password',
-            text:'Dear '+result[0].first_name+' '+result[0].last_name+',\n\r'+ 'We have received a forgot password request from your side. Your spotight credentials are'+'\n\r'+'Username: '+result[0].email+'\n\r'+'Password: '+result[0].password+'\n\r\n\r'+'Regards'+'\n\r'+'SpotLightRC Team'
+                    to: to,
+                    from: from,
+                    subject: 'Forget Password',
+                    text:'Dear '+result[0].first_name+' '+result[0].last_name+',\n\r'+ 'We have received a forgot password request from your side. Your spotight credentials are'+'\n\r'+'Username: '+result[0].email+'\n\r'+'Password: '+result[0].password+'\n\r\n\r'+'Regards'+'\n\r'+'SpotLightRC Team'
         }, function(success, message) {
             // If the email failed to send, log it as an error so we can investigate
             if (!success) {
                 console.error(message);
             }
             else{
-                response.send(statusCodes.OK, { message : 'Hello World!' });
+                response.send(statusCodes.OK, { status : true });
             }
         });
                 }
