@@ -4,7 +4,10 @@ exports.post = function(request, response) {
     usersTable.where({email:userId}).read(
         {
             success: function(result){
-                response.send(statusCodes.OK,{data:result});
+                if(result.length>0){
+                    response.send(statusCodes.OK,{data:result[0].email});
+                }
+                
             }
         }
         );
