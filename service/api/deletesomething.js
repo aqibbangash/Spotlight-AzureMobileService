@@ -8,7 +8,7 @@ exports.post = function(request, response) {
         success: function(res){
 
 
-                table.del(res, {
+                table.del(res[0], {
                     
                     success: function(r)
                     {
