@@ -4,8 +4,15 @@ exports.post = function(request, response) {
     //   var push = request.service.push;
 
     var table = request.service.tables.getTable('requests');
+    table.where({ id: request.body.id}).read({
+        success: function(res){
+
+                response.send(statusCodes.OK, { message : 'Hello World!: '+res });
+            
+        }
+    });
     
-    response.send(statusCodes.OK, { message : 'Hello World!' });
+    
 };
 
 exports.get = function(request, response) {
