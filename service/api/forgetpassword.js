@@ -6,7 +6,7 @@ exports.post = function(request, response) {
 };
 
 exports.get = function(request, response) {
-    var sendgrid = require('sendgrid')(azure_391f99ebb5506b93a27577ef7cd597f5@azure.com, 4mxJQRASw6ysjE1);
+    var sendgrid = require('sendgrid')(azure_391f99ebb5506b93a27577ef7cd597f5@azure.com,4mxJQRASw6ysjE1);
     var email = new sendgrid.Email({
     to: 'murtazhaider@sofittech.com',
     from: 'murtazshah@gmail.com',
@@ -15,7 +15,6 @@ exports.get = function(request, response) {
     });
     sendgrid.send(email, function(err, json){
     if(err) { return console.error(err); }
-    console.log(json);
+    response.send(statusCodes.OK, { message : json });
     });
-    response.send(statusCodes.OK, { message : 'Hello World!' });
 };
