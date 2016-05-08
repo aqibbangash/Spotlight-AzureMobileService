@@ -4,7 +4,7 @@ exports.post = function(request, response) {
     //   var push = request.service.push;
 
     var table = request.service.tables.getTable('reports');
-    table.where({ id: request.body.id}).read({
+    table.where({ id: request.body.id}).del({
         success: function(res){
 
                 response.send(statusCodes.OK, { message : 'Hello World!: '+res });
