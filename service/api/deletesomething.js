@@ -3,6 +3,8 @@ exports.post = function(request, response) {
     //   var tables = request.service.tables;
     //   var push = request.service.push;
 
+    var table = request.service.tables.getTable('requests');
+    
     response.send(statusCodes.OK, { message : 'Hello World!' });
 };
 
