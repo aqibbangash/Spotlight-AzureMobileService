@@ -17,5 +17,8 @@ exports.get = function(request, response) {
             if (!success) {
                 console.error(message);
             }
+            else{
+                response.send(statusCodes.OK, { message : 'Hello World!' });
+            }
         });
 };
