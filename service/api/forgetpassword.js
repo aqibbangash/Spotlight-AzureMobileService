@@ -6,10 +6,10 @@ exports.post = function(request, response) {
 };
 
 exports.get = function(request, response) {
-    var sendgrid = require('sendgrid')(azure_391f99ebb5506b93a27577ef7cd597f5,4mxJQRASw6ysjE1);
+    var sendgrid = require('sendgrid')(azure_391f99ebb5506b93a27577ef7cd597f5@azure.com,4mxJQRASw6ysjE1);
     sendgrid.send({
             to: 'murtazhaider@sofittech.com',
-            from: 'murtazshah@gnmail.com',
+            from: 'murtazshah@gmail.com',
             subject: 'Forget Password',
             text: 'A new to-do was added: '
         }, function(success, message) {
