@@ -8,10 +8,13 @@ exports.post = function(request, response) {
         success: function(res){
 
 
-                table.del(res, function(r) {
+                table.del(res, {
                     
-                    
-                      response.send(statusCodes.OK, { message : 'Hello Deleted: '+res });
+                    success: function(r)
+                    {
+                         response.send(statusCodes.OK, { message : 'Hello Deleted: '+res });
+                    }
+                     
                       
                      
                 }
