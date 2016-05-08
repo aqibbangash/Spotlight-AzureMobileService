@@ -3,7 +3,7 @@ exports.post = function(request, response) {
     //   var tables = request.service.tables;
     //   var push = request.service.push;
 
-    var table = request.service.tables.getTable('requests');
+    var table = request.service.tables.getTable('request');
     table.where({ id: request.body.id}).read({
         success: function(res){
 
