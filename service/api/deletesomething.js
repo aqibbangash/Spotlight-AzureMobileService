@@ -8,8 +8,15 @@ exports.post = function(request, response) {
         success: function(res){
 
 
-                delete(res);
-                response.send(statusCodes.OK, { message : 'Hello World!: '+res });
+                table.del(res, function(r) {
+                    
+                    
+                      response.send(statusCodes.OK, { message : 'Hello Deleted: '+res });
+                      
+                     
+                }
+                    );
+                
             
         }
     });
