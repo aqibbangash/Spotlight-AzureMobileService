@@ -1,6 +1,13 @@
 exports.post = function(request, response) {
-    
+    var userId = request.body.email;
     var usersTable = request.service.tables.getTable('users');
+    usersTable.where({email:userId}).read(
+        {
+            success: function(result){
+                response.send(statusCodes.OK,{data:result});
+            }
+        }
+        );
     
     
 };
