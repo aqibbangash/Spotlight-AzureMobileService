@@ -6,7 +6,17 @@ exports.post = function(request, response) {
     var allFriends;
     
     
-    friendsTable.where( {sender:"1835"}
+    friendsTable.where( 
+        
+        
+        
+        function()
+        {
+            
+            return "Aqib Bangash";
+            //this.friend.indexOf(user_id)
+            
+        }
         
 //            this.friend.indexOf(user_id)
 //        function(currentItem){ 
