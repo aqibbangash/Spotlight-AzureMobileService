@@ -13,25 +13,14 @@ exports.post = function(request, response) {
         function()
         {
             
-            if (this.friend.indexOf(user_id))
+            if (this.friend.indexOf(user_id) != null)
             {
             
-            return true; 
+              return true; 
             }
         }
         
-//            this.friend.indexOf(user_id)
-//        function(currentItem){ 
-//            
-//                if (this.friend != null)
-//                {
-//                    return true
-//                }
-//                
-//            }, user_id
-//            
-            
-             ).read(
+        ).read(
         {
             success: function(res)
             {
