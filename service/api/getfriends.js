@@ -10,13 +10,13 @@ exports.post = function(request, response) {
         
         
         
-        function()
+        function(u)
         {
 
             
-            return this.friend.indexOf(user_id) > -1
+            return (this.friend.indexOf(u) > -1)
         
-        }
+        }, user_id
         
         ).read(
         {
