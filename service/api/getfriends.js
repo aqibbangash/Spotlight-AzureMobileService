@@ -40,7 +40,7 @@ exports.post = function(request, response) {
                     function(allFriends)
                         {
                 
-                            return 1==1;
+                            return (allFriends.indexOf(this.id));
                             //return ($.inArray(this.id, u) > -1)
                             //return (this.quickblox_id.indexOf(allFriends) > -1)
                         
