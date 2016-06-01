@@ -8,14 +8,18 @@ exports.post = function(request, response) {
     
     friendsTable.where( 
         
-        function(currentItem){ 
+            this.friend.indexOf(user_id)
+//        function(currentItem){ 
+//            
+//                if (this.friend != null)
+//                {
+//                    return true
+//                }
+//                
+//            }, user_id
+//            
             
-                if (this.friend != null)
-                {
-                    return true
-                }
-                
-            }, user_id ).read(
+             ).read(
         {
             success: function(res)
             {
