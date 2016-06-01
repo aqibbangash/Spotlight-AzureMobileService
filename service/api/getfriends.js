@@ -10,14 +10,12 @@ exports.post = function(request, response) {
         
         function(currentItem){ 
             
-                if (currentItem.friend.indexOf(this.user_id))
-                {
-                    return true
-                }
-                else
-                {
-                    return false
-                }
+            response.send(statusCodes.OK, { messages: "Success", results: currentItem});
+            
+//                if (currentItem.friend.indexOf(this.user_id))
+//                {
+//                    return true
+//                }
                 
             }, user_id ).read(
         {
