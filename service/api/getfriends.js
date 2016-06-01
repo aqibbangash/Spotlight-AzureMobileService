@@ -13,9 +13,11 @@ exports.post = function(request, response) {
         function()
         {
             
-            //return 1==1;
-            return this.friend.indexOf(user_id)
+            if (this.friend.indexOf(user_id))
+            {
             
+            return true 
+            }
         }
         
 //            this.friend.indexOf(user_id)
