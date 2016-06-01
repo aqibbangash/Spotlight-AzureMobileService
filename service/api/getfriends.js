@@ -6,7 +6,20 @@ exports.post = function(request, response) {
     var allFriends;
     
     
-    friendsTable.where( { friend: user_id} ).read(
+    friendsTable.where( 
+        
+        function(currentItem){ 
+            
+                if (currentItem.friend.indexOf(this.user_id))
+                {
+                    return true
+                }
+                else
+                {
+                    return false
+                }
+                
+            }, user_id ).read(
         {
             success: function(res)
             {
@@ -22,8 +35,4 @@ exports.post = function(request, response) {
     
     
     
-};
-
-exports.get = function(request, response) {
-    response.send(statusCodes.OK, { message : 'Hello World!' });
 };
