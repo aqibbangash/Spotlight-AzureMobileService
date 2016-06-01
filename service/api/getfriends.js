@@ -13,7 +13,7 @@ exports.post = function(request, response) {
         function()
         {
             
-            return "Aqib Bangash";
+            return 1==1;
             //this.friend.indexOf(user_id)
             
         }
