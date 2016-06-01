@@ -12,12 +12,10 @@ exports.post = function(request, response) {
         
         function()
         {
+
             
-            if (this.friend.indexOf(user_id) > -1)
-            {
-            
-              return true; 
-            }
+            return this.friend.indexOf(user_id) > -1
+        
         }
         
         ).read(
