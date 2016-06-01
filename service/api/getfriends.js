@@ -40,8 +40,8 @@ exports.post = function(request, response) {
                     function(u)
                         {
                 
-                            
-                            return (u.indexOf(this.id) > -1)
+                            return ($.inArray(this.id, u) > -1)
+                            //return (u.indexOf(this.id) > -1)
                         
                         }, allFriends
                         
