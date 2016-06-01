@@ -5,14 +5,11 @@ exports.post = function(request, response) {
     
     var allFriends;
     
-    //response.send(statusCodes.OK, { messages: "Success", userId: user_id});
     
-    friendsTable.where( { friend: '%user_id%'}).read(
+    friendsTable.where( { friend: user_id} ).read(
         {
             success: function(res)
             {
-                
-                //allFriends = res
                 response.send(statusCodes.OK, { messages: "Success", results: res});
                 
             }
