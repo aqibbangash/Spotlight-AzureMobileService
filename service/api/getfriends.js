@@ -39,6 +39,9 @@ exports.post = function(request, response) {
                 usersTable.where(
                     function(allFriends)
                         {
+                            
+                            console.log(this.id);
+                            
                             //return (  allFriends.indexOf(this.id) > -1 ) ;
                             return 1==1;
                         }, allFriends).read(
