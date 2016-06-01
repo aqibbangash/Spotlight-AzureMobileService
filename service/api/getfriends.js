@@ -4,7 +4,7 @@ exports.post = function(request, response) {
     var friendsTable = request.service.tables.getTable('friends');
     var usersTable = request.service.tables.getTable('users');
     
-    var allFriends = [String];
+    var allFriends = "";//String];
     
     var friendsFull = [];
     
@@ -29,7 +29,9 @@ exports.post = function(request, response) {
                 var i = 0;
                 for (i; i<res.length; i++)
                 {
-                    allFriends.push(user_id)
+                   // allFriends.push(user_id)
+                   
+                   allFriends += user_id+"||"
                 }
                 
                 //response.send(statusCodes.OK, { messages: "Success", results: allFriends});
@@ -37,7 +39,6 @@ exports.post = function(request, response) {
                 usersTable.where(
                     function(allFriends)
                         {
-                            
                             return (  allFriends.indexOf(this.id) > -1 ) ;
                             
                         }, allFriends).read(
