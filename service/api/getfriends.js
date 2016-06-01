@@ -10,15 +10,9 @@ exports.post = function(request, response) {
         
         function(currentItem){ 
             
-           // response.send(statusCodes.OK, { messages: "Success", results: currentItem});
-            
                 if (this.friend != null)
                 {
                     return true
-                }
-                else
-                {
-                    return false
                 }
                 
             }, user_id ).read(
