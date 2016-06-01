@@ -37,9 +37,7 @@ exports.post = function(request, response) {
                 usersTable.where(
                     function(allFriends)
                         {
-                
-                            var id = this.id
-                            return (allFriends.indexOf(id));
+                            return (allFriends.indexOf(this.id.toString()));
                             //return ($.inArray(this.id, u) > -1)
                             //return (this.quickblox_id.indexOf(allFriends) > -1)
                         
