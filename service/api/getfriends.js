@@ -42,7 +42,9 @@ exports.post = function(request, response) {
                             
                             //return (allFriends.indexOf(this.id + '') > -1);
                             //return ($.inArray(this.id, u) > -1)
-                            return (this.quickblox_id.indexOf(allFriends) > -1)
+                          //  return (this.quickblox_id.indexOf(allFriends) > -1)
+                        
+                        return 1==1;
                         
                         }, allFriends).read(
                     {
@@ -50,6 +52,8 @@ exports.post = function(request, response) {
                     {
                         response.send(statusCodes.OK, {message: "Success", result: r});
                     }
+                    
+                    
                     }   
                 );
             }
