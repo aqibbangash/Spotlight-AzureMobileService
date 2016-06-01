@@ -37,13 +37,13 @@ exports.post = function(request, response) {
                 usersTable.where(
                     
                     
-                    function()
+                    function(allFriends)
                         {
                 
                             //return ($.inArray(this.id, u) > -1)
                             return (allFriends.indexOf(this.quickblox_id) > -1)
                         
-                        }
+                        }, allFriends
                         
                         
                 ).read(
