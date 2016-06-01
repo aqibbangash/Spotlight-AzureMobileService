@@ -29,7 +29,7 @@ exports.post = function(request, response) {
                     allFriends.push(res[i].friend.replace(user_id, ""));
                 }
                 
-                response.send(statusCodes.OK, { messages: "Success", results: res});
+                response.send(statusCodes.OK, { messages: "Success", results: allFriends});
             }
         }
         
