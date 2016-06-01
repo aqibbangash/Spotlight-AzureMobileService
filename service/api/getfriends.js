@@ -4,7 +4,7 @@ exports.post = function(request, response) {
     var friendsTable = request.service.tables.getTable('friends');
     var usersTable = request.service.tables.getTable('users');
     
-    var allFriends:[String] = [];
+    var allFriends = [];
     
     var friendsFull = [];
     
@@ -37,14 +37,14 @@ exports.post = function(request, response) {
                 usersTable.where(
                     
                     
-                    function(allFriends)
+                    function(allFriends, id)
                         {
                 
-                            return (allFriends.indexOf(this.id));
+                            return (allFriends.indexOf(id));
                             //return ($.inArray(this.id, u) > -1)
                             //return (this.quickblox_id.indexOf(allFriends) > -1)
                         
-                        }, allFriends
+                        }, allFriends, this.id
                         
                         
                 ).read(
