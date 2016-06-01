@@ -32,28 +32,28 @@ exports.post = function(request, response) {
                     allFriends += user_id+"||"
                 }
                 
-                response.send(statusCodes.OK, { messages: "Success", results: allFriends});
+                //response.send(statusCodes.OK, { messages: "Success", results: allFriends});
                 
-//                usersTable.where(
-//                    
-//                    
-//                    function()
-//                        {
-//                
-//                            //return ($.inArray(this.id, u) > -1)
-//                            return (allFriends.indexOf(this.quickblox_id) > -1)
-//                        
-//                        }
-//                        
-//                        
-//                ).read(
-//                    {
-//                    success: function(r)
-//                    {
-//                        response.sent(statusCodes.OK, {message: "Success", result: r});
-//                    }
-//                    }   
-//                )
+                usersTable.where(
+                    
+                    
+                    function()
+                        {
+                
+                            //return ($.inArray(this.id, u) > -1)
+                            return (allFriends.indexOf(this.quickblox_id) > -1)
+                        
+                        }
+                        
+                        
+                ).read(
+                    {
+                    success: function(r)
+                    {
+                        response.sent(statusCodes.OK, {message: "Success", result: r});
+                    }
+                    }   
+                )
             }
         }
         
