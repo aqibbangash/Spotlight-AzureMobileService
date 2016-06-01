@@ -4,7 +4,7 @@ exports.post = function(request, response) {
     var friendsTable = request.service.tables.getTable('friends');
     var usersTable = request.service.tables.getTable('users');
     
-    var allFriends = [];
+    var allFriends = "";
     
     var friendsFull = [];
     
@@ -29,7 +29,7 @@ exports.post = function(request, response) {
                 var i = 0;
                 for (i; i<res.length; i++)
                 {
-                    allFriends.push(res[i].friend.replace(user_id, ""));
+                    allFriends += user_id+"||"
                 }
                 
                 //response.send(statusCodes.OK, { messages: "Success", results: allFriends});
@@ -40,8 +40,8 @@ exports.post = function(request, response) {
                     function(u)
                         {
                 
-                            return ($.inArray(this.id, u) > -1)
-                            //return (u.indexOf(this.id) > -1)
+                            //return ($.inArray(this.id, u) > -1)
+                            return (u.indexOf(this.id) > -1)
                         
                         }, allFriends
                         
