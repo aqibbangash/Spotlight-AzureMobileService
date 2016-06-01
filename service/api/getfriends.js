@@ -13,7 +13,7 @@ exports.post = function(request, response) {
         function()
         {
             
-            if (this.friend.indexOf(user_id) != null)
+            if (this.friend.indexOf(user_id) > -1)
             {
             
               return true; 
