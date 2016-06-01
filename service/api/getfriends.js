@@ -35,19 +35,15 @@ exports.post = function(request, response) {
                 //response.send(statusCodes.OK, { messages: "Success", results: allFriends});
                 
                 usersTable.where(
-                    
-                    
-                    function(allFriends, id)
+                    function(allFriends)
                         {
                 
+                            var id = this.id
                             return (allFriends.indexOf(id));
                             //return ($.inArray(this.id, u) > -1)
                             //return (this.quickblox_id.indexOf(allFriends) > -1)
                         
-                        }, allFriends, this.id
-                        
-                        
-                ).read(
+                        }, allFriends).read(
                     {
                     success: function(r)
                     {
