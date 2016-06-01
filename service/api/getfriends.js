@@ -26,7 +26,7 @@ exports.post = function(request, response) {
                 var i = 0;
                 for (i; i<res.length; i++)
                 {
-                    allFriends.push(res.friend.replace(this.user_id, ""));
+                    allFriends.push(res[i].friend.replace(user_id, ""));
                 }
                 
                 response.send(statusCodes.OK, { messages: "Success", results: res});
