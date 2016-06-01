@@ -53,7 +53,7 @@ exports.post = function(request, response) {
                         response.sent(statusCodes.OK, {message: "Success", result: r});
                     }
                     }   
-                )
+                );
             }
         }
         
