@@ -3,7 +3,7 @@ exports.post = function(request, response) {
     var user_id = request.body.user_id;
     var friendsTable = request.service.tables.getTable('friends');
     
-    var allFriends;
+    var allFriends = [];
     
     
     friendsTable.where( 
@@ -22,8 +22,14 @@ exports.post = function(request, response) {
         {
             success: function(res)
             {
-                response.send(statusCodes.OK, { messages: "Success", results: res});
                 
+                var i = 0;
+                for (i; i<res.length; i++)
+                {
+                    allFriends.push(res.friend.replace(user_id, ""));
+                }
+                
+                response.send(statusCodes.OK, { messages: "Success", results: res});
             }
         }
         
