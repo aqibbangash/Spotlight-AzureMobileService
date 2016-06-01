@@ -13,8 +13,8 @@ exports.post = function(request, response) {
         function()
         {
             
-            return 1==1;
-            //this.friend.indexOf(user_id)
+            //return 1==1;
+            return this.friend.indexOf(user_id)
             
         }
         
