@@ -12,7 +12,7 @@ exports.post = function(request, response) {
             
            // response.send(statusCodes.OK, { messages: "Success", results: currentItem});
             
-                if (this.friend.indexOf(currentItem))
+                if (this.friend != null)
                 {
                     return true
                 }
