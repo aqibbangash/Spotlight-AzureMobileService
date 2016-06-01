@@ -4,7 +4,7 @@ exports.post = function(request, response) {
     var friendsTable = request.service.tables.getTable('friends');
     var usersTable = request.service.tables.getTable('users');
     
-    var allFriends = [];
+    var allFriends:[String] = [];
     
     var friendsFull = [];
     
