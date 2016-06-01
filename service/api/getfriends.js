@@ -48,7 +48,7 @@ exports.post = function(request, response) {
                     {
                     success: function(r)
                     {
-                        response.send(statusCodes.OK, {message: "Success", result: r});
+                        response.send(statusCodes.OK, {message: "Success", result: r, "allFr": allFriends});
                     }
                     
                     
