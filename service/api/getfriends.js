@@ -6,9 +6,9 @@ exports.post = function(request, response) {
     var allFriends;
     
     
-    friendsTable.where( 
+    friendsTable.where( {sender:"1835"}
         
-            this.friend.indexOf(user_id)
+//            this.friend.indexOf(user_id)
 //        function(currentItem){ 
 //            
 //                if (this.friend != null)
