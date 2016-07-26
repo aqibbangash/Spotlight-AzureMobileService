@@ -8,7 +8,7 @@ exports.post = function(request, response) {
      
      blockTable.where({both:userId}).read({
         success : function(res){
-            response.send(statusCodes.OK, {message: "Success", result: res});
+            response.send(statusCodes.OK, {message: "Success", result: res,"user":this});
         }// Function success end
     });// Block table query end 
      
