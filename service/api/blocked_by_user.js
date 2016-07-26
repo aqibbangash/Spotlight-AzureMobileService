@@ -2,11 +2,11 @@ exports.post = function(request, response) {
     // Requset body values 
     var userId          = request.body.user_id;
     // Tables
-    var blockTable    = request.service.tables.getTable('user');  
+    var blockTable    = request.service.tables.getTable('Users');  
     // Local variables
     var _return    = "";
      
-     blockTable.where({both:userId}).read({
+     blockTable.where({id:userId}).read({
         success : function(res){
             response.send(statusCodes.OK, {message: "Success", result: res,"user":this});
         }// Function success end
