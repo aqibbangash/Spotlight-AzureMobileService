@@ -1,7 +1,20 @@
 exports.post = function(request, response) {
-    // Use "request.service" to access features of your mobile service, e.g.:
-    //   var tables = request.service.tables;
-    //   var push = request.service.push;
+    // Requset body values 
+    var userId          = request.body.user_id;
+    // Tables
+    var blockTable    = request.service.tables.getTable('Block');  
+    // Local variables
+    var _return    = "";
+     
+    blockTable.where({both:userId}).read({
+        success : function(res){
+            //for(var i=0;res.length;i++){
+             console.log(res);                 
+            //}
+        }// Function success end
+    });// Block table query end 
+     
+          
 
     response.send(statusCodes.OK, { message : 'Hello World!' });
 };
