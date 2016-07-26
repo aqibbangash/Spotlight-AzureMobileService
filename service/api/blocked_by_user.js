@@ -2,19 +2,22 @@ exports.post = function(request, response) {
     // Requset body values 
     var userId          = request.body.user_id;
     // Tables
-    var blockTable    = request.service.tables.getTable('Users');  
+    var blockTable    = request.service.tables.getTable('Block');  
     // Local variables
-    var _return    = "";
+    var result    = "";
      
-     blockTable.where({id:userId}).read({
+     blockTable.where({both:userId}).read({
         success : function(res){
-            response.send(statusCodes.OK, {message: "Success", result: res,"user":this});
+            var flag = (res.both).indexOf(res.id);
+            if(flag!=-1 && flag){
+                result
+            }
         }// Function success end
     });// Block table query end 
      
           
 
-    //response.send(statusCodes.OK, { message : _return});
+    response.send(statusCodes.OK, { result : result});
 };
 
 exports.get = function(request, response) {
