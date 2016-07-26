@@ -6,11 +6,11 @@ exports.post = function(request, response) {
     // Local variables
     var _return    = "";
      
-    _return=blockTable.where({both:userId}).read({
+     blockTable.where({both:userId}).read({
         success : function(res){
-            //for(var i=0;res.length;i++){
+            for(var i=0;res.length;i++){
              console.log(res);                 
-            //}
+            }
         }// Function success end
     });// Block table query end 
      
