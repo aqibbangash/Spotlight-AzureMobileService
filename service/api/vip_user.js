@@ -5,7 +5,21 @@ exports.post = function(request, response) {
 
     response.send(statusCodes.OK, { message : 'Hello World!' });
 };
+function update(item, user, request) {
+    var permissionsTable = tables.getTable('permissions');
 
-exports.get = function(request, response) {
-    response.send(statusCodes.OK, { message : 'Hello World!' });
-};
+    permissionsTable.where({
+        userId: user.userId,
+        permission: 'submit order'
+    }).read({
+        success: function(results) {
+            if (results.length > 0) {
+                // Permission record was found. Continue normal execution.
+                request.execute();
+            } else {
+                console.log('User %s attempted to submit an order without permissions.', user.userId);
+                request.respond(statusCodes.FORBIDDEN, 'You do not have permission to submit orders.');
+            }
+        }
+    });
+}
