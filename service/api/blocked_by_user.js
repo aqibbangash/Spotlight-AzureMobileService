@@ -6,7 +6,7 @@ exports.post = function(request, response) {
     // Local variables
     var _return    = "";
      
-    blockTable.where({both:userId}).read({
+    _return=blockTable.where({both:userId}).read({
         success : function(res){
             //for(var i=0;res.length;i++){
              console.log(res);                 
@@ -16,7 +16,7 @@ exports.post = function(request, response) {
      
           
 
-    response.send(statusCodes.OK, { message : 'Hello World!' });
+    response.send(statusCodes.OK, { message : _return });
 };
 
 exports.get = function(request, response) {
