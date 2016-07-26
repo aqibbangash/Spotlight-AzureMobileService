@@ -8,15 +8,13 @@ exports.post = function(request, response) {
      
      blockTable.where({both:userId}).read({
         success : function(res){
-            for(var i=0;res.length;i++){
-             console.log(res);                 
-            }
+            response.send(statusCodes.OK, {message: "Success", result: res});
         }// Function success end
     });// Block table query end 
      
           
 
-    response.send(statusCodes.OK, { message : _return});
+    //response.send(statusCodes.OK, { message : _return});
 };
 
 exports.get = function(request, response) {
