@@ -2,7 +2,7 @@ exports.post = function(request, response) {
     // Requset body values 
     var userId          = request.body.user_id;
     // Tables
-    var blockTable    = request.service.tables.getTable('Block');  
+    var blockTable    = request.service.tables.getTable('user');  
     // Local variables
     var _return    = "";
      
