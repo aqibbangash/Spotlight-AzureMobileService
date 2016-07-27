@@ -8,16 +8,17 @@ exports.post = function(request, response) {
             id: userId
         }).read({
             success: function(results) {
-                if (results.length > 0) {
-                    results[0].vip=true;
-                    userTable.update(results[0],{
-                       success:function(res){
-                            response.send(statusCodes.OK, { result : res});
-                       } 
-                    });
-                } else {
-                    response.send(statusCodes.OK, { result : "No such user exists."});
-                }
+               response.send(statusCodes.OK, { result : results});
+               // if (results.length > 0) {
+                   // results[0].vip=true;
+                   // userTable.update(results[0],{
+                      // success:function(res){
+                    //        response.send(statusCodes.OK, { result : res});
+                  //     } 
+                //    });
+              //  } else {
+              //      response.send(statusCodes.OK, { result : "No such user exists."});
+              //  }
             }
         });
 };
