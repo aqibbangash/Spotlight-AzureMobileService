@@ -11,12 +11,12 @@ exports.post = function(request, response) {
                         results[0].points++;
                          userTable.update(results[0],{
                                         success:function(res){
-                                            //response.send(statusCodes.OK, { result : res});
-                                            reportTable.insert(res,{
-                                               succeess:function(r){
-                                                   response.send(statusCodes.OK, { result : r});
-                                               } 
-                                            });
+                                            response.send(statusCodes.OK, { result : res});
+                                            //reportTable.insert(res,{
+                                             //  succeess:function(r){
+                                             //      response.send(statusCodes.OK, { result : r});
+                                            //   } 
+                                           // });
                                         } 
                           });
                         } 
