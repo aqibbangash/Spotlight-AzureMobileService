@@ -16,8 +16,7 @@ exports.post = function(request, response) {
                        } 
                     });
                 } else {
-                    console.log('User %s attempted to submit an order without permissions.', user.userId);
-                    request.respond(statusCodes.FORBIDDEN, 'You do not have permission to submit orders.');
+                    response.send(statusCodes.OK, { result : "No such user exists."});
                 }
             }
         });
