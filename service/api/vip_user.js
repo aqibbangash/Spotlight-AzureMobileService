@@ -3,7 +3,7 @@ exports.post = function(request, response) {
     var userTable    = request.service.tables.getTable('Users');  
 
         userTable.where({
-            id: request.body.user_id
+            id: request.body.id
         }).read({
             success: function(results) {
                         if (results.length > 0) {
