@@ -5,7 +5,7 @@ exports.post = function(request, response) {
     var userTable    = request.service.tables.getTable('Users');  
 
         userTable.where({
-            id: userId
+            id: 14073
         }).read({
             success: function(results) {
                response.send(statusCodes.OK, { result : results,id:userId,requestid:request.body.user_id});
