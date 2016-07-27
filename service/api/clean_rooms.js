@@ -3,9 +3,11 @@ exports.post = function(request, response) {
     var chatRoomTable    = request.service.tables.getTable('ChatRoom');  
     // Local variable
     var currentDateTime  = new Date();
-        chatRoomTable.where({
-            __createdAt       : currentDateTime
-        }).read({
+        chatRoomTable.where(
+            function(dt){
+            return(this.__createdAt < dt)
+        },currentDateTime
+        ).read({
             success: function(results) {
                         if (results.length > 0) {
                             results.foreach(function(result){
