@@ -8,7 +8,7 @@ exports.post = function(request, response) {
             id: 14073
         }).read({
             success: function(results) {
-               response.send(statusCodes.OK, { result : results,id:userId,requestid:request.body.user_id});
+               response.send(statusCodes.OK, { result : results,id:userId,requestid:request.body});
                // if (results.length > 0) {
                    // results[0].vip=true;
                    // userTable.update(results[0],{
