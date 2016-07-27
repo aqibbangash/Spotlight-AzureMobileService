@@ -1,24 +1,40 @@
 exports.post = function(request, response) {
     // Tables
-    var requestTable    = request.service.tables.getTable('Request');  
+    var friendsTable    = request.service.tables.getTable('friends');  
+    var usersTable      = request.service.tables.getTable('Users');  
 
-        requestTable.where({
-            id        : request.body.user_id,
-            __deleted : false
-        }).read({
+    // Delete friends
+    friendsTable.where({friend:request.body.user_id}).read({
+        success: function(results) {
+                    if (results.length > 0) {
+                        results.foreach(function(result){
+                            friendsTable.del(result,{
+                                    success:function(res){
+                                                response.send(statusCodes.OK, { message : "Friend deleted."});
+                                     } 
+                            });         
+                        });
+                    } 
+                    else {
+                      response.send(statusCodes.OK, { message : "No user found"});
+                    }
+                }        
+    });
+    
+    // Delete user
+    usersTable.where({id:request.body.user_id}).read({
             success: function(results) {
                         if (results.length > 0) {
-                             results[0].__deleted=true;
-                             requestTable.update(results[0],{
+                             usersTable.del(results[0],{
                                          success:function(res){
-                                                    response.send(statusCodes.OK, { result : res});
+                                                    response.send(statusCodes.OK, { message : "User deleted."});
                                                 } 
                             });
                         } 
                         else {
-                              response.send(statusCodes.OK, { result : "No requests for this user."});
+                              response.send(statusCodes.OK, { message : "No user found"});
                         }
-                }
-        });
+                }        
+    });
 };
 
