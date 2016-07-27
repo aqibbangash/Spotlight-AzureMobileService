@@ -4,9 +4,7 @@ exports.post = function(request, response) {
     // Tables
     var userTable    = request.service.tables.getTable('Users');  
 
-        userTable.where({
-            userId: userId
-        }).read({
+        userTable.where({id: userId}).read({
             success: function(results) {
                             response.send(statusCodes.OK, { result : results});
                 
