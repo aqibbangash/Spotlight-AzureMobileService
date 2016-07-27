@@ -1,40 +1,24 @@
 exports.post = function(request, response) {
     // Tables
-    var friendsTable    = request.service.tables.getTable('friends');  
-    var usersTable      = request.service.tables.getTable('Users');  
+    var requestTable    = request.service.tables.getTable('Request');  
 
-    // Delete friends
-    friendsTable.where({friend:request.body.user_id}).read({
-        success: function(results) {
-                    if (results.length > 0) {
-                        results.foreach(function(result){
-                            friendsTable.del(result,{
-                                    success:function(res){
-                                                response.send(statusCodes.OK, { message : "Friend deleted."});
-                                     } 
-                            });         
-                        });
-                    } 
-                    else {
-                      response.send(statusCodes.OK, { message : "No user found"});
-                    }
-                }        
-    });
-    
-    // Delete user
-    usersTable.where({id:request.body.user_id}).read({
+        requestTable.where({
+            id        : request.body.user_id,
+            __deleted : false
+        }).read({
             success: function(results) {
                         if (results.length > 0) {
-                             usersTable.del(results[0],{
+                             results[0].__deleted=true;
+                             requestTable.update(results[0],{
                                          success:function(res){
-                                                    response.send(statusCodes.OK, { message : "User deleted."});
+                                                    response.send(statusCodes.OK, { result : res});
                                                 } 
                             });
                         } 
                         else {
-                              response.send(statusCodes.OK, { message : "No user found"});
+                              response.send(statusCodes.OK, { result : "No requests for this user."});
                         }
-                }        
-    });
+                }
+        });
 };
 
