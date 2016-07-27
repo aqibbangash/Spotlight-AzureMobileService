@@ -9,7 +9,7 @@ exports.post = function(request, response) {
         }).read({
             success: function(results) {
                 if (results.length > 0) {
-                    results[0].vip=1;
+                    results[0].vip=true;
                     userTable.update(results[0],{
                        success:function(res){
                             response.send(statusCodes.OK, { result : res});
