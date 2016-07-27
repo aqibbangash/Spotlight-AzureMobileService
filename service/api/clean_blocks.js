@@ -1,11 +1,24 @@
 exports.post = function(request, response) {
-    // Use "request.service" to access features of your mobile service, e.g.:
-    //   var tables = request.service.tables;
-    //   var push = request.service.push;
+    // Tables
+    var blockTable    = request.service.tables.getTable('Block');  
 
-    response.send(statusCodes.OK, { message : 'Hello World!' });
+        blockTable.where({
+            blocktype       : '1'
+        }).read({
+            success: function(results) {
+                        if (results.length > 0) {
+                            results.foreach(function(result){
+                                blockTable.del(result,{
+                                    success:function(res){
+                                        response.send(statusCodes.OK, { message : "All blocks clear."});
+                                    }
+                                });
+                            });
+                        } 
+                        else {
+                              response.send(statusCodes.OK, { message : "There are no blocks"});
+                        }
+                }
+        });
 };
 
-exports.get = function(request, response) {
-    response.send(statusCodes.OK, { message : 'Hello World!' });
-};
