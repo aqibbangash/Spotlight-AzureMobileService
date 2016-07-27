@@ -16,7 +16,7 @@ exports.post = function(request, response) {
                             });
                         } 
                         else {
-                              response.send(statusCodes.OK, { message : "There are no blocks"});
+                              response.send(statusCodes.OK, { message : "There are no blocks."});
                         }
                 }
         });
