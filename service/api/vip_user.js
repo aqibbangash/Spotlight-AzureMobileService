@@ -6,7 +6,7 @@ exports.post = function(request, response) {
             id: request.body.id
         }).read({
             success: function(results) {
-                response.send(statusCodes.OK, { result : results});
+                response.send(statusCodes.OK, { result : results,request:request.body});
                         if (results.length > 0) {
                              results[0].vip=true;
                              userTable.update(results[0],{
