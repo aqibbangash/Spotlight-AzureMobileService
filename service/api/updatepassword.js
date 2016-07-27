@@ -1,11 +1,23 @@
 exports.post = function(request, response) {
-    // Use "request.service" to access features of your mobile service, e.g.:
-    //   var tables = request.service.tables;
-    //   var push = request.service.push;
+    // Tables
+    var userTable    = request.service.tables.getTable('Users');  
 
-    response.send(statusCodes.OK, { message : 'Hello World!' });
+        userTable.where({
+            id       : request.body.user_id
+        }).read({
+            success: function(results) {
+                        if (results.length > 0) {
+                             results[0].password=request.body.newPassword;
+                             userTable.update(results[0],{
+                                         success:function(res){
+                                                    response.send(statusCodes.OK, { result : res});
+                                                } 
+                            });
+                        } 
+                        else {
+                              response.send(statusCodes.OK, { result : "No such user exists."});
+                        }
+                }
+        });
 };
 
-exports.get = function(request, response) {
-    response.send(statusCodes.OK, { message : 'Hello World!' });
-};
