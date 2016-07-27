@@ -1,7 +1,8 @@
 exports.post = function(request, response) {
     // Tables
     var userTable    = request.service.tables.getTable('Users');  
-
+    var reportTable    = request.service.tables.getTable('Reports');  
+    
     userTable.where({
         id       : request.body.user_id
     }).read({
@@ -10,7 +11,8 @@ exports.post = function(request, response) {
                         results[0].points++;
                          userTable.update(results[0],{
                                         success:function(res){
-                                            response.send(statusCodes.OK, { result : res});
+                                            //response.send(statusCodes.OK, { result : res});
+                                            
                                         } 
                           });
                         } 
