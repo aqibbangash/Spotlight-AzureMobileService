@@ -1,11 +1,26 @@
 exports.post = function(request, response) {
-    // Use "request.service" to access features of your mobile service, e.g.:
-    //   var tables = request.service.tables;
-    //   var push = request.service.push;
-
-    response.send(statusCodes.OK, { message : 'Hello World!' });
+    // Tables
+    var chatRoomTable    = request.service.tables.getTable('ChatRoom');  
+    // Local variable
+    var currentDateTime  = new Date();
+        chatRoomTable.where({
+            __createdAt       : currentDateTime
+        }).read({
+            success: function(results) {
+                        if (results.length > 0) {
+                            results.foreach(function(result){
+                                result.__deleted=true;
+                                chatRoomTable.update(result,{
+                                    success:function(res){
+                                        response.send(statusCodes.OK, { message : "A room cleared."});
+                                    }
+                                });
+                            });
+                        } 
+                        else {
+                              response.send(statusCodes.OK, { message : "There are no rooms present."});
+                        }
+                }
+        });
 };
 
-exports.get = function(request, response) {
-    response.send(statusCodes.OK, { message : 'Hello World!' });
-};
