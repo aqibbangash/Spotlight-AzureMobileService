@@ -1,11 +1,24 @@
 exports.post = function(request, response) {
-    // Use "request.service" to access features of your mobile service, e.g.:
-    //   var tables = request.service.tables;
-    //   var push = request.service.push;
+    // Tables
+    var requestTable    = request.service.tables.getTable('Request');  
 
-    response.send(statusCodes.OK, { message : 'Hello World!' });
+        requestTable.where({
+            id        : request.body.user_id,
+            __deleted : false
+        }).read({
+            success: function(results) {
+                        if (results.length > 0) {
+                             results[0].__deleted=true;
+                             requestTable.update(results[0],{
+                                         success:function(res){
+                                                    response.send(statusCodes.OK, { result : res});
+                                                } 
+                            });
+                        } 
+                        else {
+                              response.send(statusCodes.OK, { result : "No requests for this user."});
+                        }
+                }
+        });
 };
 
-exports.get = function(request, response) {
-    response.send(statusCodes.OK, { message : 'Hello World!' });
-};
