@@ -18,11 +18,11 @@ exports.post = function(request, response) {
                         userTable.update(res,{
                             // Insert record in reports table 
                             success:function(r){
-                                //response.send(statusCodes.OK, { result : "User point update."});   
-                                reportTable.insert({reporter : reporter,culprit : userId},{
+                                response.send(statusCodes.OK, { result : "User point update."});   
+                                //reportTable.insert({reporter : reporter,culprit : userId},{
                                     // Insert record in block table
-                                    success: function (items) {
-                                        response.send(statusCodes.OK, { result : items,status : 1});
+                                //    success: function (items) {
+                                    //    response.send(statusCodes.OK, { result : items,status : 1});
                                     //    blockTable.insert({ blocker   : reporter,
                                     //                        blocky    : userId,
                                     //                        both      : userId+reporter,
@@ -31,8 +31,8 @@ exports.post = function(request, response) {
                                     //                               response.send(statusCodes.OK, { result : blockRecord,status : 1});
                                     //                           } 
                                     //                        });
-                                    }
-                                });             
+                                //    }
+                                //});             
                             }
                         })
                     }
