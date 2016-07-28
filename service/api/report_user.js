@@ -22,15 +22,15 @@ exports.post = function(request, response) {
                                 reportTable.insert({reporter : reporter,culprit : userId},{
                                     // Insert record in block table
                                     success: function (items) {
-                                        //response.send(statusCodes.OK, { result : items,status : 1});
-                                        blockTable.insert({ blocker   : reporter,
-                                                            blocky    : userId,
-                                                            both      : userId+reporter,
-                                                            blocktype : '1'},{
-                                                               success:function(blockRecord){
-                                                                   response.send(statusCodes.OK, { result : blockRecord,status : 1});
-                                                               } 
-                                                            });
+                                        response.send(statusCodes.OK, { result : items,status : 1});
+                                    //    blockTable.insert({ blocker   : reporter,
+                                    //                        blocky    : userId,
+                                    //                        both      : userId+reporter,
+                                    //                        blocktype : '1'},{
+                                    //                           success:function(blockRecord){
+                                    //                               response.send(statusCodes.OK, { result : blockRecord,status : 1});
+                                    //                           } 
+                                    //                        });
                                     }
                                 });             
                             }
