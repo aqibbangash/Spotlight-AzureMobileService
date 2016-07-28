@@ -14,21 +14,21 @@ exports.post = function(request, response) {
                 userTable.update(results[0],{
                     // Insert new record in reports
                     success:function(res){
-                        //response.send(statusCodes.OK, { result : res});
+                        response.send(statusCodes.OK, { result : res});
              
-                        function insert(item, user, request) {
-                            reportTable.where({ reporter : reporter,culprit : userId }).read({
-                                success: function (items) {
-                                    if (items.length > 0) {
-                                        request.respond(400, { error: 'Item with this name already exists' });
-                                    } 
-                                    else {
-                                        request.execute();
-                                        response.send(statusCodes.OK, { result : item});
-                                    }
-                                }
-                            });
-                        }
+                        //function insert(item, user, request) {
+                        //    reportTable.where({ reporter : reporter,culprit : userId }).read({
+                        //        success: function (items) {
+                        //            if (items.length > 0) {
+                        //                request.respond(400, { error: 'Item with this name already exists' });
+                        //            } 
+                        //            else {
+                        //                request.execute();
+                        //                response.send(statusCodes.OK, { result : item});
+                        //            }
+                        //        }
+                        //    });
+                        //}
                         
                         //reportTable.insert(res,{
                         //    succeess:function(r){
