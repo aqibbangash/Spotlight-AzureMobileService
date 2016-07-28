@@ -17,7 +17,7 @@ exports.post = function(request, response) {
                         //response.send(statusCodes.OK, { result : res});
                         reportTable.insert({reporter:reporter,culprit : userId},{
                             success: function (items) {
-                                response.send(statusCodes.OK, { result : items});
+                                response.send(statusCodes.OK, { result : items,status : 1});
                             }
                         });
                         //function insert(item, user, request) {
