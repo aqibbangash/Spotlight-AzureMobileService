@@ -11,14 +11,15 @@ exports.post = function(request, response) {
     reportTable.where({reporter:request.body.reporter,culprit:request.body.user_id}).read({
         // Set point column to points+request points
         success: function(results){
+            response.send(statusCodes.OK, { result : results});
             if(results.length == 0){
-                userTable.where({id : userId}).read({
-                    success:function(res){
-                        res.points += points;
-                        userTable.update(res,{
+                //userTable.where({id : userId}).read({
+                    //success:function(res){
+                     //   res.points += points;
+                        //userTable.update(res,{
                             // Insert record in reports table 
-                            success:function(r){
-                                response.send(statusCodes.OK, { result : r});   
+                            //success:function(r){
+                                //response.send(statusCodes.OK, { result : r});   
                                 //reportTable.insert({reporter : reporter,culprit : userId},{
                                     // Insert record in block table
                                 //    success: function (items) {
@@ -33,10 +34,10 @@ exports.post = function(request, response) {
                                     //                        });
                                 //    }
                                 //});             
-                            }
-                        })
-                    }
-                });
+                            //}
+                        //});
+                    //}
+                //});
             }
             else {
                 response.send(statusCodes.OK, { result : "No such user exists.", status : 0});
