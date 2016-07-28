@@ -5,18 +5,15 @@ exports.post = function(request, response) {
     var blockTable    = request.service.tables.getTable('Block');  
     // Local variables
     var result    = "";
-     
-     blockTable.where({both:userId}).read({
+    // Get block user by Id
+    blockTable.where({both:userId}).read({
+        // add Id present in object
         success : function(res){
             var flag = (res.both).indexOf(res.id);
             if(flag!=-1 && flag){
-                result+=res.both;    // add of id present in object
+                result+=res.both;    
             }
         }// Function success end
     });// Block table query end 
     response.send(statusCodes.OK, { result : result});
 };
-
-//exports.get = function(request, response) {
-//    response.send(statusCodes.OK, { message : 'Hello World!' });
-//};
