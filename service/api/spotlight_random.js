@@ -7,7 +7,7 @@ exports.post = function(request, response) {
     var numAlready    = 0;
     var connectedWith = "";
     // Tables
-    var requestTable    = request.service.tables.getTable('Requests');  
+    var requestTable    = request.service.tables.getTable('Request');  
     var blockTable    = request.service.tables.getTable('Block');  
     var userTable    = request.service.tables.getTable('Users');  
     
