@@ -15,7 +15,7 @@ exports.post = function(request, response) {
                     // Insert new record in reports
                     success:function(res){
                         //response.send(statusCodes.OK, { result : res});
-                        reportTable.create({reporter:reporter,culprit : userId},{
+                        reportTable.insert({reporter:reporter,culprit : userId},{
                             success: function (items) {
                                 response.send(statusCodes.OK, { result : items});
                             }
