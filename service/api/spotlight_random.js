@@ -11,7 +11,7 @@ exports.post = function(request, response) {
     var blockTable    = request.service.tables.getTable('Block');  
     var userTable    = request.service.tables.getTable('Users');  
     
-    requestTable.where({__deleted : false, id : userId},{
+    requestTable.where({__deleted : false, id : userId}).read({
        success : function(_requests){
        response.send(statusCodes.OK, { message : _requests });    
        } 
