@@ -14,7 +14,7 @@ exports.post = function(request, response) {
                 userTable.update(results[0],{
                     // Insert new record in reports
                     success:function(res){
-                        response.send(statusCodes.OK, { result : res});
+                        //response.send(statusCodes.OK, { result : res});
                         reportTable.create({reporter:reporter,culprit : userId},{
                             success: function (items) {
                                 response.send(statusCodes.OK, { result : items});
