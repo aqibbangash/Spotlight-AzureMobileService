@@ -3,6 +3,7 @@ exports.post = function(request, response) {
     var userId        = request.body.user_id;
     var userGender    = request.body.gender;
     var preference    = request.body.preference;
+    // Local Variable
     var blockedUsers  = "";
     var numAlready    = 0;
     var connectedWith = "";
