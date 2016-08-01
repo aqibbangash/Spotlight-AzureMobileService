@@ -25,9 +25,14 @@ exports.post = function(request, response) {
     // Update
     var requestTable    = request.service.tables.getTable('Request');
     
-    requestTable.update({user_id:'13399'},{
+    requestTable.where({user_id:'13399'}).read({
+        success:function(res){
+            res.__deleted=false;
+                requestTable.update(res,{
       success:function(res){
           response.send(statusCodes.OK,{message:res})
       }  
+    });
+        }
     });
 };
