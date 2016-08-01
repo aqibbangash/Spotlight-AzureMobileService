@@ -14,7 +14,7 @@ exports.post = function(request, response) {
     // Get all records with __deleted values false and id equals userId
     requestTable.where({ id : userId}).read({
        success : function(_requests){
-            response.send(statusCodes.OK, { message : _requests });    
+            response.send(statusCodes.OK, { message : _requests,userid:userId });    
        } 
     });
 };
