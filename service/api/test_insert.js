@@ -22,19 +22,34 @@ exports.post = function(request, response) {
    //     }
    // });    
     
-    // Update
-    var requestTable    = request.service.tables.getTable('Request');
+        var requestTable    = request.service.tables.getTable('Request');  
+        var userId          = request.body.user_id;
+        var type            = request.body.type;
+          
+    requestTable.insert({
+        user_id     : userId,
+        type        : type,
+        completed   : false,
+        other_user  : ''
+    },{
+        success: function(obj){
+            response.send(statusCodes.OK, { message : obj });
+        }
+    }); 
     
-    requestTable.where({user_id:'13399',__deleted:true}).read({
-        success:function(res){
+    // Update
+   // var requestTable    = request.service.tables.getTable('Request');
+    
+   // requestTable.where({user_id:'13399'}).read({
+    //    success:function(res){
            // res.forEach(function(r){
            //     r.__deleted=false;
           //      requestTable.update(r,{
           //         success: function(end){
-                     response.send(statusCodes.OK, { message : res });
+   //                  response.send(statusCodes.OK, { message : res });
            //        } 
            //     });
            // });
-        }
-    });
+   //     }
+   // });
 };
