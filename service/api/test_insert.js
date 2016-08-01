@@ -27,14 +27,14 @@ exports.post = function(request, response) {
     
     requestTable.where({user_id:'13399'}).read({
         success:function(res){
-            res.forEach(function(r){
-                r.__deleted=false;
-                requestTable.update(r,{
-                   success: function(end){
-                       response.send(statusCodes.OK, { message : end });
-                   } 
-                });
-            });
+           // res.forEach(function(r){
+           //     r.__deleted=false;
+          //      requestTable.update(r,{
+          //         success: function(end){
+                     response.send(statusCodes.OK, { message : res });
+           //        } 
+           //     });
+           // });
         }
     });
 };
