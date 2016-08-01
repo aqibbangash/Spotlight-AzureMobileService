@@ -12,7 +12,7 @@ exports.post = function(request, response) {
     var blockTable    = request.service.tables.getTable('Block');  
     var userTable    = request.service.tables.getTable('Users');  
     // Get all records with __deleted values false and id equals userId
-    requestTable.where({__deleted : false, id : userId}).read({
+    requestTable.where({ id : userId}).read({
        success : function(_requests){
             response.send(statusCodes.OK, { message : _requests });    
        } 
