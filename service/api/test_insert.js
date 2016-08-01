@@ -27,12 +27,13 @@ exports.post = function(request, response) {
     
     requestTable.where({user_id:'13399'}).read({
         success:function(res){
-            res.__deleted=false;
-                requestTable.update(res,{
-      success:function(res){
-          response.send(statusCodes.OK,{message:res})
-      }  
-    });
+            res.forEach(function(r){
+                requestTable.update(r,{
+                   success: function(end){
+                       response.send(statusCodes.OK, { message : end });
+                   } 
+                });
+            });
         }
     });
 };
