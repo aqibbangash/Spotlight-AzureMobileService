@@ -70,15 +70,18 @@ exports.post = function(request, response) {
                                                     countIDK++;
                                                     
                                                     if(prefs.indexOf(user.gender) != false && user.prefs.indexOf(userGender) != false){
-                                                        requestTable.insert({
-                                                            user_id     : userId,
-                                                            type        : ''ttype'',
-                                                            completed   : true,
-                                                            other_user  : user.id
-                                                        },{
-                                                            success: function(obj){
-                                                                response.send(statusCodes.OK, { message : obj });
-                                                            }
+                                                        requestTable.where({type : 'text', user_id : userId, completed : false, other_user : null}).read({
+                                                           success: function(requests){
+                                                               requests.forEach(function(request){
+                                                                   request.completed = true;
+                                                                   request.other_user = user.id;
+                                                                   request.update(request,{
+                                                                       success : function(){
+                                                                           
+                                                                       }
+                                                                   });  
+                                                               });
+                                                           } 
                                                         }); 
                                                     }
                                                 });
