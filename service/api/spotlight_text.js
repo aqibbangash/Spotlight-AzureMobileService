@@ -70,7 +70,16 @@ exports.post = function(request, response) {
                                                     countIDK++;
                                                     
                                                     if(prefs.indexOf(user.gender) != false && user.prefs.indexOf(userGender) != false){
-                                                        requ
+                                                        requestTable.insert({
+                                                            user_id     : userId,
+                                                            type        : ''ttype'',
+                                                            completed   : true,
+                                                            other_user  : user.id
+                                                        },{
+                                                            success: function(obj){
+                                                                response.send(statusCodes.OK, { message : obj });
+                                                            }
+                                                        }); 
                                                     }
                                                 });
                                             }
