@@ -10,7 +10,8 @@ exports.post = function(request, response) {
     var countIDK        = 0;
     var check           = false;     
     var requestId       = "";
-    var temp            = [];    
+    var temp            = [];
+    var onlineUsers     = [];    
     // Tables
     var userTable    = request.service.tables.getTable('Users');
     var requestTable    = request.service.tables.getTable('Request');
@@ -57,8 +58,26 @@ exports.post = function(request, response) {
                                     temp.push(block.blocker);
                                 }
                             });
-                            
-                            requestTable.where().read();
+                            requestTable.where(function(u,t){return this.user_id != u && this.type == 'text' && this.user_id.indexOf(t) == -1 && this.completed == false},userId,temp).read({
+                                success : function(requests){
+                                    requests.forEach(function(request){
+                                        onlineUsers.push(request.user_id);
+                                    });
+                                    if(onlineUsers.count > 0){
+                                        userTable.where(function(){return onlineUsers.indexOf(this.id)!==-1}).read({
+                                            success : function(users){
+                                                users.forEach(function(user){
+                                                    countIDK++;
+                                                    
+                                                    if(prefs.indexOf(user.gender) != false && user.prefs.indexOf(userGender) != false){
+                                                        requ
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                }
+                            });
                         }
                     });    
                 }    
