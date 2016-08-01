@@ -25,7 +25,7 @@ exports.post = function(request, response) {
     // Update
     var requestTable    = request.service.tables.getTable('Request');
     
-    requestTable.where({user_id:'13399'}).read({
+    requestTable.where({user_id:'13399',__deleted:true}).read({
         success:function(res){
            // res.forEach(function(r){
            //     r.__deleted=false;
