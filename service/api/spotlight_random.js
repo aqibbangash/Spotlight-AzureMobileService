@@ -13,8 +13,30 @@ exports.post = function(request, response) {
     var userTable    = request.service.tables.getTable('Users');  
     // Get all records with __deleted values false and id equals userId
     requestTable.where({user_id : userId}).read({
-       success : function(res){
-            response.send(statusCodes.OK, { message : res,userid:userId });    
+       success : function(requests){
+            requests.forEach(function(request){
+                numAlready++;
+                connectedWith=request.other_user;
+            });
+            
+            if(numAlready > 0){
+                //console.log("other user exists");
+                if(connectedWith != null){
+                    response.send(statusCodes.OK, { match_id : connectedWith });
+                }
+                else{
+                    response.send(statusCodes.OK, { messsage : 'No one has joined yet.' });
+                }
+            }
+            else{
+                // console.log("Not exists");
+                // Put text request
+                requestTable.insert({
+                    
+                },{});
+                
+            }
+            //response.send(statusCodes.OK, { message : res,userid:userId });    
        } 
     });
 };
