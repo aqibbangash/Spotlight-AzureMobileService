@@ -9,10 +9,12 @@ exports.post = function(request, response) {
     var connectedWith   = "";
     var countIDK        = 0;
     var check           = false;     
-    var requestId       = "";    
+    var requestId       = "";
+    var temp            = [];    
     // Tables
     var userTable    = request.service.tables.getTable('Users');
     var requestTable    = request.service.tables.getTable('Request');
+    var blockTable    = request.service.tables.getTable('Block');
     
     // Get all requests of type text
     requestTable.where({type : 'text',user_id : userId}).read({
@@ -45,7 +47,20 @@ exports.post = function(request, response) {
                     });
                 }
                 else {
-                    blockTable.where()    
+                    blockTable.where(function(u){return this.both.indexOf(userId) !== -1},userId).read({
+                        succes : function(blocks){
+                            blocks.forEach(function(block){
+                                if(block.blocker == userId){
+                                    temp.push(block.blocky);       
+                                }
+                                else { 
+                                    temp.push(block.blocker);
+                                }
+                            });
+                            
+                            requestTable.where().read();
+                        }
+                    });    
                 }    
             }
         }    
