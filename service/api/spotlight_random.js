@@ -13,8 +13,8 @@ exports.post = function(request, response) {
     var userTable    = request.service.tables.getTable('Users');  
     // Get all records with __deleted values false and id equals userId
     requestTable.where({ id : userId}).read({
-       success : function(_requests){
-            response.send(statusCodes.OK, { message : _requests,userid:userId });    
+       success : function(res){
+            response.send(statusCodes.OK, { message : res,userid:userId });    
        } 
     });
 };
