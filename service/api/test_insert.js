@@ -30,7 +30,7 @@ exports.post = function(request, response) {
         user_id     : userId,
         type        : type,
         completed   : false,
-        other_user  : ''
+        other_user  : null
     },{
         success: function(obj){
             response.send(statusCodes.OK, { message : obj });
