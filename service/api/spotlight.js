@@ -16,7 +16,7 @@ exports.post = function(request, response) {
     var blockTable = request.service.tables.getTable('Block');  
     
     // Check requests by user_id
-    // (checkQuery) Get All requests with user_id equal user_id
+    // Get All requests with user_id equal user_id
     requestTable.where({user_id : user_id}).read({
         success : function(requests){
             requests.forEach(function(request){
