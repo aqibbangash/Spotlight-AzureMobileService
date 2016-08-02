@@ -51,6 +51,7 @@ exports.post = function(request, response) {
                                 onlineUsers.push(request.user_id);
                             });
                             if(onlineUsers.length  > 0){
+                                // Get all online users
                                 userTable.where(function(u){return onlineUsers.toString().indexOf(u) !== -1;}).read({
                                     // Search for partner
                                     success : function(users){
@@ -67,33 +68,27 @@ exports.post = function(request, response) {
                                                             requestTable.update(requests[0],{
                                                                 success : function(res){
                                                                     // If partner is found
-                                                                    if(res.length > 0){
-                                                                        requestTable.where({user_id : user.id, completed : 0, other_user : null}).read({
-                                                                            success : function(requests){
-                                                                                requests[0].completed = 1;
-                                                                                requests[0].other_user = user_id;
-                                                                                requestTable.update(requests[0],{
-                                                                                    success : function(){
-                                                                                        response.send(statusCodes.OK, { boolean : true , match_id : user.id });   
-                                                                                    }
-                                                                                });
+                                                                    requestTable.where({user_id : user.id, completed : 0, other_user : null}).read({
+                                                                        success : function(requests){
+                                                                            if(requests.length > 0){
+                                                                                response.send(statusCodes.OK, { boolean : true , match_id : user.id });   
                                                                             }
-                                                                        });
-                                                                    }
-                                                                    // No partner found
-                                                                    else {
-                                                                        requestTable.where({user_id : user_id , completed : true}).read({
-                                                                            succeess : function(requests){
-                                                                                requests[0].completed = false;
-                                                                                requests[0].other_user = '';
-                                                                                requestTable.update(requests[0],{
-                                                                                    success : function(res){
-                                                                                        // nothing
+                                                                            // No partner found
+                                                                            else {
+                                                                                requestTable.where({user_id : user_id , completed : true}).read({
+                                                                                    succeess : function(requests){
+                                                                                        requests[0].completed = false;
+                                                                                        requests[0].other_user = '';
+                                                                                        requestTable.update(requests[0],{
+                                                                                            success : function(res){
+                                                                                                // nothing
+                                                                                            }
+                                                                                        }); 
                                                                                     }
-                                                                                }); 
+                                                                                });                                                                                    
                                                                             }
-                                                                        });
-                                                                    }
+                                                                        }
+                                                                    });
                                                                 }
                                                             }); 
                                                         }
@@ -102,7 +97,7 @@ exports.post = function(request, response) {
                                             });
                                         }
                                         else {
- 
+                                            response.send(statusCodes.OK, { boolean : false , message : 'No online user matched your preference.' });
                                         }
                                     }
                                 });
