@@ -9,52 +9,69 @@ exports.post = function(request, response) {
     var connectedWith   = "";
     var countIDK        = 0;
     var onlineUsers     = [];
+    var temp            = "";
     // Table
     var userTable   = request.service.tables.getTable('Users');  
     var requestTable = request.service.tables.getTable('Request');  
     var blockTable = request.service.tables.getTable('Block');  
     
-    // Get All requests with user_id equal user_id
+    // Check requests by user_id
+    // (checkQuery) Get All requests with user_id equal user_id
     requestTable.where({user_id : user_id}).read({
         success : function(requests){
             requests.forEach(function(request){
                 numAlready++;
-                
                 if(request.completed){
                     connectedWith = request.other_user;
                 }
             });
-            
+            // Already have a partner or new partner
             if(numAlready > 0){
+                // Already have a partner
                 if(connectedWith != null){
                     response.send(statusCodes.OK, { match_id : connectedWith });                
                 }
+                // New pertner
                 else {
+                    // Get all blocked users with user_id
+                     blockTable.where(function(u){return this.both.indexOf(u) !== -1;},user_id).read({
+                         success : function(blocks){
+                             blocks.forEach(function(block){
+                                 temp = block.both;
+                                 if(blockedUsers.indexOf(temp) !== -1){
+                                     blockedUsers += block.both+".";
+                                 }
+                             });
+                         }
+                     });
+                     // Get all online users  
                     requestTable.where(function(u){return this.user_id != u && this.completed == false;},user_id).read({
                         success : function(requests){
                             requests.forEach(function(request){
                                 onlineUsers.push(request.user_id);
                             });
-                            
-                            if(onlineUsers.count  > 0){
-                                userTable.where(function(u){return onlineUsers.IndexOf(u) !== -1;}).read({
+                            if(onlineUsers.length  > 0){
+                                userTable.where(function(u){return onlineUsers.toString().indexOf(u) !== -1;}).read({
+                                    // Search for partner
                                     success : function(users){
-                                        if(users.count > 0){
-                                            countIDK++;
-                                            
+                                        if(users.length > 0){
                                             users.forEach(function(user){
+                                                countIDK++;
                                                 if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
-                                                    requestTable.where({user_id : user_id, completed : 0, other_user : null}).read({
+                                                    // Found partner updating request table
+                                                   requestTable.where({user_id : user_id, completed : 0, other_user : null}).read({
+                                                         // Add other_user id, update complete status true
                                                         success : function(requests){
                                                             requests[0].completed = 1;
                                                             requests[0].other_user = user.id;
                                                             requestTable.update(requests[0],{
                                                                 success : function(res){
-                                                                    if(res.count > 0){
+                                                                    // If partner is found
+                                                                    if(res.length > 0){
                                                                         requestTable.where({user_id : user.id, completed : 0, other_user : null}).read({
                                                                             success : function(requests){
                                                                                 requests[0].completed = 1;
-                                                                                requests[0].other_user = user.id;
+                                                                                requests[0].other_user = user_id;
                                                                                 requestTable.update(requests[0],{
                                                                                     success : function(){
                                                                                         response.send(statusCodes.OK, { boolean : true , match_id : user.id });   
@@ -63,8 +80,19 @@ exports.post = function(request, response) {
                                                                             }
                                                                         });
                                                                     }
+                                                                    // No partner found
                                                                     else {
-                                                                        
+                                                                        requestTable.where({user_id : user_id , completed : true}).read({
+                                                                            succeess : function(requests){
+                                                                                requests[0].completed = false;
+                                                                                requests[0].other_user = '';
+                                                                                requestTable.update(requests[0],{
+                                                                                    success : function(res){
+                                                                                        // nothing
+                                                                                    }
+                                                                                }); 
+                                                                            }
+                                                                        });
                                                                     }
                                                                 }
                                                             }); 
@@ -78,6 +106,9 @@ exports.post = function(request, response) {
                                         }
                                     }
                                 });
+                            }
+                            else {
+                                response.send(statusCodes.OK, { boolean : false , message : 'No online user available.' });
                             }
                         }
                     });
