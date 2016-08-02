@@ -62,36 +62,51 @@ exports.post = function(request, response) {
                                                     // Found partner updating request table
                                                    requestTable.where({user_id : user_id, completed : 0, other_user : null}).read({
                                                          // Add other_user id, update complete status true
-                                                        success : function(requests){
-                                                            requests[0].completed = 1;
-                                                            requests[0].other_user = user.id;
-                                                            requestTable.update(requests[0],{
-                                                                success : function(res){
-                                                                    // If partner is found
-                                                                    requestTable.where({user_id : user.id, completed : 0, other_user : null}).read({
-                                                                        success : function(requests){
-                                                                            if(requests.length > 0){
-                                                                                response.send(statusCodes.OK, { boolean : true , match_id : user.id });   
-                                                                            }
-                                                                            // No partner found
-                                                                            else {
-                                                                                requestTable.where({user_id : user_id , completed : true}).read({
-                                                                                    succeess : function(requests){
-                                                                                        requests[0].completed = false;
-                                                                                        requests[0].other_user = '';
-                                                                                        requestTable.update(requests[0],{
-                                                                                            success : function(res){
-                                                                                                // nothing
-                                                                                            }
-                                                                                        }); 
-                                                                                    }
-                                                                                });                                                                                    
-                                                                            }
-                                                                        }
-                                                                    });
-                                                                }
-                                                            }); 
-                                                        }
+                                                         success : function(requests){
+                                                             if(requests.length > 0){
+                                                                 requestTable.where({user_id : user.id , completed : false , other_user : null}).read({
+                                                                     success : function(requests){
+                                                                         if(requests.length > 0){
+                                                                             requests[0].completed = true;
+                                                                             requests[0].other_user = user_id;
+                                                                             requestTable.update(requests[0],{
+                                                                                 success : function(){
+                                                                                     requestTable.where({user_id : user_id , completed : false , other_user : null}).read({
+                                                                                         success : function(res){
+                                                                                             res[0].completed = true;
+                                                                                             res[0].other_user = user.id;
+                                                                                             requestTable.update(res[0],{
+                                                                                                 success : function(){
+                                                                                                     response.send(statusCodes.OK, { boolean : true , match_id : user.id });
+                                                                                                     break;
+                                                                                                 } 
+                                                                                             })
+                                                                                         }
+                                                                                     });
+                                                                                 }
+                                                                             });                                                                             
+                                                                         }
+                                                                         else {
+                                                                             requests[0].completed = false;
+                                                                             requests[0].other_user = '';
+                                                                             requestTable.update(requests[0],{
+                                                                                 // nothing
+                                                                             });
+                                                                         }
+                                                                     }
+                                                                 });
+                                                             }
+                                                             else {
+                                                                 requestTable.where({user_id : user_id , completed : true}).read({
+                                                                     success : function(res){
+                                                                         if(res.length != 0){
+                                                                            response.send(statusCodes.OK, { boolean : true , message : res[0].other_user }); 
+                                                                            break;   
+                                                                         }
+                                                                     }
+                                                                 });
+                                                             }
+                                                         }   
                                                     });           
                                                 }
                                             });
