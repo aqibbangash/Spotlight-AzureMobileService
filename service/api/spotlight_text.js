@@ -212,7 +212,57 @@ exports.post = function(request, response) {
             }
             // User dose not exists
             else {
+                var milliSeconds = new Date().getTime();
                 
+                requestTable.insert({
+                    id : milliSeconds,
+                    user_id : userId,
+                    type : 'text',
+                    completed : false 
+                },{
+                    success : function(){
+                        // Get All blocked users
+                        blockTable.where(function(u){return this.both.indexOf(u) !== -1;},userId).read({
+                            success : function(blocks){
+                                if(blocks.length > 0){
+                                    blocks.forEach(function(block){
+                                        if(block.blocker == userId){
+                                            temp.push(block.blocky);
+                                        }
+                                        else {
+                                            temp.push(block.blocker);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                        // Get online users
+                        requestTable.where(function(u){return this.user_id == userId && this.type == 'text' && temp.toString().indexOf(﻿this.user_id) && this.completed == false;}).read({
+                            success : function(users){
+                                if(users.lenght > 0){
+                                    users.forEach(function(user){
+                                        onlineUsers.push(user.user_id);
+                                    });
+                                }
+                                
+                                if(onlineUsers.length > 0){
+                                    userTable.where(function(u){return onlineUsers.indexOf(u) !== -1;},userId).read({
+                                        success : function(users){
+                                            if(users.lenght > 0){
+                                                users.forEach(function(user){
+                                                    countIDK++;
+                                                    if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
+                                                        
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                });
             }
         }    
     });
