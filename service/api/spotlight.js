@@ -102,9 +102,28 @@ exports.post = function(request, response) {
                                             });
                                         }
                                         else {
-                                            // No user exists
+                                            // No request exists
                                             // create new request
-                                            
+                                            requestTable.insert({
+                                                user_id     : user_id,
+                                                type        : 'text',
+                                                completed   : false,
+                                                other_user  : null
+                                            },{
+                                                // Checking blockages
+                                                success: function(obj){
+                                                    blockTable.where(function(u){return this.both.indexOf(u) !== -1;}).read({
+                                                        success : function(blocks){
+                                                            blocks.forEach(function(block){
+                                                                temp = block.both;
+                                                                if(blockedUsers.indexOf(temp) !== -1){
+                                                                    blockedUsers += block.both+'.';
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                            }); 
                                         }
                                     }
                                 });
