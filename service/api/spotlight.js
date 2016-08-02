@@ -1,11 +1,15 @@
 exports.post = function(request, response) {
-    // Use "request.service" to access features of your mobile service, e.g.:
-    //   var tables = request.service.tables;
-    //   var push = request.service.push;
-
+    // Requst body values
+    var user_id     = request.body.user_id;
+    var userGender  = request.body.gender;
+    var prefs       = request.body.prefs;
+    // Local variables
+    var blockedUsers    = "";
+    var numAlready      = 0;
+    var connectedWith   = "";
+    var countIDK        = 0;
+    // Table
+    
     response.send(statusCodes.OK, { message : 'Hello World!' });
 };
 
-exports.get = function(request, response) {
-    response.send(statusCodes.OK, { message : 'Hello World!' });
-};
