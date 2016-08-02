@@ -102,6 +102,8 @@ exports.post = function(request, response) {
                                             });
                                         }
                                         else {
+                                            // No user exists
+                                            // create new request
                                             
                                         }
                                     }
