@@ -6,7 +6,7 @@ exports.post = function(request, response) {
     
     //cloudinary.config({cloud_name : 'dfdfn0mbh', api_key : '293737351876776', api_secret : 'hrzA9DtPTnut9kkyRfsaXtPvXdU' });
     
-    Spotlight_Cloudinary
+    //Upload
     
     response.send(statusCodes.OK, { message : 'Hello World!' , yep : cloudinary});
 };
