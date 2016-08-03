@@ -5,7 +5,7 @@ exports.post = function(request, response) {
     var cloudinary = require('cloudinary')();
   
     
-    cloudinary.config({cloud_name : 'dfdfn0mbh', api_key : '293737351876776', api_secret : 'hrzA9DtPTnut9kkyRfsaXtPvXdU' });
+    cloudinary.config({cloud_name : 'hdemxqeq3', api_key : '636525738353489', api_secret : 'vBhen3A7vcAQ7QF6PNvUrsS4kCk' });
     
     //Upload
     
