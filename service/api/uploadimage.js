@@ -6,7 +6,7 @@ exports.post = function(request, response) {
   var SendGrid = require('sendgrid').SendGrid;
     
     
-        var sendgrid = new SendGrid('', '');
+        var sendgrid = new SendGrid('azure_391f99ebb5506b93a27577ef7cd597f5@azure.com', '4mxJQRASw6ysjE1');
 
         sendgrid.send({
             to: 'ahmadabdullah247@live.com',
