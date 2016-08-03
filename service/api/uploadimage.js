@@ -3,7 +3,7 @@ exports.post = function(request, response) {
     var name = request.body.name;
     // 3rd party extension
     //var cloudinary = require('cloudinary')();
-  var Cloudinary = require('cloudinary').Cloudinary;
+  var Cloudinary = require('cloudinary')();
 
 response.send(statusCodes.OK, { message : 'Hello World!', name : Cloudinary});
     
