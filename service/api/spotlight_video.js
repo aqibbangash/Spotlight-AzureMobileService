@@ -10,8 +10,8 @@ exports.post = function(request, response) {
     var countIDK        = 0;
     var check           = false;     
     var requestId       = "";
-    //var temp            = [];
-    //var onlineUsers     = [];    
+    var temp            = [];
+    var onlineUsers     = [];    
     // Tables
     var userTable    = request.service.tables.getTable('Users');
     var requestTable    = request.service.tables.getTable('Request');
@@ -58,9 +58,29 @@ exports.post = function(request, response) {
                 }
                 else {
                     // Get all blocked users
-                    blockTable.where(function(u){return this.user_id.indexOf(user_id) !== -1;},user_id).read({
-                        success : function()
+                    blockTable.where(function(u){return this.both.indexOf(user_id) !== -1},user_id).read({
+                        succes : function(blocks){
+                            blocks.forEach(function(block){
+                                if(block.blocker == user_id){
+                                    temp.push(block.blocky);       
+                                }
+                                else { 
+                                    temp.push(block.blocker);
+                                }
+                            });
+                        }
                     });
+                    // Get online user
+                    requestTable.where(function(u){return this.type = 'video' && this.user_id != u && temp.toString().indexOf(this.user_id) !== -1 && this.completed == false}).read({
+                        success : function(requests){
+                            if(requests.length > 0){
+                                requests.forEach(function(request){
+                                    onlineUsers.push(request.user_id);
+                                });
+                            }
+                        }
+                    });
+                    
                 }
             }
             // No request exists
