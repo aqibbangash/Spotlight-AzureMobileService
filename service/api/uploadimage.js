@@ -8,17 +8,8 @@ exports.post = function(request, response) {
     
         var sendgrid = new SendGrid('azure_391f99ebb5506b93a27577ef7cd597f5@azure.com', '4mxJQRASw6ysjE1');
 
-        sendgrid.send({
-            to: 'ahmadabdullah247@live.com',
-            from: 'ahmadabdullah247@live.com',
-            subject: 'New to-do item',
-            text: 'A new to-do was added: ' + item.text
-        }, function(success, message) {
-            // If the email failed to send, log it as an error so we can investigate
-            if (success) {
-               response.send(statusCodes.OK, { message : 'ello World!', name : SendGrid});
-            }
-        });
+     response.send(statusCodes.OK, { message : 'ello World!', name : sendgrid});
+            
     //cloudinary.config({cloud_name : 'hdemxqeq3', api_key : '636525738353489', api_secret : 'vBhen3A7vcAQ7QF6PNvUrsS4kCk' });
     
     
