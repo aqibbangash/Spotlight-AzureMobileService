@@ -5,6 +5,6 @@ exports.post = function(request, response) {
     //var cloudinary = require('cloudinary')();
   var Cloudinary = require('cloudinary')();
 
-response.send(statusCodes.OK, { message : 'Hello World!', name : Cloudinary});
+response.send(statusCodes.OK, { message : 'Hello World!'});
     
 };
