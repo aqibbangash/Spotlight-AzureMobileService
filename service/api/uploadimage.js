@@ -4,7 +4,7 @@ exports.post = function(request, response) {
     // 3rd party extension
     //var cloudinary = require('cloudinary')();
   var SendGrid = require('sendgrid').SendGrid;
-    var Cloudinary = require('cloudinary').Cloudinary;
+    var Cloudinary = require('cloudinary')();
     
     var cloudinary = new Cloudinary();
     
