@@ -1,11 +1,6 @@
 exports.post = function(request, response) {
-    // Use "request.service" to access features of your mobile service, e.g.:
-    //   var tables = request.service.tables;
-    //   var push = request.service.push;
+    // Third party config
+    var SendGrid = require('sendgrid').SendGrid;
 
-    response.send(statusCodes.OK, { message : 'Hello World!' });
-};
-
-exports.get = function(request, response) {
-    response.send(statusCodes.OK, { message : 'Hello World!' });
+    response.send(statusCodes.OK, { message : SendGrid });
 };
