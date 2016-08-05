@@ -1,6 +1,6 @@
 exports.post = function(request, response) {
     // Request body values
-    var user_id      = request.body.user_id;
+    var userId      = request.body.user_id;
     var userGender  = request.body.gender;
     var prefs       = request.body.prefs;
     // Local variables
@@ -17,28 +17,23 @@ exports.post = function(request, response) {
     var requestTable    = request.service.tables.getTable('Request');
     var blockTable    = request.service.tables.getTable('Block');
     
-    // Get all requests 
-    requestTable.where({user_id : user_id, type : 'video'}).read({
+    // Get all requests of type video
+    requestTable.where({type : 'video',user_id : userId}).read({
         success : function(requests){
-            if(requests.length > 0){
-                requests.forEach(function(request){
-                    numAlready++;
-                    requestId = request.id;
-                    if(request.completed){
-                        connectedWith = request.other_user;
-                    }
-                });    
-            }
-            else {
-                // No requests present    
-            }
-            //  requests exsists
+            requests.forEach(function(request){
+                numAlready++;
+                requestId = request.id;
+                if(request.completed){
+                    connectedWith = request.other_user;
+                }
+            });
+            // User request exists
             if(numAlready > 0){
-                // Partner exists
+                // Request complete
                 if(connectedWith != null){
+                    // get user with id equals connectedwith
                     userTable.where({id : connectedWith}).read({
                         success : function(user){
-                            if(user){
                          response.send(statusCodes.OK, { 
                              boolean        : true,
                              requestId      : requestId,
@@ -51,17 +46,17 @@ exports.post = function(request, response) {
                              age            : user.age,
                              profile_pic    : user.profile_pic, 
                              vip            : user.vip
-                             });    
-                            }
+                             });   
                         }
                     });
                 }
+                // Connected with is null
                 else {
                     // Get all blocked users
-                    blockTable.where(function(u){return this.both.indexOf(user_id) !== -1},user_id).read({
+                    blockTable.where(function(u){return this.both.indexOf(userId) !== -1},userId).read({
                         succes : function(blocks){
                             blocks.forEach(function(block){
-                                if(block.blocker == user_id){
+                                if(block.blocker == userId){
                                     temp.push(block.blocky);       
                                 }
                                 else { 
@@ -70,25 +65,207 @@ exports.post = function(request, response) {
                             });
                         }
                     });
+                    
                     // Get online user
-                    requestTable.where(function(u){return this.type = 'video' && this.user_id != u && temp.toString().indexOf(this.user_id) !== -1 && this.completed == false}).read({
+                    requestTable.where(function(u,t){return this.user_id != u && this.type == 'video' && this.user_id.indexOf(t) == -1 && this.completed == false},userId,temp).read({
                         success : function(requests){
-                            if(requests.length > 0){
-                                requests.forEach(function(request){
-                                    onlineUsers.push(request.user_id);
+                            requests.forEach(function(request){
+                                onlineUsers.push(request.user_id);
+                            });
+                            if(onlineUsers.count > 0){
+                                userTable.where(function(){return onlineUsers.indexOf(this.id)!==-1}).read({
+                                        success : function(users){
+                                            if(users.length > 0){
+                                            users.forEach(function(user){
+                                                countIDK++;
+                                                
+                                                if(prefs.indexOf(user.gender) != false && user.prefs.indexOf(userGender) != false){
+                                                    requestTable.where({type : 'video', user_id : userId, completed : false, other_user : null}).read({
+                                                       success: function(requests){
+                                                            if(requests.lenght > 0){
+                                                                requests.forEach(function(request){
+                                                                    request.completed = true;
+                                                                    request.other_user = userId;
+                                                                    requestTable.update(request,{
+                                                                       success : function(res){
+                                                                         response.send(statusCodes.OK, { 
+                                                                             boolean        : true,
+                                                                             requestId      : requestId,
+                                                                             type           : 'Existed and matched after trying 1',
+                                                                             id             : user.id,
+                                                                             full_name      : user.first_name+" "+user.last_name,
+                                                                             gender         : user.gender,
+                                                                             city           : user.city,
+                                                                             country        : user.country,
+                                                                             age            : user.age,
+                                                                             profile_pic    : user.profile_pic, 
+                                                                             vip            : user.vip
+                                                                         }); 
+                                                                         check = true;
+                                                                         break;
+                                                                       } 
+                                                                    });
+                                                                });
+                                                            }
+                                                            else {
+                                                                requestTable.where({type : 'video' , user_id : userId, completed : true}).read({
+                                                                    success : function(requests){
+                                                                        if(requests.length > 0){
+                                                                            requests.forEach(function(request){
+                                                                                request.completed = false;
+                                                                                request.other_user = '';
+                                                                                requestTable.update(request,{
+                                                                                    success : function(){
+                                                                                        // nothing
+                                                                                    }
+                                                                                });
+                                                                            });
+                                                                        }
+                                                                        else {
+                                                                            requestTable.where(function(u){return this.user_id == userId && this.other_user != null && this.type == 'video' && this.completed = true;}).read({
+                                                                                success : function(requests){
+                                                                                    if(requests.length > 0){
+                                                                                        requests.forEach(function(request){
+                                                                                            userTable.where({id : request.other_user}).read({
+                                                                                                success : function(user){
+                                                                                                    if(user != null){
+                                                                                                        if(user.gender != null){
+                                                                                                            response.send(statusCodes.OK, { 
+                                                                                                             boolean        : true,
+                                                                                                             requestId      : requestId,
+                                                                                                             type           : 'Existed and matched after trying 2',
+                                                                                                             id             : user.id,
+                                                                                                             full_name      : user.first_name+" "+user.last_name,
+                                                                                                             gender         : user.gender,
+                                                                                                             city           : user.city,
+                                                                                                             country        : user.country,
+                                                                                                             age            : user.age,
+                                                                                                             profile_pic    : user.profile_pic, 
+                                                                                                             vip            : user.vip
+                                                                                                         });                                                                                                         
+                                                                                                        }
+                                                                                                        else {
+                                                                                                            response.send(statusCodes.OK, { 
+                                                                                                             boolean        : true,
+                                                                                                             requestId      : requestId,
+                                                                                                             type           : 'Line 122',
+                                                                                                             id             : user.id,
+                                                                                                             full_name      : user.first_name+" "+user.last_name,
+                                                                                                             gender         : user.gender,
+                                                                                                             city           : user.city,
+                                                                                                             country        : user.country,
+                                                                                                             age            : user.age,
+                                                                                                             profile_pic    : user.profile_pic, 
+                                                                                                             vip            : user.vip
+                                                                                                         });                                                                                                         
+                                                                                                        }
+                                                                                                    }
+                                                                                                    else {
+                                                                                                        response.send(statusCodes.OK, { 
+                                                                                                         boolean        : true,
+                                                                                                         requestId      : requestId,
+                                                                                                         type           : 'Line 126',
+                                                                                                         id             : user.id,
+                                                                                                         full_name      : user.first_name+" "+user.last_name,
+                                                                                                         gender         : user.gender,
+                                                                                                         city           : user.city,
+                                                                                                         country        : user.country,
+                                                                                                         age            : user.age,
+                                                                                                         profile_pic    : user.profile_pic, 
+                                                                                                         vip            : user.vip
+                                                                                                     });                                                                                      
+                                                                                                    }
+                                                                                                }
+                                                                                            });
+                                                                                        });   
+                                                                                    }
+                                                                                    else { 
+                                                                                        response.send(statusCodes.OK, { boolean : false , message : 'No user matched your preferences. 1' });                                    
+                                                                                    }
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                    }
+                                                                });
+                                                            }                                                    
+                                                       } 
+                                                    }); 
+                                                }
+                                                else {
+                                                    response.send(statusCodes.OK, { boolean : false , message : 'No online user matched your preferences. 1' });
+                                                }
+                                            });                                            
+                                        }
+                                        else {
+                                            response.send(statusCodes.OK, { boolean : false , message : 'No online user matched your preferences.' });    
+                                        }
+                                    }
                                 });
                             }
+                            // No user available
+                            else {
+                                response.send(statusCodes.OK, { boolean : false , message : 'No online user available' });
+                            }
                         }
-                    });
-                    
-                }
+                    });    
+                }    
             }
-            // No request exists
+            // User dose not exists
             else {
+                var milliSeconds = new Date().getTime();
                 
+                requestTable.insert({
+                    id : milliSeconds,
+                    user_id : userId,
+                    type : 'video',
+                    completed : false 
+                },{
+                    success : function(){
+                        // Get All blocked users
+                        blockTable.where(function(u){return this.both.indexOf(u) !== -1;},userId).read({
+                            success : function(blocks){
+                                if(blocks.length > 0){
+                                    blocks.forEach(function(block){
+                                        if(block.blocker == userId){
+                                            temp.push(block.blocky);
+                                        }
+                                        else {
+                                            temp.push(block.blocker);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                        // Get online users
+                        requestTable.where(function(u){return this.user_id == userId && this.type == 'video' && temp.toString().indexOf(﻿this.user_id) && this.completed == false;}).read({
+                            success : function(users){
+                                if(users.lenght > 0){
+                                    users.forEach(function(user){
+                                        onlineUsers.push(user.user_id);
+                                    });
+                                }
+                                
+                                if(onlineUsers.length > 0){
+                                    userTable.where(function(u){return onlineUsers.indexOf(u) !== -1;},userId).read({
+                                        success : function(users){
+                                            if(users.lenght > 0){
+                                                users.forEach(function(user){
+                                                    countIDK++;
+                                                    if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
+                                                        
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                });
             }
-        }
+        }    
     });
     
-    
+    //response.send(statusCodes.OK, { message : 'Hello World!' });
 };
