@@ -11,12 +11,12 @@ exports.post = function(request, response) {
                 results[0].__deleted=true;
                 requestTable.update(results[0],{
                     success:function(res){
-                        response.send(statusCodes.OK, { result : res,status:1});
+                        response.send(statusCodes.OK, { result : res, status : 1});
                     } 
                 });
             } 
             else {
-                  response.send(statusCodes.OK, { result : "No requests for this user.",status:0});
+                  response.send(statusCodes.OK, { result : "No requests for this user.", status : 0});
             }
         }
     });
