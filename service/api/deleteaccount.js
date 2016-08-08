@@ -13,7 +13,7 @@ exports.post = function(request, response) {
                 results.foreach(function(result){
                     friendsTable.del(result,{
                         success:function(res){
-                            response.send(statusCodes.OK, { message : "Friend deleted."});
+                            response.send(statusCodes.OK, {message : "Friend deleted."});
                          } 
                     });         
                 });
@@ -31,7 +31,7 @@ exports.post = function(request, response) {
             if (results.length > 0) {
                 usersTable.del(results[0],{
                     success:function(res){
-                        response.send(statusCodes.OK, { message : "User deleted.",completed:true});
+                        response.send(statusCodes.OK, {  completed : true,message : "User deleted."});
                     } 
                 });
             } 
