@@ -19,7 +19,7 @@ exports.post = function(request, response) {
                 });
             } 
             else {
-                response.send(statusCodes.OK, { message : "No user found"});
+                response.send(statusCodes.OK, { message : "No friends found"});
             }
         }        
     });
