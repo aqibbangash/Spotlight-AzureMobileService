@@ -19,8 +19,26 @@ exports.post = function(request, response) {
                         if(users.count > 0){
                             users[0].points += 1;
                             userTable.update(users[0],{
+                                // Insert new report
                                 success : function(user){
-                                    
+                                       reportTable.insert({
+                                            reporter : reporter,
+                                            culprit  : userId
+                                        },{
+                                            // insert new block
+                                            success: function(obj){
+                                                blockTable.insert({
+                                                    blocker     : reporter,
+                                                    blocky      : userId,
+                                                    both        : reporter+userId,
+                                                    blocktype   : '1'
+                                                },{
+                                                    success : function(res){
+                                                        response.send(statusCodes.OK, { status : 1 });
+                                                    }
+                                                })
+                                            }
+                                        });  
                                 }
                             });
                         }
