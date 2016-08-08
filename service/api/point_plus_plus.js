@@ -17,28 +17,9 @@ exports.post = function(request, response) {
                         //response.send(statusCodes.OK, { result : res});
                         reportTable.insert({reporter:reporter,culprit : userId},{
                             success: function (items) {
-                                response.send(statusCodes.OK, { result : items,status : 1});
+                                response.send(statusCodes.OK, { result : items, status : 1});
                             }
                         });
-                        //function insert(item, user, request) {
-                        //    reportTable.where({ reporter : reporter,culprit : userId }).read({
-                        //        success: function (items) {
-                        //            if (items.length > 0) {
-                        //                request.respond(400, { error: 'Item with this name already exists' });
-                        //            } 
-                        //            else {
-                        //                request.execute();
-                        //                response.send(statusCodes.OK, { result : item});
-                        //            }
-                        //        }
-                        //    });
-                        //}
-                        
-                        //reportTable.insert(res,{
-                        //    succeess:function(r){
-                        //        response.send(statusCodes.OK, { result : r});
-                        //    } 
-                        //});
                     } 
               });
             } 
