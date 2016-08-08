@@ -6,7 +6,7 @@ exports.post = function(request, response) {
     var usersTable      = request.service.tables.getTable('Users');  
 
     // Get all records with friend equals to userId
-    friendsTable.where({friend:userId}).read({
+    friendsTable.where({friend : userId}).read({
         // Delete friends
         success: function(results) {
             if (results.length > 0) {
@@ -25,7 +25,7 @@ exports.post = function(request, response) {
     });
     
     // Get record with id equals userId
-    usersTable.where({id:request.body.user_id}).read({
+    usersTable.where({id : userId }).read({
         // Delete user
         success: function(results) {
             if (results.length > 0) {
