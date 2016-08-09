@@ -23,7 +23,6 @@ exports.post = function(request, response) {
         success : function(requests){
          //response.send(statusCodes.OK, { message : requests[0] });  // Test log 
             if(requests.length > 0){
-                response.send(statusCodes.OK, { message : requests.length });  // Test log 
                 requests.forEach(function(request){
                     numAlready++;
                     requestId = request.id;
@@ -37,6 +36,7 @@ exports.post = function(request, response) {
             }
             
             if(numAlready > 0){
+                response.send(statusCodes.OK, { message : numAlready });  // Test log 
                 // Requests by user exists
                 if(connectedWith != ""){
                     // Request complete partner exists
