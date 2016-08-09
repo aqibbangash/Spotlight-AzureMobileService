@@ -114,9 +114,24 @@ exports.post = function(request, response) {
                                         // Find user with your preference 
                                         if(prefs.indexOf(user.gender) !== -1 && user.pref.indexOf(userGender) !== -1){
                                             // User found with your preference
+                                            // Find Request 
+                                            requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
+                                                success : function(requests){
+                                                    if(requests.length > 0){
+                                                        // Update request
+                                                        requests[0].completed = true;
+                                                        requests[0].other_user = user.id;
+                                                        requestTable.update(requests[0],{}); 
+                                                    }
+                                                    else {
+                                                        // No requests found on critera 
+                                                    }
+                                                }
+                                            });
                                         }
                                         else {
                                             // No user found with your preference
+                                            response.send(statusCodes.OK, { boolean : false, message : 'No user matched your preference.'});
                                         }
                                     });
                                 }
