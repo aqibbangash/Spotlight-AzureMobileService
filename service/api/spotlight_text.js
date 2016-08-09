@@ -104,10 +104,15 @@ exports.post = function(request, response) {
                     });
                     
                     if(onlineUsers > 0){
-                        
+                        // Get online user
+                        userTable.where(function(u,ou){return ou.indexOf(u) !== -1;},user_id,onlineUsers).read({
+                            success : function(users){
+                                
+                            }
+                        });
                     }
                     else {
-                            response.send(statusCodes.OK, { boolean : false, message : '1.No online user available'});
+                            response.send(statusCodes.OK, { boolean : false, message : 'No online user available'});
                     }
                 }
             }
