@@ -21,8 +21,9 @@ exports.post = function(request, response) {
     // Get all request type text and user_id equals user_id
         requestTable.where({type : 'text', user_id : user_id}).read({
         success : function(requests){
-         response.send(statusCodes.OK, { message : requests[0] });  // Test log 
+         //response.send(statusCodes.OK, { message : requests[0] });  // Test log 
             if(requests.length > 0){
+                response.send(statusCodes.OK, { message : requests.length });  // Test log 
                 requests.forEach(function(request){
                     numAlready++;
                     requestId = request.id;
