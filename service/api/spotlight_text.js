@@ -147,7 +147,7 @@ exports.post = function(request, response) {
                                                                                              vip            : request.vip
                                                                                              });
                                                                                              check = true;
-                                                                                             //break;                                                                                            
+                                                                                             break;                                                                                            
                                                                                         }
                                                                                         else {
                                                                                             
