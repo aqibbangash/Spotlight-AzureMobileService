@@ -130,7 +130,11 @@ exports.post = function(request, response) {
                                                                             if(requests.length > 0){
                                                                                 requests[0].completed = true;
                                                                                 requests[0].other_user = user_id;
-                                                                   
+                                                                                requestTable.update(requests[0],{
+                                                                                    success : function(request){
+
+                                                                                    }
+                                                                                });
                                                                             }
                                                                             else {
                                                                                 // error
