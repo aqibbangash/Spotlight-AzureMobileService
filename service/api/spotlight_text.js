@@ -226,6 +226,18 @@ exports.post = function(request, response) {
             }
             else {
                 // No request by user exist
+                var milliSeconds = new Date().getTime();
+                // Insert new request 
+                request.insert({
+                    id : milliSeconds,
+                    user_id : user_id,
+                    completed : false,
+                    type : 'text'
+                },{
+                    success : function(){
+                        
+                    }
+                });
             }
         }    
     });
