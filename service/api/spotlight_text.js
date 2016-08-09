@@ -19,5 +19,9 @@ exports.post = function(request, response) {
     //var blockTable   = request.service.tables.getTable('Block');
     
     // Get all request type text and user_id equals user_id
+    
+    
+    
+};
 
     
