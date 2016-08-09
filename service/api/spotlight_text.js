@@ -87,8 +87,9 @@ exports.post = function(request, response) {
                            // }
                         }
                     });
+                     var temp= (abc.indexOf(user_id) == -1);// User id not in abc
                     // Get Online users
-                    requestTable.where(function(u){return this.user_id != u  && this.type == 'text' && this.completed == false;},user_id).read({
+                    requestTable.where(function(u){return this.user_id != u  && this.type == 'text' && this.completed == false && temp;},user_id).read({
                         success : function(requests){
                             response.send(statusCodes.OK, { haha : requests});
                         }
