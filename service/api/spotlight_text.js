@@ -132,7 +132,26 @@ exports.post = function(request, response) {
                                                                                 requests[0].other_user = user_id;
                                                                                 requestTable.update(requests[0],{
                                                                                     success : function(request){
-
+                                                                                        if(request){
+                                                                                             response.send(statusCodes.OK, { 
+                                                                                             boolean        : true,
+                                                                                             requestId      : requestId,
+                                                                                             type           : '2. Partner exists and match first try',
+                                                                                             id             : request.id,
+                                                                                             full_name      : request.first_name+" "+request.last_name,
+                                                                                             gender         : request.gender,
+                                                                                             city           : request.city,
+                                                                                             country        : request.country,
+                                                                                             age            : request.age,
+                                                                                             profile_pic    : request.profile_pic, 
+                                                                                             vip            : request.vip
+                                                                                             });
+                                                                                             check = true;
+                                                                                             //break;                                                                                            
+                                                                                        }
+                                                                                        else {
+                                                                                            
+                                                                                        }
                                                                                     }
                                                                                 });
                                                                             }
