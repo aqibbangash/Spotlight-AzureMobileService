@@ -11,7 +11,7 @@ exports.post = function(request, response) {
     var check          = false;     
     
     var requestId      = "";
-    var temp           = [];
+    var abc           = [];
     var onlineUsers    = [];    
     // Tables
     var userTable    = request.service.tables.getTable('Users');
@@ -71,9 +71,23 @@ exports.post = function(request, response) {
                     // Get block list 
                     blockTable.where(function(u) {return this.both.indexOf(u) !== -1;},user_id).read({
                         success : function(blocks){
-                            response.send(statusCodes.OK, { message : blocks });  // Test log 
+                            //response.send(statusCodes.OK, { message : blocks });  // Test log 
+                            if(blocks.lenght > 0){
+                                blocks.forEach(function(block){
+                                    if(block.blocker == user_id){
+                                        abc.push(block.blocky);    
+                                    }
+                                    else {
+                                        abc.push(block.blocker);
+                                    }
+                                });
+                            }
+                            else {
+                                response.send(statusCodes.OK, { message : 'No block for user.' });
+                            }
                         }
-                    })
+                    });
+                    //
                 }
             }
             else {
