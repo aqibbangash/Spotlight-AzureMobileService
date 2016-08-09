@@ -133,6 +133,7 @@ exports.post = function(request, response) {
                                                                                 requestTable.update(requests[0],{
                                                                                     success : function(request){
                                                                                         if(request){
+                                                                                             check = true;
                                                                                              response.send(statusCodes.OK, { 
                                                                                              boolean        : true,
                                                                                              requestId      : requestId,
@@ -146,8 +147,7 @@ exports.post = function(request, response) {
                                                                                              profile_pic    : request.profile_pic, 
                                                                                              vip            : request.vip
                                                                                              });
-                                                                                             check = true;
-                                                                                             break;                                                                                            
+                                                                                             //break;                                                                                            
                                                                                         }
                                                                                         else {
                                                                                             
