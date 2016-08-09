@@ -93,7 +93,6 @@ exports.post = function(request, response) {
                         success : function(requests){
                             //response.send(statusCodes.OK, { haha : requests,test1: abc,test: (abc.indexOf(user_id) == -1)});
                                 if(requests.length > 0){
-                                ﻿﻿response.send(statusCodes.OK, { haha : requests});
                                 // Online users preasent 
                                 // Get online user 
                                 userTable.where(function(u,onlineUser){return onlineUser.indexOf(u) !== -1},user_id,onlineUsers).read({
@@ -163,6 +162,7 @@ exports.post = function(request, response) {
                             }
                             else {
                                 // No online users
+                                response.send(statusCodes.OK, { haha : requests});
                                 response.send(statusCodes.OK, { boolean : false, message : 'No online user available'});
                             }
 
