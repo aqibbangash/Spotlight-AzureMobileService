@@ -121,7 +121,28 @@ exports.post = function(request, response) {
                                                         // Update request
                                                         requests[0].completed = true;
                                                         requests[0].other_user = user.id;
-                                                        requestTable.update(requests[0],{}); 
+                                                        requestTable.update(requests[0],{
+                                                            success : function(request){
+                                                                if(request){
+                                                                    // Find request of other user
+                                                                    requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
+                                                                        success : function(requests){
+                                                                            if(requests.length > 0){
+                                                                                requests[0].completed = true;
+                                                                                requests[0].other_user = user_id;
+                                                                                requestTable.update(requests[0],{})
+                                                                            }
+                                                                            else {
+                                                                                // error
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                }
+                                                                else{
+                                                                    // error
+                                                                }
+                                                            }
+                                                        }); 
                                                     }
                                                     else {
                                                         // No requests found on critera 
