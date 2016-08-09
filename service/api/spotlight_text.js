@@ -235,7 +235,40 @@ exports.post = function(request, response) {
                     type : 'text'
                 },{
                     success : function(){
-                        
+                        // Get block list 
+                        blockTable.where(function(u) {return this.both.indexOf(u) !== -1;},user_id).read({
+                            success : function(blocks){
+                                //response.send(statusCodes.OK, { message : blocks });  // Test log 
+                                if(blocks.lenght > 0){
+                                    blocks.forEach(function(block){
+                                        if(block.blocker == user_id){
+                                            abc.push(block.blocky);    
+                                        }
+                                        else {
+                                            abc.push(block.blocker);
+                                        }
+                                    });
+                                }
+                               // else {
+                               //     response.send(statusCodes.OK, { message : 'No block for user.' });
+                               // }
+                            }
+                        });
+                        // Get Online users
+                        requestTable.where(function(u,abc){return this.user_id != u  && this.type == 'text' && this.completed == false && (abc.indexOf(u) == -1);},user_id,abc).read({
+                            success : function(requests){
+                                //response.send(statusCodes.OK, { haha : requests,test1: abc,test: (abc.indexOf(user_id) == -1)});
+                                 if(requests.length > 0){
+                                     requests.forEach(function(request){
+                                         onlineUsers.push(request.user_id); 
+                                     });
+                                 }
+                                 else {
+                                     // No requests
+                                     response.send(statusCodes.OK, { boolean : false, message : 'No online user available'});
+                                 }
+                            }
+                        });                        
                     }
                 });
             }
