@@ -34,6 +34,44 @@ exports.post = function(request, response) {
             else {
              response.send(statusCodes.OK, { message : 'No request are present for this user.' });   
             }
+            
+            if(numAlready > 0){
+                // Requests by user exists
+                if(connectedWith != ""){
+                    // Request complete partner exists
+                    // Find other user
+                    userTable.where({id : connectedWith}).read({
+                        success : function(users){
+                            if(users.lenght > 0){
+                                // Other user found
+                             response.send(statusCodes.OK, { 
+                             boolean        : true,
+                             requestId      : requestId,
+                             type           : 'Partner exists and match first try',
+                             id             : users[0].id,
+                             full_name      : users[0].first_name+" "+users[0].last_name,
+                             gender         : users[0].gender,
+                             city           : users[0].city,
+                             country        : users[0].country,
+                             age            : users[0].age,
+                             profile_pic    : users[0].profile_pic, 
+                             vip            : users[0].vip
+                             });   
+                            }
+                            else {
+                                // Other usernnot found
+                                response.send(statusCodes.OK, { message : 'Sorry we could not find your partner id.' });  
+                            }
+                        }
+                    });
+                }
+                else {
+                    // No partner for request
+                }
+            }
+            else {
+                // No request by user exist
+            }
         }    
     });
     
