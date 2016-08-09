@@ -115,7 +115,7 @@ exports.post = function(request, response) {
                                         if(prefs.indexOf(user.gender) !== -1 && user.pref.indexOf(userGender) !== -1){
                                             // User found with your preference
                                             // Find Request 
-                                            requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
+                                            requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
                                                 success : function(requests){
                                                     if(requests.length > 0){
                                                         // Update request
@@ -131,7 +131,28 @@ exports.post = function(request, response) {
                                                                                 requests[0].completed = true;
                                                                                 requests[0].other_user = user_id;
                                                                                 requestTable.update(requests[0],{
-                                                                                    
+                                                                                    success : function(request){
+                                                                                        if(request){
+                                                                                             response.send(statusCodes.OK, { 
+                                                                                             boolean        : true,
+                                                                                             requestId      : requestId,
+                                                                                             type           : '1. Partner exists and match first try',
+                                                                                             id             : request.id,
+                                                                                             full_name      : request.first_name+" "+request.last_name,
+                                                                                             gender         : request.gender,
+                                                                                             city           : request.city,
+                                                                                             country        : request.country,
+                                                                                             age            : request.age,
+                                                                                             profile_pic    : request.profile_pic, 
+                                                                                             vip            : request.vip
+                                                                                             });
+                                                                                             check = true;
+                                                                                             break;                                                                                            
+                                                                                        }
+                                                                                        else {
+                                                                                            
+                                                                                        }
+                                                                                    }
                                                                                 });
                                                                             }
                                                                             else {
