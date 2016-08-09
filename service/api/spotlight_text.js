@@ -173,7 +173,34 @@ exports.post = function(request, response) {
                                                         // No requests found on critera 
                                                         requestTable.where(function(u){return this.user_id == u && this.other_user != null && this.other_user != '' && this.type == 'text' && this.completed == true},user_id).read({
                                                             success : function(requests){
-                                                                
+                                                                if(requests.length > 0){
+                                                                    // Find User
+                                                                    userTable.where({id : request.other_user}).read({
+                                                                        success : function(users){
+                                                                            if(users > 0){
+                                                                                 response.send(statusCodes.OK, { 
+                                                                                 boolean        : true,
+                                                                                 requestId      : requestId,
+                                                                                 type           : '2. Partner exists and match first try',
+                                                                                 id             : request.id,
+                                                                                 full_name      : request.first_name+" "+request.last_name,
+                                                                                 gender         : request.gender,
+                                                                                 city           : request.city,
+                                                                                 country        : request.country,
+                                                                                 age            : request.age,
+                                                                                 profile_pic    : request.profile_pic, 
+                                                                                 vip            : request.vip
+                                                                                 });                                                                                
+                                                                            }
+                                                                            else {
+                                                                                response.send(statusCodes.OK, { boolean : false, message : 'No user matched your preference.'});
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                }
+                                                                else {
+                                                                    response.send(statusCodes.OK, { boolean : false, message : 'No user matched your preference.'});
+                                                                }
                                                             }
                                                         });
                                                     }
