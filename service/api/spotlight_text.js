@@ -107,7 +107,22 @@ exports.post = function(request, response) {
                         // Get online user
                         userTable.where(function(u,ou){return ou.indexOf(u) !== -1;},user_id,onlineUsers).read({
                             success : function(users){
-                                
+                                if(users.length > 0){
+                                    // found online users
+                                    users.forEach(function(user){
+                                        countIDK++;
+                                        // Find user with your preference 
+                                        if(prefs.indexOf(user.gender) !== -1 && user.pref.indexOf(userGender) !== -1){
+                                            // User found with your preference
+                                        }
+                                        else {
+                                            // No user found with your preference
+                                        }
+                                    });
+                                }
+                                else {
+                                    // User not found
+                                }
                             }
                         });
                     }
