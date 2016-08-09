@@ -150,7 +150,9 @@ exports.post = function(request, response) {
                                                                                              //break;                                                                                            
                                                                                         }
                                                                                         else {
-                                                                                            
+                                                                                            request.completed = false;
+                                                                                            request.other_user = '';
+                                                                                            requestTable.update(request,{});   
                                                                                         }
                                                                                     }
                                                                                 });
