@@ -162,7 +162,7 @@ exports.post = function(request, response) {
                             }
                             else {
                                 // No online users
-                                response.send(statusCodes.OK, { boolean : false, message : 'No online user available')});
+                                response.send(statusCodes.OK, { boolean : false, message : 'No online user available'});
                                 
                             }
                         }
