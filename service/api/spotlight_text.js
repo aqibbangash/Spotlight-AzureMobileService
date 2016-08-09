@@ -380,6 +380,12 @@ exports.post = function(request, response) {
                                                 response.send(statusCodes.OK, { boolean : false, message : 'No user matched your preference.'});
                                             }
                                         });
+                                        if(check){
+                                            response.send(statusCodes.OK, { boolean : false, message : 'No match found try again. check true.'});
+                                        }
+                                        else {
+                                            response.send(statusCodes.OK, { boolean : false, message : 'No match found try again. check true.'});
+                                        }
                                     }
                                     else {
                                         // User not found
