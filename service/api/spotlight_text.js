@@ -60,7 +60,7 @@ exports.post = function(request, response) {
                              });   
                             }
                             else {
-                                // Other usernnot found
+                                // Other user not found
                                 response.send(statusCodes.OK, { message : 'Sorry we could not find your partner id.' });  
                             }
                         }
@@ -68,6 +68,12 @@ exports.post = function(request, response) {
                 }
                 else {
                     // No partner for request
+                    // Get block list 
+                    blockTable.where(function(u) {return this.both.indexOf(u) !== -1;},user_id).read({
+                        success : function(blocks){
+                            
+                        }
+                    })
                 }
             }
             else {
