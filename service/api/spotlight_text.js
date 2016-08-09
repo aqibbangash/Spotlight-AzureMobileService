@@ -130,7 +130,30 @@ exports.post = function(request, response) {
                                                                             if(requests.length > 0){
                                                                                 requests[0].completed = true;
                                                                                 requests[0].other_user = user_id;
-                                                                                requestTable.update(requests[0],{})
+                                                                                requestTable.update(requests[0],{
+                                                                                    success : function(request){
+                                                                                        if(request){
+                                                                                             response.send(statusCodes.OK, { 
+                                                                                             boolean        : true,
+                                                                                             requestId      : requestId,
+                                                                                             type           : '1. Partner exists and match first try',
+                                                                                             id             : users[0].id,
+                                                                                             full_name      : users[0].first_name+" "+users[0].last_name,
+                                                                                             gender         : users[0].gender,
+                                                                                             city           : users[0].city,
+                                                                                             country        : users[0].country,
+                                                                                             age            : users[0].age,
+                                                                                             profile_pic    : users[0].profile_pic, 
+                                                                                             vip            : users[0].vip
+                                                                                             });
+                                                                                             check = true;
+                                                                                             break;                                                                                            
+                                                                                        }
+                                                                                        else {
+                                                                                            
+                                                                                        }
+                                                                                    }
+                                                                                });
                                                                             }
                                                                             else {
                                                                                 // error
