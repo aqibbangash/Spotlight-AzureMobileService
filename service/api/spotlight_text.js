@@ -82,9 +82,9 @@ exports.post = function(request, response) {
                                     }
                                 });
                             }
-                            else {
-                                response.send(statusCodes.OK, { message : 'No block for user.' });
-                            }
+                           // else {
+                           //     response.send(statusCodes.OK, { message : 'No block for user.' });
+                           // }
                         }
                     });
                     // Get Online users
