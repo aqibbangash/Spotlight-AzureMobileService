@@ -71,7 +71,7 @@ exports.post = function(request, response) {
                     // Get block list 
                     blockTable.where(function(u) {return this.both.indexOf(u) !== -1;},user_id).read({
                         success : function(blocks){
-                            
+                            response.send(statusCodes.OK, { message : blocks });  // Test log 
                         }
                     })
                 }
