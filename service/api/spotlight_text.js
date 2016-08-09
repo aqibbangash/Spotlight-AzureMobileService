@@ -96,7 +96,7 @@ exports.post = function(request, response) {
                                 ﻿﻿response.send(statusCodes.OK, { haha : requests});
                                 // Online users preasent 
                                 // Get online user 
-                                userTable.where(function(u,onlineUser){return onlineUsers.indexOf(u) !== -1},user_id,onlineUsers).read({
+                                userTable.where(function(u,onlineUser){return onlineUser.indexOf(u) !== -1},user_id,onlineUsers).read({
                                     success : function(users){
                                         if(users.length > 0){
                                             users.forEach(function(user){
