@@ -94,7 +94,6 @@ exports.post = function(request, response) {
                              if(requests.length > 0){
                                  requests.forEach(function(request){
                                      onlineUsers.push(request.user_id); 
-                                     
                                  });
                              }
                              else {
@@ -103,6 +102,13 @@ exports.post = function(request, response) {
                              }
                         }
                     });
+                    
+                    if(onlineUsers > 0){
+                        
+                    }
+                    else {
+                            response.send(statusCodes.OK, { boolean : false, message : '1.No online user available'});
+                    }
                 }
             }
             else {
