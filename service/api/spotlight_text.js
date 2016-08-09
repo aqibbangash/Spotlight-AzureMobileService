@@ -88,7 +88,7 @@ exports.post = function(request, response) {
                         }
                     });
                     // Get Online users
-                    requestTable.where(function(u){return this.user_id != u  && this.type == 'text' && this.completed == false },user_id).read({
+                    requestTable.where(function(u){return this.user_id != u},user_id).read({
                         
                     });
                 }
