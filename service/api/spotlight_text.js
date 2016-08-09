@@ -14,9 +14,9 @@ exports.post = function(request, response) {
     var temp           = [];
     var onlineUsers    = [];    
     // Tables
-    var userTable    = request.service.tables.getTable('Users');
-    var requestTable = request.service.tables.getTable('Request');
-    var blockTable   = request.service.tables.getTable('Block');
+    //var userTable    = request.service.tables.getTable('Users');
+    //var requestTable = request.service.tables.getTable('Request');
+    //var blockTable   = request.service.tables.getTable('Block');
     
     // Get all request type text and user_id equals user_id
 
