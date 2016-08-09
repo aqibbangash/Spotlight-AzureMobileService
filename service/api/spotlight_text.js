@@ -21,18 +21,8 @@ exports.post = function(request, response) {
     // Get all request type text and user_id equals user_id
     requestTable.where({type : 'text', user_id : user_id}).read({
         success : function(requests){
-            if(requests.length > 0){
-                requests.forEach(function(request){
-                    numAlready++;
-                    requestId = request.id;
-                    if(request.completed){
-                        connectedWith = request.other_user;
-                    }
-                });
-            }
-            else {
-             response.send(statusCodes.OK, { message : 'No request are present for this user.' });   
-            }
+         response.send(statusCodes.OK, { message : requests });  // Test log 
+
         }    
     });
     
