@@ -36,7 +36,7 @@ exports.post = function(request, response) {
             }
             
             if(numAlready > 0){
-                response.send(statusCodes.OK, { message : numAlready });  // Test log 
+                //response.send(statusCodes.OK, { message : numAlready });  // Test log 
                 // Requests by user exists
                 if(connectedWith != ""){
                     // Request complete partner exists
