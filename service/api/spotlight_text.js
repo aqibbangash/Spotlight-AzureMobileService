@@ -88,7 +88,21 @@ exports.post = function(request, response) {
                         }
                     });
                     // Get Online users
-
+                    requestTable.where(function(u){return this.user_id != u && abc.toString.indexOf(u) == -1 && this.type == 'text' && this.completed == false },user_id).read({
+                       success : function(requests){
+                           response.send(statusCodes.OK, { boolean : true ,message : requests });
+                           if(requests.length  > 0){
+                               // Users are online
+                                    requests.forEach(function(request){
+                                        onlineUsers.push(request.user_id);
+                                    });
+                           }
+                           else {
+                               // No online user
+                               response.send(statusCodes.OK, { boolean : false ,message : 'No online user.' });
+                           }
+                       } 
+                    });
                 }
             }
             else {
