@@ -96,10 +96,10 @@ exports.post = function(request, response) {
                                      onlineUsers.push(request.user_id); 
                                  });
                                 if(onlineUsers.length > 0){
-                                    console.log("yaay");
                                     // Get online user
                                     userTable.where(function(u,ou){return ou.indexOf(u) !== -1;},user_id,onlineUsers).read({
                                         success : function(users){
+                                            console.log("success");
                                             if(users.length > 0){
                                                 // found online users
                                                 users.forEach(function(user){
