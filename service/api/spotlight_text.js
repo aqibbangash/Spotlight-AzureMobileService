@@ -96,11 +96,12 @@ exports.post = function(request, response) {
                                      onlineUsers.push(request.user_id); 
                                  });
                                  
-                                 var test = "aqibbangash"
+                                
                                 if(onlineUsers.length > 0){
                                     console.log("online user : ",onlineUsers);
                                     // var test = function(ou, temp){console.log("this : ",temp);return ou.indexOf(temp.id) != -1;}
-                                    
+                                     var test = "aqibbangash";
+                      
                                     // Get online user
                                     //userTable.where(function(ou, temp){return ou.indexOf(temp.id) != -1},onlineUsers, userTable.this).read({
                                       userTable.where(  function(ou){
