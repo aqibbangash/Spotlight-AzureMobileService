@@ -97,9 +97,15 @@ exports.post = function(request, response) {
                                  });
                                 if(onlineUsers.length > 0){
                                     console.log("online user : ",onlineUsers);
-                                    var test = function(ou, temp){console.log("this : ",temp);return ou.indexOf(temp.id) != -1;}
+                                    // var test = function(ou, temp){console.log("this : ",temp);return ou.indexOf(temp.id) != -1;}
+                                    
                                     // Get online user
-                                    userTable.where(test(onlineUsers, userTable.this)).read({
+                                    //userTable.where(function(ou, temp){return ou.indexOf(temp.id) != -1},onlineUsers, userTable.this).read({
+                                      userTable.where(  function(ou){
+                                          
+                                          return ou.indexOf(this.id);
+                                          
+                                      },onlineUsers ).read({
                                         success : function(users){
                                             console.log("success : ",users);
                                             if(users.length > 0){
