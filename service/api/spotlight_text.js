@@ -96,6 +96,7 @@ exports.post = function(request, response) {
                              if(requests.length > 0){
                                  console.log("if");
                                  requests.forEach(function(request){
+                                     console.log(request);
                                      onlineUsers.push(request.user_id); 
                                  });
                              }
