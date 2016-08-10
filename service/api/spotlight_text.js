@@ -90,16 +90,14 @@ exports.post = function(request, response) {
                     // Get Online users
                     requestTable.where(function(u,abc){return this.user_id != u  && this.type == 'text' && this.completed == false && (abc.indexOf(u) == -1);},user_id,abc).read({
                         success : function(requests){
-                            
-                            response.send(statusCodes.OK, { haha : requests});
+                            //response.send(statusCodes.OK, { haha : requests});
                              if(requests.length > 0){
                                  requests.forEach(function(request){
                                      onlineUsers.push(request.user_id); 
                                  });
-                                 
-                                
+                                console.log("Online Users : ",onlineUsers);     
                                 if(onlineUsers.length > 0){
-                                    //console.log("online user : ",onlineUsers);
+                                    console.log("online user : ",onlineUsers);
                                     // Get online user
                                     userTable.where(function(ou){return ou.toString().indexOf('6990') == 0;},onlineUsers).read({
                                         success : function(users){
