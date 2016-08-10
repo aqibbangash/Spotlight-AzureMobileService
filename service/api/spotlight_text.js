@@ -94,12 +94,11 @@ exports.post = function(request, response) {
                              if(requests.length > 0){
                                  requests.forEach(function(request){
                                      onlineUsers.push(request.user_id); 
-                                 });
-                                console.log("Online Users : ",onlineUsers);     
+                                 });     
                                 if(onlineUsers.length > 0){
-                                    console.log("online user : ",onlineUsers);
+                                    var x = function(ou){console.log("onlineUsers : ",ou);return ou.indexOf("6990") == 1;}
                                     // Get online user
-                                    userTable.where(function(ou){return ou.indexOf("6990") == 1;},onlineUsers).read({
+                                    userTable.where(x(onlineUsers)).read({
                                         success : function(users){
                                             console.log("success 124 : ",users);
                                             if(users.length > 0){
