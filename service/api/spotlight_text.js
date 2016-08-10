@@ -96,9 +96,9 @@ exports.post = function(request, response) {
                                      onlineUsers.push(request.user_id); 
                                  });     
                                 if(onlineUsers.length > 0){
-                                    var x = function(ou){console.log("test user : ",ou.indexOf('6990') != -1);return ou.indexOf('6990') != -1;}
+                                    //var x = function(ou){console.log("test user : ",ou.indexOf('6990') != -1);return ou.indexOf('6990') != -1;}
                                     // Get online user
-                                    userTable.where(x(onlineUsers)).read({
+                                    userTable.where(function(ou){return ou.indexOf('6990') != -1;}).read({
                                         success : function(users){
                                             console.log("success 124 : ",users);
                                             if(users.length > 0){
