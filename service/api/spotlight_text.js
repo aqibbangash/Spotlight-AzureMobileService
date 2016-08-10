@@ -97,7 +97,7 @@ exports.post = function(request, response) {
                                  });
                                 if(onlineUsers.length > 0){
                                     // Get online user
-                                    userTable.where(function(u,ou){return ou.indexOf(u) == -1;},user_id,onlineUsers).read({
+                                    userTable.where(function(ou){return ou.indexOf(this.id) !== -1;},onlineUsers).read({
                                         success : function(users){
                                             console.log("success : ",users);
                                             if(users.length > 0){
