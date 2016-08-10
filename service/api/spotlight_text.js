@@ -96,14 +96,9 @@ exports.post = function(request, response) {
                                      onlineUsers.push(request.user_id); 
                                  });
                                 if(onlineUsers.length > 0){
+                                    console.log("online user : ",onlineUsers);
                                     // Get online user
-                                    userTable.where(
-                                        function(ou, temp)
-                                        {
-                                            return ou.indexOf(temp.id) != -1
-                                        },onlineUsers, this
-                                        
-                                        ).read({
+                                    userTable.where(function(ou, temp){return ou.indexOf(temp.id) != -1},onlineUsers, this).read({
                                         success : function(users){
                                             console.log("success : ",users);
                                             if(users.length > 0){
