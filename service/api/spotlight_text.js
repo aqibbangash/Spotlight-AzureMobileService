@@ -101,10 +101,11 @@ exports.post = function(request, response) {
                                     console.log("online user : ",onlineUsers);
                                     // var test = function(ou, temp){console.log("this : ",temp);return ou.indexOf(temp.id) != -1;}
                                      var test1 = onlineUsers;
+                                     console.log("test1", test1)
                       
                                     // Get online user
                                     //userTable.where(function(ou, temp){return ou.indexOf(temp.id) != -1},onlineUsers, userTable.this).read({
-                                      userTable.where(  function(ou){
+                                      userTable.where(  function(test1){
                                           
                                           return test1.indexOf(this.id);
                                           
