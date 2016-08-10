@@ -94,11 +94,13 @@ exports.post = function(request, response) {
                             console.log("Test request pass : ",requests);
                             //response.send(statusCodes.OK, { haha : requests,test1: abc,test: (abc.indexOf(user_id) == -1)});
                              if(requests.length > 0){
+                                 console.log("if");
                                  requests.forEach(function(request){
                                      onlineUsers.push(request.user_id); 
                                  });
                              }
                              else {
+                                 console.log("else");
                                  // No requests
                                  response.send(statusCodes.OK, { boolean : false, message : '1. No online user available'});
                              }
