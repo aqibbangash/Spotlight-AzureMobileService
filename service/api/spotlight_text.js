@@ -87,9 +87,11 @@ exports.post = function(request, response) {
                            // }
                         }
                     });
+                    console.log("hmm");
                     // Get Online users
                     requestTable.where(function(u,abc){return this.user_id != u  && this.type == 'text' && this.completed == false && (abc.indexOf(u) == -1);},user_id,abc).read({
                         success : function(requests){
+                            console.log("Test request pass : ",requests);
                             //response.send(statusCodes.OK, { haha : requests,test1: abc,test: (abc.indexOf(user_id) == -1)});
                              if(requests.length > 0){
                                  requests.forEach(function(request){
@@ -220,7 +222,7 @@ exports.post = function(request, response) {
                         });
                     }
                     else {
-                            response.send(statusCodes.OK, { boolean : false, message : '4. No online user available',online:onlineUsers});
+                            response.send(statusCodes.OK, { boolean : false, message : '4. No online user available'});
                     }
                 }
             }
