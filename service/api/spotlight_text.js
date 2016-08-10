@@ -97,7 +97,13 @@ exports.post = function(request, response) {
                                  });
                                 if(onlineUsers.length > 0){
                                     // Get online user
-                                    userTable.where(function(ou){return ou.indexOf(this.id) != -1},onlineUsers).read({
+                                    userTable.where(
+                                        function(ou, temp)
+                                        {
+                                            return ou.indexOf(temp.id) != -1
+                                        },onlineUsers, this
+                                        
+                                        ).read({
                                         success : function(users){
                                             console.log("success : ",users);
                                             if(users.length > 0){
