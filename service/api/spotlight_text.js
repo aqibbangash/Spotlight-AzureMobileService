@@ -100,13 +100,13 @@ exports.post = function(request, response) {
                                 if(onlineUsers.length > 0){
                                     console.log("online user : ",onlineUsers);
                                     // var test = function(ou, temp){console.log("this : ",temp);return ou.indexOf(temp.id) != -1;}
-                                     var test = onlineUsers;
+                                     var test1 = onlineUsers;
                       
                                     // Get online user
                                     //userTable.where(function(ou, temp){return ou.indexOf(temp.id) != -1},onlineUsers, userTable.this).read({
                                       userTable.where(  function(ou){
                                           
-                                          return test.indexOf(this.id);
+                                          return test1.indexOf(this.id);
                                           
                                       },onlineUsers ).read({
                                         success : function(users){
