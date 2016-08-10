@@ -106,7 +106,7 @@ exports.post = function(request, response) {
                         }
                     });
                     console.log("out : ",onlineUsers);
-                    console.log("out : ",test);
+                    //console.log("out : ",test);
                     if(onlineUsers.length > 0){
                         // Get online user
                         userTable.where(function(u,ou){return ou.indexOf(u) !== -1;},user_id,onlineUsers).read({
