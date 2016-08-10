@@ -95,48 +95,82 @@ exports.post = function(request, response) {
                                  requests.forEach(function(request){
                                      onlineUsers.push(request.user_id); 
                                  });
-                                                     console.log("in : ",onlineUsers);
-                    console.log("in : ",onlineUsers.length);
-                             
-                             }
-                             else {
-                                 // No requests
-                                 response.send(statusCodes.OK, { boolean : false, message : '1. No online user available'});
-                             }
-                        }
-                    });
-                    console.log("out : ",onlineUsers);
-                    if(onlineUsers.length > 0){
-                        // Get online user
-                        userTable.where(function(u,ou){return ou.indexOf(u) !== -1;},user_id,onlineUsers).read({
-                            success : function(users){
-                                if(users.length > 0){
-                                    // found online users
-                                    users.forEach(function(user){
-                                        countIDK++;
-                                        // Find user with your preference 
-                                        if(prefs.indexOf(user.gender) !== -1 && user.pref.indexOf(userGender) !== -1){
-                                            // User found with your preference
-                                            // Find Request 
-                                            requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
-                                                success : function(requests){
-                                                    if(requests.length > 0){
-                                                        // Update request
-                                                        requests[0].completed = true;
-                                                        requests[0].other_user = user.id;
-                                                        requestTable.update(requests[0],{
-                                                            success : function(request){
-                                                                if(request){
-                                                                    // Find request of other user
-                                                                    requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
+                                if(onlineUsers.length > 0){
+                                    console.log("yaay");
+                                    // Get online user
+                                    userTable.where(function(u,ou){return ou.indexOf(u) !== -1;},user_id,onlineUsers).read({
+                                        success : function(users){
+                                            if(users.length > 0){
+                                                // found online users
+                                                users.forEach(function(user){
+                                                    countIDK++;
+                                                    // Find user with your preference 
+                                                    if(prefs.indexOf(user.gender) !== -1 && user.pref.indexOf(userGender) !== -1){
+                                                        // User found with your preference
+                                                        // Find Request 
+                                                        requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
+                                                            success : function(requests){
+                                                                if(requests.length > 0){
+                                                                    // Update request
+                                                                    requests[0].completed = true;
+                                                                    requests[0].other_user = user.id;
+                                                                    requestTable.update(requests[0],{
+                                                                        success : function(request){
+                                                                            if(request){
+                                                                                // Find request of other user
+                                                                                requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
+                                                                                    success : function(requests){
+                                                                                        if(requests.length > 0){
+                                                                                            requests[0].completed = true;
+                                                                                            requests[0].other_user = user_id;
+                                                                                            requestTable.update(requests[0],{
+                                                                                                success : function(request){
+                                                                                                    if(request){
+                                                                                                         check = true;
+                                                                                                         response.send(statusCodes.OK, { 
+                                                                                                         boolean        : true,
+                                                                                                         requestId      : requestId,
+                                                                                                         type           : '2. Partner exists and match first try',
+                                                                                                         id             : request.id,
+                                                                                                         full_name      : request.first_name+" "+request.last_name,
+                                                                                                         gender         : request.gender,
+                                                                                                         city           : request.city,
+                                                                                                         country        : request.country,
+                                                                                                         age            : request.age,
+                                                                                                         profile_pic    : request.profile_pic, 
+                                                                                                         vip            : request.vip
+                                                                                                         });
+                                                                                                         //break;                                                                                            
+                                                                                                    }
+                                                                                                    else {
+                                                                                                        request.completed = false;
+                                                                                                        request.other_user = '';
+                                                                                                        requestTable.update(request,{});   
+                                                                                                    }
+                                                                                                }
+                                                                                            });
+                                                                                        }
+                                                                                        else {
+                                                                                            // error
+                                                                                        }
+                                                                                    }
+                                                                                });
+                                                                            }
+                                                                            else{
+                                                                                // error
+                                                                            }
+                                                                        }
+                                                                    }); 
+                                                                }
+                                                                else {
+                                                                    // No requests found on critera 
+                                                                    requestTable.where(function(u){return this.user_id == u && this.other_user != null && this.other_user != '' && this.type == 'text' && this.completed == true},user_id).read({
                                                                         success : function(requests){
                                                                             if(requests.length > 0){
-                                                                                requests[0].completed = true;
-                                                                                requests[0].other_user = user_id;
-                                                                                requestTable.update(requests[0],{
-                                                                                    success : function(request){
-                                                                                        if(request){
-                                                                                             check = true;
+                                                                                // Find User
+                                                                                userTable.where({id : request.other_user}).read({
+                                                                                    success : function(users){
+                                                                                        if(users > 0){
                                                                                              response.send(statusCodes.OK, { 
                                                                                              boolean        : true,
                                                                                              requestId      : requestId,
@@ -149,82 +183,45 @@ exports.post = function(request, response) {
                                                                                              age            : request.age,
                                                                                              profile_pic    : request.profile_pic, 
                                                                                              vip            : request.vip
-                                                                                             });
-                                                                                             //break;                                                                                            
+                                                                                             });                                                                                
                                                                                         }
                                                                                         else {
-                                                                                            request.completed = false;
-                                                                                            request.other_user = '';
-                                                                                            requestTable.update(request,{});   
+                                                                                            response.send(statusCodes.OK, { boolean : false, message : '2. No user matched your preference.'});
                                                                                         }
                                                                                     }
                                                                                 });
                                                                             }
                                                                             else {
-                                                                                // error
+                                                                                response.send(statusCodes.OK, { boolean : false, message : '3. No user matched your preference.'});
                                                                             }
                                                                         }
                                                                     });
-                                                                }
-                                                                else{
-                                                                    // error
-                                                                }
-                                                            }
-                                                        }); 
-                                                    }
-                                                    else {
-                                                        // No requests found on critera 
-                                                        requestTable.where(function(u){return this.user_id == u && this.other_user != null && this.other_user != '' && this.type == 'text' && this.completed == true},user_id).read({
-                                                            success : function(requests){
-                                                                if(requests.length > 0){
-                                                                    // Find User
-                                                                    userTable.where({id : request.other_user}).read({
-                                                                        success : function(users){
-                                                                            if(users > 0){
-                                                                                 response.send(statusCodes.OK, { 
-                                                                                 boolean        : true,
-                                                                                 requestId      : requestId,
-                                                                                 type           : '2. Partner exists and match first try',
-                                                                                 id             : request.id,
-                                                                                 full_name      : request.first_name+" "+request.last_name,
-                                                                                 gender         : request.gender,
-                                                                                 city           : request.city,
-                                                                                 country        : request.country,
-                                                                                 age            : request.age,
-                                                                                 profile_pic    : request.profile_pic, 
-                                                                                 vip            : request.vip
-                                                                                 });                                                                                
-                                                                            }
-                                                                            else {
-                                                                                response.send(statusCodes.OK, { boolean : false, message : '2. No user matched your preference.'});
-                                                                            }
-                                                                        }
-                                                                    });
-                                                                }
-                                                                else {
-                                                                    response.send(statusCodes.OK, { boolean : false, message : '3. No user matched your preference.'});
                                                                 }
                                                             }
                                                         });
                                                     }
-                                                }
-                                            });
-                                        }
-                                        else {
-                                            // No user found with your preference
-                                            response.send(statusCodes.OK, { boolean : false, message : '3. No user matched your preference.'});
+                                                    else {
+                                                        // No user found with your preference
+                                                        response.send(statusCodes.OK, { boolean : false, message : '3. No user matched your preference.'});
+                                                    }
+                                                });
+                                            }
+                                            else {
+                                                // User not found
+                                            }
                                         }
                                     });
                                 }
                                 else {
-                                    // User not found
-                                }
-                            }
-                        });
-                    }
-                    else {
-                            response.send(statusCodes.OK, { boolean : false, message : '4. No online user available'});
-                    }
+                                        response.send(statusCodes.OK, { boolean : false, message : '4. No online user available'});
+                                }                             
+                             }
+                             else {
+                                 // No requests
+                                 response.send(statusCodes.OK, { boolean : false, message : '1. No online user available'});
+                             }
+                        }
+                    });
                 }
             }
             else {
