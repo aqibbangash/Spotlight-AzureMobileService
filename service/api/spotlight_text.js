@@ -99,7 +99,7 @@ exports.post = function(request, response) {
                                     // Get online user
                                     userTable.where(function(u,ou){return ou.indexOf(u) !== -1;},user_id,onlineUsers).read({
                                         success : function(users){
-                                            console.log("success");
+                                            console.log("success : ",users);
                                             if(users.length > 0){
                                                 // found online users
                                                 users.forEach(function(user){
