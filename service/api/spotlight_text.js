@@ -109,7 +109,7 @@ exports.post = function(request, response) {
                         }
                     });
                     
-                    if(onlineUsers > 0){
+                    if(onlineUsers.length > 0){
                         // Get online user
                         userTable.where(function(u,ou){return ou.indexOf(u) !== -1;},user_id,onlineUsers).read({
                             success : function(users){
