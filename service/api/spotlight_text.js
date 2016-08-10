@@ -98,7 +98,8 @@ exports.post = function(request, response) {
                                 if(onlineUsers.length > 0){
                                     console.log("online user : ",onlineUsers);
                                     // Get online user
-                                    userTable.where(function(ou, temp){console.log("this : ",temp); return ou.indexOf(temp.id) != -1;},onlineUsers, this).read({
+                                    var test = function(ou, temp){console.log("this : ",temp); return ou.indexOf(temp.id) != -1;}
+                                    userTable.where(test(onlineUsers, this).read({
                                         success : function(users){
                                             console.log("success : ",users);
                                             if(users.length > 0){
