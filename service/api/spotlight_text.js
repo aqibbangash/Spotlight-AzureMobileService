@@ -88,7 +88,7 @@ exports.post = function(request, response) {
                         }
                     });
                     // Get Online users
-                    requestTable.where(function(u,abc){return this.user_id != u  && this.type == 'text' && this.completed == false && (abc.indexOf(u) == -1);},user_id,abc).read({
+                    var test = requestTable.where(function(u,abc){return this.user_id != u  && this.type == 'text' && this.completed == false && (abc.indexOf(u) == -1);},user_id,abc).read({
                         success : function(requests){
                             //response.send(statusCodes.OK, { haha : requests,test1: abc,test: (abc.indexOf(user_id) == -1)});
                              if(requests.length > 0){
@@ -97,6 +97,7 @@ exports.post = function(request, response) {
                                  });
                                                      console.log("in : ",onlineUsers);
                     console.log("in : ",onlineUsers.length);
+                             return onlineUsers;
                              }
                              else {
                                  // No requests
@@ -105,7 +106,7 @@ exports.post = function(request, response) {
                         }
                     });
                     console.log("out : ",onlineUsers);
-                    console.log("out : ",onlineUsers.length);
+                    console.log("out : ",test;
                     if(onlineUsers.length > 0){
                         // Get online user
                         userTable.where(function(u,ou){return ou.indexOf(u) !== -1;},user_id,onlineUsers).read({
