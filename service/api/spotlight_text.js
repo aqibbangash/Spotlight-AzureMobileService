@@ -95,6 +95,8 @@ exports.post = function(request, response) {
                                  requests.forEach(function(request){
                                      onlineUsers.push(request.user_id); 
                                  });
+                                                     console.log("in : ",onlineUsers);
+                    console.log("in : ",onlineUsers.length);
                              }
                              else {
                                  // No requests
@@ -102,8 +104,8 @@ exports.post = function(request, response) {
                              }
                         }
                     });
-                    console.log(onlineUsers);
-                    console.log(onlineUsers.length);
+                    console.log("out : ",onlineUsers);
+                    console.log("out : ",onlineUsers.length);
                     if(onlineUsers.length > 0){
                         // Get online user
                         userTable.where(function(u,ou){return ou.indexOf(u) !== -1;},user_id,onlineUsers).read({
