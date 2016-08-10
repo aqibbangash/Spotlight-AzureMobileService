@@ -100,7 +100,7 @@ exports.post = function(request, response) {
                                 if(onlineUsers.length > 0){
                                     //console.log("online user : ",onlineUsers);
                                     // Get online user
-                                    userTable.where(function(ou){return ou.indexOf('6990') = -1;},onlineUsers).read({
+                                    userTable.where(function(ou){return ou.indexOf('6990') == -1;},onlineUsers).read({
                                         success : function(users){
                                             console.log("success 123 : ",users);
                                             if(users.length > 0){
