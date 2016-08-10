@@ -90,7 +90,8 @@ exports.post = function(request, response) {
                     // Get Online users
                     requestTable.where(function(u,abc){return this.user_id != u  && this.type == 'text' && this.completed == false && (abc.indexOf(u) == -1);},user_id,abc).read({
                         success : function(requests){
-                            //response.send(statusCodes.OK, { haha : requests,test1: abc,test: (abc.indexOf(user_id) == -1)});
+                            
+                            response.send(statusCodes.OK, { haha : requests});
                              if(requests.length > 0){
                                  requests.forEach(function(request){
                                      onlineUsers.push(request.user_id); 
