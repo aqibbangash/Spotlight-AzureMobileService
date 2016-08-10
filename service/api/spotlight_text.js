@@ -87,28 +87,23 @@ exports.post = function(request, response) {
                            // }
                         }
                     });
-                    console.log("hmm");
                     // Get Online users
                     requestTable.where(function(u,abc){return this.user_id != u  && this.type == 'text' && this.completed == false && (abc.indexOf(u) == -1);},user_id,abc).read({
                         success : function(requests){
-                            console.log("Test request pass : ",requests);
                             //response.send(statusCodes.OK, { haha : requests,test1: abc,test: (abc.indexOf(user_id) == -1)});
                              if(requests.length > 0){
-                                 console.log("if");
                                  requests.forEach(function(request){
-                                     console.log(request);
                                      onlineUsers.push(request.user_id); 
-                                     console.log(onlineUsers);
                                  });
                              }
                              else {
-                                 console.log("else");
                                  // No requests
                                  response.send(statusCodes.OK, { boolean : false, message : '1. No online user available'});
                              }
                         }
                     });
-                    
+                    console.log(onlineUsers);
+                    console.log(onlineUsers.length);
                     if(onlineUsers.length > 0){
                         // Get online user
                         userTable.where(function(u,ou){return ou.indexOf(u) !== -1;},user_id,onlineUsers).read({
