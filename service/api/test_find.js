@@ -4,7 +4,7 @@ exports.post = function(request, response) {
     // Tables
     var userTable    = request.service.tables.getTable('Users');
         var test = function(obj){return onlineUsers.indexOf(obj) != -1;}
-        userTable.where(function(){return this.id.toString() }).read({
+        userTable.where(function(){return test(this.id.toString()) }).read({
             success : function(users){
                 response.send(statusCodes.OK, { message : users });
             }            
