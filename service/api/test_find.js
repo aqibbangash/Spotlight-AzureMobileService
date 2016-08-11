@@ -1,6 +1,6 @@
 exports.post = function(request, response) {
 
-    var onlineUsers    = ['6990'];    
+    var onlineUsers    = ["6990"];    
     // Tables
     var userTable    = request.service.tables.getTable('Users');
         var test = function(obj){return onlineUsers.search(obj) != -1;}
