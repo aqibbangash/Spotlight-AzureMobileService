@@ -32,7 +32,7 @@ exports.post = function(request, response) {
                 });
             }
             else {
-             response.send(statusCodes.OK, { message : 'No request are present for this user.' });
+             //response.send(statusCodes.OK, { message : 'No request are present for this user.' });
             }
 
             if(numAlready > 0){
