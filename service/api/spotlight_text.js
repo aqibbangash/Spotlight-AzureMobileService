@@ -243,7 +243,6 @@ exports.post = function(request, response) {
             else {
                 // No request by user exist
                 var milliSeconds = new Date().getTime();
-                console.log("yo")
                 // Insert new request
                 request.insert({
                     id : milliSeconds,
@@ -252,6 +251,7 @@ exports.post = function(request, response) {
                     type : 'text'
                 },{
                     success : function(){
+                        console.log("yo yo")
                         // Get block list
                         blockTable.where(function(u) {return this.both.indexOf(u) !== -1;},user_id).read({
                             success : function(blocks){
