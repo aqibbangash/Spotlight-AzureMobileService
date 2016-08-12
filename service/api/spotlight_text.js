@@ -116,20 +116,20 @@ exports.post = function(request, response) {
                                                                     requestTable.update(requests[0],{
                                                                         success : function(request){
                                                                             if(request){
-                                                                                var ttt;
+                                                                                var tempUser;
                                                                                 // Find request of other user
                                                                                 requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
                                                                                     success : function(requests){
                                                                                         if(requests.length > 0){
-                                                                                            ttt=requests;
+                                                                                            tempUser=requests;
                                                                                           userTable.where({id : user_id}).read({
                                                                                             success : function(users){
                                                                                               console.log("request : ",requests);
                                                                                               console.log("user : ",users);
 
-                                                                                              requests[0].completed = true;
-                                                                                              requests[0].other_user = user_id;
-                                                                                              requestTable.update(requests[0],{
+                                                                                              tempUser[0].completed = true;
+                                                                                              tempUser[0].other_user = user_id;
+                                                                                              requestTable.update(tempUser[0],{
                                                                                                   success : function(request){
                                                                                                       if(request){
                                                                                                            check = true;
