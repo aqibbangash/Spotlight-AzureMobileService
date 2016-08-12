@@ -243,6 +243,7 @@ exports.post = function(request, response) {
             else {
                 // No request by user exist
                 var milliSeconds = new Date().getTime();
+                console.log("yo")
                 // Insert new request
                 request.insert({
                     id : milliSeconds,
