@@ -105,12 +105,12 @@ exports.post = function(request, response) {
                                             if(users.length > 0){
                                                 // found online users
                                                 users.forEach(function(user){
-                                                    response.send(statusCodes.OK, { success : user});
                                                     countIDK++;
                                                     // Find user with your preference 
                                                     if(prefs.indexOf(user.gender) !== -1 && user.pref.indexOf(userGender) !== -1){
                                                         // User found with your preference
                                                         // Find Request 
+                                                        response.send(statusCodes.OK, { success : user});
                                                         requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
                                                             success : function(requests){
                                                                 if(requests.length > 0){
