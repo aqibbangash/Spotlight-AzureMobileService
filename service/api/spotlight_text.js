@@ -179,7 +179,7 @@ exports.post = function(request, response) {
                                                                                              response.send(statusCodes.OK, {
                                                                                              boolean        : true,
                                                                                              requestId      : requestId,
-                                                                                             type           : '2. Partner exists and match first try',
+                                                                                             type           : '3. Partner exists and match first try',
                                                                                              id             : users[0].id,
                                                                                              full_name      : users[0].first_name+" "+users[0].last_name,
                                                                                              gender         : users[0].gender,
@@ -191,13 +191,13 @@ exports.post = function(request, response) {
                                                                                              });
                                                                                         }
                                                                                         else {
-                                                                                            response.send(statusCodes.OK, { boolean : false, message : '2. No user matched your preference.'});
+                                                                                            response.send(statusCodes.OK, { boolean : false, message : '1. No user matched your preference.'});
                                                                                         }
                                                                                     }
                                                                                 });
                                                                             }
                                                                             else {
-                                                                                response.send(statusCodes.OK, { boolean : false, message : '3. No user matched your preference.'});
+                                                                                response.send(statusCodes.OK, { boolean : false, message : '2. No user matched your preference.'});
                                                                             }
                                                                         }
                                                                     });
@@ -234,7 +234,7 @@ exports.post = function(request, response) {
                              }
                              else {
                                  // No requests
-                                 response.send(statusCodes.OK, { boolean : false, message : '1. No online user available'});
+                                 response.send(statusCodes.OK, { boolean : false, message : '5. No online user available'});
                              }
                         }
                     });
@@ -317,7 +317,7 @@ exports.post = function(request, response) {
                                                                                                                response.send(statusCodes.OK, {
                                                                                                                boolean        : true,
                                                                                                                requestId      : requestId,
-                                                                                                               type           : '2. Partner exists and match first try',
+                                                                                                               type           : '4. Partner exists and match first try',
                                                                                                                id             : users[0].id,
                                                                                                                full_name      : users[0].first_name+" "+users[0].last_name,
                                                                                                                gender         : users[0].gender,
@@ -364,7 +364,7 @@ exports.post = function(request, response) {
                                                                                                  response.send(statusCodes.OK, {
                                                                                                  boolean        : true,
                                                                                                  requestId      : requestId,
-                                                                                                 type           : '2. Partner exists and match first try',
+                                                                                                 type           : '5. Partner exists and match first try',
                                                                                                  id             : users[0].id,
                                                                                                  full_name      : users[0].first_name+" "+users[0].last_name,
                                                                                                  gender         : users[0].gender,
@@ -376,13 +376,13 @@ exports.post = function(request, response) {
                                                                                                  });
                                                                                             }
                                                                                             else {
-                                                                                                response.send(statusCodes.OK, { boolean : false, message : '2. No user matched your preference.'});
+                                                                                                response.send(statusCodes.OK, { boolean : false, message : '6. No user matched your preference.'});
                                                                                             }
                                                                                         }
                                                                                     });
                                                                                 }
                                                                                 else {
-                                                                                    response.send(statusCodes.OK, { boolean : false, message : '3. No user matched your preference.'});
+                                                                                    response.send(statusCodes.OK, { boolean : false, message : '7. No user matched your preference.'});
                                                                                 }
                                                                             }
                                                                         });
@@ -391,7 +391,7 @@ exports.post = function(request, response) {
                                                             });                                                    }
                                                         else {
                                                             // No user found with your preference
-                                                            response.send(statusCodes.OK, { boolean : false, message : '3. No user matched your preference.'});
+                                                            response.send(statusCodes.OK, { boolean : false, message : '8. No user matched your preference.'});
                                                         }
                                                         /////////////////
     
@@ -414,12 +414,12 @@ exports.post = function(request, response) {
                                         });
                                     }
                                     else {
-                                            response.send(statusCodes.OK, { boolean : false, message : '4. No online user available'});
+                                            response.send(statusCodes.OK, { boolean : false, message : '9. No online user available'});
                                     }                                     
                                  }
                                  else {
                                      // No requests
-                                     response.send(statusCodes.OK, { boolean : false, message : '5. No online user available'});
+                                     response.send(statusCodes.OK, { boolean : false, message : '10. No online user available'});
                                  }
                             }
                         });
