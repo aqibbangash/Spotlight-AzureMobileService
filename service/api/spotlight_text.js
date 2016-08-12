@@ -104,6 +104,7 @@ exports.post = function(request, response) {
                                                 function traverse(user){
                                                     countIDK++;
                                                     if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
+                                                        console.log("ahan");
                                                         // User found with your preference
                                                         // Find Request
                                                         requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
