@@ -125,7 +125,7 @@ exports.post = function(request, response) {
                                                                                                     success : function(users){
                                                                                                         if(users > 0){
                                                                                                             
-                                                                                                                                                                                                        requests[0].completed = true;
+                                                                                                                      response.send(statusCodes.OK, { request : request[0],user : users[0] });                                                                                 requests[0].completed = true;
                                                                                             requests[0].other_user = user_id;
                                                                                             requestTable.update(requests[0],{
                                                                                                 success : function(request){
