@@ -13,7 +13,7 @@ exports.post = function(request, response) {
     }
     else
     {
-        friendsTable.where({user_id:userId}).read({
+        friendsTable.where({user_id:userId,  $gte:(new Date()).getMinutes()-5 }).read({
 
         success: function(r) {
         
