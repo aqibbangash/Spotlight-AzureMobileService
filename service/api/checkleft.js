@@ -13,7 +13,25 @@ exports.post = function(request, response) {
     }
     else
     {
-        response.send(statusCodes.OK, { message : "Entry has been received" }); 
+        friendsTable.where({user_id:userId}).read({
+
+        success: function(r) {
+        
+        if (r.length>0)
+        {
+           response.send(statusCodes.OK, { message : "User has left", left: true }); 
+        }
+        else
+        {
+            response.send(statusCodes.OK, { message : "User has NOT left", left: false });
+        }
+        
+            
+        }                   
+         
+            
+            
+        })
     }
     
      //response.send(statusCodes.OK, { message : userId });
