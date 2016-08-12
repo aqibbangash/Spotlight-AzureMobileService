@@ -8,7 +8,8 @@ exports.post = function(request, response) {
     
     if (entry)
     {
-        friendsTable.insert({user_id:userId});  
+         var dd = (new Date()).getTime();
+        friendsTable.insert({ user_id:userId, timecreated: dd });  
         response.send(statusCodes.OK, { message : "Entry has been made" }); 
     }
     else
@@ -16,14 +17,21 @@ exports.post = function(request, response) {
         
          var dd = (new Date()).getTime();
         
-        friendsTable.where({user_id:userId }).read({
+        friendsTable.where(
+            
+            function(id, timeMilis){
+                
+                return (this.id == id && parseFloat(this.timecreated) == dd); 
+            }, userId, dd
+            
+        ).read({
 
         success: function(r) {
         
         if (r.length>0)
         {
             
-           response.send(statusCodes.OK, { message : "User has left", left: true, time: r[0].createdAt, time: r[0].__createdAt , myTime: dd }); 
+           response.send(statusCodes.OK, { message : "User has left", left: true }); 
         }
         else
         {
