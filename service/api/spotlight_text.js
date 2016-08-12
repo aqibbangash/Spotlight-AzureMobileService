@@ -105,7 +105,7 @@ exports.post = function(request, response) {
                                                 // found online users
                                                 users.forEach(function(user){
                                                     countIDK++;
-                                                    if(prefs.indexOf(user.gender) !== -1 && user.pref.indexOf(userGender) !== -1){
+                                                    if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
                                                         console.log("yep");
                                                     }
                                                     else {
