@@ -1,6 +1,6 @@
 exports.post = function(request, response) {
     // Use "request.service" to access features of your mobile service, e.g.:
-       var tables = request.service.tables;
+       var friendsTable = request.service.tables.getTable('leftRoom');
     //   var push = request.service.push;
 
     var userId = request.body.id;
