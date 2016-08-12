@@ -98,9 +98,10 @@ exports.post = function(request, response) {
                                     // Get online user
                                     userTable.where(function(ou){return this.id in ou;},onlineUsers).read({
                                         success : function(users){
+                                            var usersList=users;
                                             if(users.length > 0){
-                                                // found online users
-                                                users.forEach(function(user){
+                                                traverse(usersList.pop()); // Initiale call
+                                                function traverse(user){
                                                     countIDK++;
                                                     if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
                                                         // User found with your preference
@@ -157,6 +158,7 @@ exports.post = function(request, response) {
                                                                                         else {
                                                                                             // error
                                                                                         }
+                                                                                        traverse(usersList.pop());
                                                                                     }
                                                                                 });
                                                                             }
@@ -193,6 +195,7 @@ exports.post = function(request, response) {
                                                                                         else {
                                                                                             response.send(statusCodes.OK, { boolean : false, message : '1. No user matched your preference.'});
                                                                                         }
+                                                                                        traverse(usersList.pop());
                                                                                     }
                                                                                 });
                                                                             }
@@ -209,19 +212,13 @@ exports.post = function(request, response) {
                                                         // No user found with your preference
                                                         response.send(statusCodes.OK, { boolean : false, message : '3. No user matched your preference.'});
                                                     }
-                                                    /////////////////
-
-//                                                                                                        // Find user with your preference
-//                                                    if(prefs.indexOf(user.gender) !== -1 && user.pref.indexOf(userGender) !== -1){
+                                                }// Traverse end 
+                                                
+                                                
+                                                // found online users
+//                                                users.forEach(function(user){
 //
-//                                                    }
-//                                                    else {
-//                                                    }
-
-                                                    ////////////////
-
-
-                                                });
+//                                                });
                                             }
                                             else {
                                                 // User not found
