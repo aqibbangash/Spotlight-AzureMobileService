@@ -98,6 +98,7 @@ exports.post = function(request, response) {
                                     // Get online user
                                     userTable.where(function(ou){return this.id in ou;},onlineUsers).read({
                                         success : function(users){
+                                            console.log("Users",users);
                                             var usersList=users;
                                             if(users.length > 0){
                                                 traverse(usersList.pop()); // Initiale call
