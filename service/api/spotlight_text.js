@@ -107,7 +107,8 @@ exports.post = function(request, response) {
                                                 users.forEach(function(user){
                                                     countIDK++;
                                                     // Find user with your preference 
-                                                    if(prefs.indexOf(user.gender) !== -1 && user.pref.indexOf(userGender) !== -1){
+                                                    //if(prefs.indexOf(user.gender) !== -1 && user.pref.indexOf(userGender) !== -1){
+                                                     ﻿if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
                                                         // User found with your preference
                                                         // Find Request 
                                                         response.send(statusCodes.OK, { success : user});
