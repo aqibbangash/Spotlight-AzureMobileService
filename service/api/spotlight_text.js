@@ -124,9 +124,6 @@ exports.post = function(request, response) {
                                                                                             tempUser=requests;
                                                                                           userTable.where({id : user_id}).read({
                                                                                             success : function(users){
-                                                                                              console.log("request : ",requests);
-                                                                                              console.log("user : ",users);
-
                                                                                               tempUser[0].completed = true;
                                                                                               tempUser[0].other_user = user.id;
                                                                                               requestTable.update(tempUser[0],{
