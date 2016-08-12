@@ -99,7 +99,7 @@ exports.post = function(request, response) {
                                     //var x = function(ou){console.log("test user : ",ou.indexOf('6990') != -1);return ou.indexOf('6990') != -1;}
                                     // Get online user
                                     //function(ou,obj){return ou.indexOf(obj.id) != -1;},onlineUsers,this
-                                    userTable.where({}).read({
+                                    userTable.where({function(ou){return this.id in ou;},onlineUsers}).read({
                                         success : function(users){
                                             response.send(statusCodes.OK, { success : users});
                                             //console.log("success 124 : ",users);
