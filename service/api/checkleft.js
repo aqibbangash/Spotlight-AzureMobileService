@@ -4,7 +4,20 @@ exports.post = function(request, response) {
     //   var push = request.service.push;
 
     var userId = request.body.id;
+    var entry = request.body.entry;
+    
+    if (entry)
+    {
+        friendsTable.insert({user_id:userId});   
+    }
+    else
+    {
+        
+    }
+    
      response.send(statusCodes.OK, { message : userId });
+     
+     friendsTable.where({ })
 };
 
 exports.get = function(request, response) {
