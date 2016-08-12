@@ -173,14 +173,14 @@ exports.post = function(request, response) {
                                                                                              boolean        : true,
                                                                                              requestId      : requestId,
                                                                                              type           : '2. Partner exists and match first try',
-                                                                                             id             : request.id,
-                                                                                             full_name      : request.first_name+" "+request.last_name,
-                                                                                             gender         : request.gender,
-                                                                                             city           : request.city,
-                                                                                             country        : request.country,
-                                                                                             age            : request.age,
-                                                                                             profile_pic    : request.profile_pic, 
-                                                                                             vip            : request.vip
+                                                                                             id             : users[0].id,
+                                                                                             full_name      : users[0].first_name+" "+users[0].last_name,
+                                                                                             gender         : users[0].gender,
+                                                                                             city           : users[0].city,
+                                                                                             country        : users[0].country,
+                                                                                             age            : users[0].age,
+                                                                                             profile_pic    : users[0].profile_pic, 
+                                                                                             vip            : users[0].vip
                                                                                              });                                                                                
                                                                                         }
                                                                                         else {
