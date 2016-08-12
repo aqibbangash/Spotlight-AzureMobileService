@@ -3,7 +3,7 @@ exports.post = function(request, response) {
     //   var tables = request.service.tables;
     //   var push = request.service.push;
 
-    response.send(statusCodes.OK, { message : 'Hello World!' });
+     response.send(statusCodes.OK, { message : request.params.id });
 };
 
 exports.get = function(request, response) {
