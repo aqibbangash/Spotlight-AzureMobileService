@@ -197,13 +197,14 @@ exports.post = function(request, response) {
                                                                                         }
                                                                                         else {
                                                                                             response.send(statusCodes.OK, { boolean : false, message : '1. No user matched your preference.'});
+                                                                                            traverse(usersList.pop());
                                                                                         }
-                                                                                        traverse(usersList.pop());
                                                                                     }
                                                                                 });
                                                                             }
                                                                             else {
                                                                                 response.send(statusCodes.OK, { boolean : false, message : '2. No user matched your preference.'});
+                                                                                traverse(usersList.pop());
                                                                             }
                                                                         }
                                                                     });
@@ -214,6 +215,7 @@ exports.post = function(request, response) {
                                                     else {
                                                         // No user found with your preference
                                                         response.send(statusCodes.OK, { boolean : false, message : '3. No user matched your preference.'});
+                                                        traverse(usersList.pop());
                                                     }
                                                 }// Traverse end 
                                                 
