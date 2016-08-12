@@ -98,15 +98,12 @@ exports.post = function(request, response) {
                                     // Get online user
                                     userTable.where(function(ou){return this.id in ou;},onlineUsers).read({
                                         success : function(users){
-                                            console.log("Users",users);
                                             var usersList=users;
                                             if(users.length > 0){
                                                 traverse(usersList.pop()); // Initiale call
                                                 function traverse(user){
                                                     countIDK++;
-                                                    console.log("ahan : ",user);
                                                     if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
-                                                        console.log("yae match ho gaya");
                                                         // User found with your preference
                                                         // Find Request
                                                         requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
@@ -218,12 +215,6 @@ exports.post = function(request, response) {
                                                         traverse(usersList.pop());
                                                     }
                                                 }// Traverse end 
-                                                
-                                                
-                                                // found online users
-//                                                users.forEach(function(user){
-//
-//                                                });
                                             }
                                             else {
                                                 // User not found
@@ -286,9 +277,10 @@ exports.post = function(request, response) {
                                         // Get online user
                                         userTable.where(function(ou){return this.id in ou;},onlineUsers).read({
                                             success : function(users){
+                                                var usersList=users;
                                                 if(users.length > 0){
-                                                    // found online users
-                                                    users.forEach(function(user){
+                                                    traverse(usersList.pop()); // Initiale call
+                                                    function traverse(user){
                                                         countIDK++;
                                                         if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
                                                             // User found with your preference
@@ -320,7 +312,7 @@ exports.post = function(request, response) {
                                                                                                                response.send(statusCodes.OK, {
                                                                                                                boolean        : true,
                                                                                                                requestId      : requestId,
-                                                                                                               type           : '4. Partner exists and match first try',
+                                                                                                               type           : '2. Partner exists and match first try',
                                                                                                                id             : users[0].id,
                                                                                                                full_name      : users[0].first_name+" "+users[0].last_name,
                                                                                                                gender         : users[0].gender,
@@ -336,6 +328,7 @@ exports.post = function(request, response) {
                                                                                                               request.completed = false;
                                                                                                               request.other_user = '';
                                                                                                               requestTable.update(request,{});
+                                                                                                              traverse(usersList.pop());
                                                                                                           }
                                                                                                       }
                                                                                                   });
@@ -367,7 +360,7 @@ exports.post = function(request, response) {
                                                                                                  response.send(statusCodes.OK, {
                                                                                                  boolean        : true,
                                                                                                  requestId      : requestId,
-                                                                                                 type           : '5. Partner exists and match first try',
+                                                                                                 type           : '3. Partner exists and match first try',
                                                                                                  id             : users[0].id,
                                                                                                  full_name      : users[0].first_name+" "+users[0].last_name,
                                                                                                  gender         : users[0].gender,
@@ -379,36 +372,28 @@ exports.post = function(request, response) {
                                                                                                  });
                                                                                             }
                                                                                             else {
-                                                                                                response.send(statusCodes.OK, { boolean : false, message : '6. No user matched your preference.'});
+                                                                                                response.send(statusCodes.OK, { boolean : false, message : '1. No user matched your preference.'});
+                                                                                                traverse(usersList.pop());
                                                                                             }
                                                                                         }
                                                                                     });
                                                                                 }
                                                                                 else {
-                                                                                    response.send(statusCodes.OK, { boolean : false, message : '7. No user matched your preference.'});
+                                                                                    response.send(statusCodes.OK, { boolean : false, message : '2. No user matched your preference.'});
+                                                                                    traverse(usersList.pop());
                                                                                 }
                                                                             }
                                                                         });
                                                                     }
                                                                 }
-                                                            });                                                    }
+                                                            });                                                    
+                                                        }
                                                         else {
                                                             // No user found with your preference
-                                                            response.send(statusCodes.OK, { boolean : false, message : '8. No user matched your preference.'});
+                                                            response.send(statusCodes.OK, { boolean : false, message : '3. No user matched your preference.'});
+                                                            traverse(usersList.pop());
                                                         }
-                                                        /////////////////
-    
-    //                                                                                                        // Find user with your preference
-    //                                                    if(prefs.indexOf(user.gender) !== -1 && user.pref.indexOf(userGender) !== -1){
-    //
-    //                                                    }
-    //                                                    else {
-    //                                                    }
-    
-                                                        ////////////////
-    
-    
-                                                    });
+                                                    }// Traverse end 
                                                 }
                                                 else {
                                                     // User not found
