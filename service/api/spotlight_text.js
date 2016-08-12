@@ -90,15 +90,12 @@ exports.post = function(request, response) {
                     // Get Online users
                     requestTable.where(function(u,abc){return this.user_id != u  && this.type == 'text' && this.completed == false && (abc.indexOf(u) == -1);},user_id,abc).read({
                         success : function(requests){
-                            //response.send(statusCodes.OK, { haha : requests});
-                             if(requests.length > 0){
+                            if(requests.length > 0){
                                  requests.forEach(function(request){
                                      onlineUsers.push(request.user_id); 
                                  });     
                                 if(onlineUsers.length > 0){
-                                    //var x = function(ou){console.log("test user : ",ou.indexOf('6990') != -1);return ou.indexOf('6990') != -1;}
                                     // Get online user
-                                    //function(ou,obj){return ou.indexOf(obj.id) != -1;},onlineUsers,this
                                     userTable.where(function(ou){return this.id in ou;},onlineUsers).read({
                                         success : function(users){
                                             if(users.length > 0){
@@ -108,7 +105,7 @@ exports.post = function(request, response) {
                                                     if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
                                                         // User found with your preference
                                                         // Find Request 
-                                                        console.log("yes yes yes");
+                                                        response.send(statusCodes.OK, { boolean : user});
                                                         requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
                                                             success : function(requests){
                                                                 if(requests.length > 0){
