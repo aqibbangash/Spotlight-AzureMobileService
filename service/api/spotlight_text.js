@@ -108,6 +108,7 @@ exports.post = function(request, response) {
                                                     if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
                                                         // User found with your preference
                                                         // Find Request 
+                                                        console.log("yes yes yes");
                                                         requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
                                                             success : function(requests){
                                                                 if(requests.length > 0){
