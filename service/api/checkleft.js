@@ -19,10 +19,7 @@ exports.post = function(request, response) {
         
         friendsTable.where(
             
-            function(id, timeMilis){
-                
-                return (this.id == id && parseFloat(this.timecreated) == dd); 
-            }, userId, dd
+            {id: userId}
             
         ).read({
 
