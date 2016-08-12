@@ -152,6 +152,7 @@ exports.post = function(request, response) {
                                                                                                           request.completed = false;
                                                                                                           request.other_user = '';
                                                                                                           requestTable.update(request,{});
+                                                                                                          traverse(usersList.pop());
                                                                                                       }
                                                                                                   }
                                                                                               });
@@ -161,7 +162,6 @@ exports.post = function(request, response) {
                                                                                         else {
                                                                                             // error
                                                                                         }
-                                                                                        traverse(usersList.pop());
                                                                                     }
                                                                                 });
                                                                             }
