@@ -113,8 +113,8 @@ exports.post = function(request, response) {
                                                     
                                                     if(  prefs.indexOf(user.gender) != -1 && user.prefs.indexOf(userGender) != -1){
                                                         
-                                                        console.log("xxx","xxxx");
-                                                        response.send({"success":true});
+                                                        console.log("xxxx");
+                                                        response.send(statusCodes.OK, { success : user});
                                                     }
                                                     else
                                                     {
