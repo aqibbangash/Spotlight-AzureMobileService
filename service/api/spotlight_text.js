@@ -8,20 +8,20 @@ exports.post = function(request, response) {
     var numAlready     = 0;
     var connectedWith  = "";
     var countIDK       = 0;
-    var check          = false;     
-    
+    var check          = false;
+
     var requestId      = "";
     var abc            = [];
-    var onlineUsers    = [];    
+    var onlineUsers    = [];
     // Tables
     var userTable    = request.service.tables.getTable('Users');
     var requestTable = request.service.tables.getTable('Request');
     var blockTable   = request.service.tables.getTable('Block');
-    
+
     // Get all request type text and user_id equals user_id
         requestTable.where({type : 'text', user_id : user_id}).read({
         success : function(requests){
-         //response.send(statusCodes.OK, { message : requests[0] });  // Test log 
+         //response.send(statusCodes.OK, { message : requests[0] });  // Test log
             if(requests.length > 0){
                 requests.forEach(function(request){
                     numAlready++;
@@ -32,11 +32,11 @@ exports.post = function(request, response) {
                 });
             }
             else {
-             response.send(statusCodes.OK, { message : 'No request are present for this user.' });   
+             response.send(statusCodes.OK, { message : 'No request are present for this user.' });
             }
-            
+
             if(numAlready > 0){
-                //response.send(statusCodes.OK, { message : numAlready });  // Test log 
+                //response.send(statusCodes.OK, { message : numAlready });  // Test log
                 // Requests by user exists
                 if(connectedWith != ""){
                     // Request complete partner exists
@@ -45,7 +45,7 @@ exports.post = function(request, response) {
                         success : function(users){
                             if(users.lenght > 0){
                                 // Other user found
-                             response.send(statusCodes.OK, { 
+                             response.send(statusCodes.OK, {
                              boolean        : true,
                              requestId      : requestId,
                              type           : '1. Partner exists and match first try',
@@ -55,27 +55,27 @@ exports.post = function(request, response) {
                              city           : users[0].city,
                              country        : users[0].country,
                              age            : users[0].age,
-                             profile_pic    : users[0].profile_pic, 
+                             profile_pic    : users[0].profile_pic,
                              vip            : users[0].vip
-                             });   
+                             });
                             }
                             else {
                                 // Other user not found
-                                response.send(statusCodes.OK, { message : 'Sorry we could not find your partner id.' });  
+                                response.send(statusCodes.OK, { message : 'Sorry we could not find your partner id.' });
                             }
                         }
                     });
                 }
                 else {
                     // No partner for request
-                    // Get block list 
+                    // Get block list
                     blockTable.where(function(u) {return this.both.indexOf(u) !== -1;},user_id).read({
                         success : function(blocks){
-                            //response.send(statusCodes.OK, { message : blocks });  // Test log 
+                            //response.send(statusCodes.OK, { message : blocks });  // Test log
                             if(blocks.lenght > 0){
                                 blocks.forEach(function(block){
                                     if(block.blocker == user_id){
-                                        abc.push(block.blocky);    
+                                        abc.push(block.blocky);
                                     }
                                     else {
                                         abc.push(block.blocker);
@@ -92,8 +92,8 @@ exports.post = function(request, response) {
                         success : function(requests){
                             if(requests.length > 0){
                                  requests.forEach(function(request){
-                                     onlineUsers.push(request.user_id); 
-                                 });     
+                                     onlineUsers.push(request.user_id);
+                                 });
                                 if(onlineUsers.length > 0){
                                     // Get online user
                                     userTable.where(function(ou){return this.id in ou;},onlineUsers).read({
@@ -104,7 +104,7 @@ exports.post = function(request, response) {
                                                     countIDK++;
                                                     if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
                                                         // User found with your preference
-                                                        // Find Request 
+                                                        // Find Request
                                                         //response.send(statusCodes.OK, { boolean : user});
                                                         requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
                                                             success : function(requests){
@@ -120,34 +120,41 @@ exports.post = function(request, response) {
                                                                                 requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
                                                                                     success : function(requests){
                                                                                         if(requests.length > 0){
-                                                                                            requests[0].completed = true;
-                                                                                            requests[0].other_user = user_id;
-                                                                                            requestTable.update(requests[0],{
-                                                                                                success : function(request){
-                                                                                                    if(request){
-                                                                                                         check = true;
-                                                                                                         response.send(statusCodes.OK, { 
-                                                                                                         boolean        : true,
-                                                                                                         requestId      : requestId,
-                                                                                                         type           : '2. Partner exists and match first try',
-                                                                                                         id             : users[0].id,
-                                                                                                         full_name      : users[0].first_name+" "+users[0].last_name,
-                                                                                                         gender         : users[0].gender,
-                                                                                                         city           : users[0].city,
-                                                                                                         country        : users[0].country,
-                                                                                                         age            : users[0].age,
-                                                                                                         profile_pic    : users[0].profile_pic, 
-                                                                                                         vip            : users[0].vip
-                                                                                                         });
-                                                                                                         //break;                                                                                            
-                                                                                                    }
-                                                                                                    else {
-                                                                                                        request.completed = false;
-                                                                                                        request.other_user = '';
-                                                                                                        requestTable.update(request,{});   
-                                                                                                    }
-                                                                                                }
-                                                                                            });
+                                                                                          userTable.where({id : user_id}).read({
+                                                                                            success : function(users,requests){
+                                                                                              console.log("request : ",requests);
+                                                                                              console.log("user : ",users);
+
+                                                                                              requests[0].completed = true;
+                                                                                              requests[0].other_user = user_id;
+                                                                                              requestTable.update(requests[0],{
+                                                                                                  success : function(request){
+                                                                                                      if(request){
+                                                                                                           check = true;
+                                                                                                           response.send(statusCodes.OK, {
+                                                                                                           boolean        : true,
+                                                                                                           requestId      : requestId,
+                                                                                                           type           : '2. Partner exists and match first try',
+                                                                                                           id             : users[0].id,
+                                                                                                           full_name      : users[0].first_name+" "+users[0].last_name,
+                                                                                                           gender         : users[0].gender,
+                                                                                                           city           : users[0].city,
+                                                                                                           country        : users[0].country,
+                                                                                                           age            : users[0].age,
+                                                                                                           profile_pic    : users[0].profile_pic,
+                                                                                                           vip            : users[0].vip
+                                                                                                           });
+                                                                                                           //break;
+                                                                                                      }
+                                                                                                      else {
+                                                                                                          request.completed = false;
+                                                                                                          request.other_user = '';
+                                                                                                          requestTable.update(request,{});
+                                                                                                      }
+                                                                                                  }
+                                                                                              });
+                                                                                            }
+                                                                                          });
                                                                                         }
                                                                                         else {
                                                                                             // error
@@ -159,11 +166,11 @@ exports.post = function(request, response) {
                                                                                 // error
                                                                             }
                                                                         }
-                                                                    }); 
+                                                                    });
                                                                 }
                                                                 else {
                                                                     console.log("else");
-                                                                    // No requests found on critera 
+                                                                    // No requests found on critera
                                                                     requestTable.where(function(u){return this.user_id == u && this.other_user != null && this.other_user != '' && this.type == 'text' && this.completed == true},user_id).read({
                                                                         success : function(requests){
                                                                             if(requests.length > 0){
@@ -171,7 +178,7 @@ exports.post = function(request, response) {
                                                                                 userTable.where({id : request.other_user}).read({
                                                                                     success : function(users){
                                                                                         if(users > 0){
-                                                                                             response.send(statusCodes.OK, { 
+                                                                                             response.send(statusCodes.OK, {
                                                                                              boolean        : true,
                                                                                              requestId      : requestId,
                                                                                              type           : '2. Partner exists and match first try',
@@ -181,9 +188,9 @@ exports.post = function(request, response) {
                                                                                              city           : users[0].city,
                                                                                              country        : users[0].country,
                                                                                              age            : users[0].age,
-                                                                                             profile_pic    : users[0].profile_pic, 
+                                                                                             profile_pic    : users[0].profile_pic,
                                                                                              vip            : users[0].vip
-                                                                                             });                                                                                
+                                                                                             });
                                                                                         }
                                                                                         else {
                                                                                             response.send(statusCodes.OK, { boolean : false, message : '2. No user matched your preference.'});
@@ -204,17 +211,17 @@ exports.post = function(request, response) {
                                                         response.send(statusCodes.OK, { boolean : false, message : '3. No user matched your preference.'});
                                                     }
                                                     /////////////////
-                                                    
-//                                                                                                        // Find user with your preference 
+
+//                                                                                                        // Find user with your preference
 //                                                    if(prefs.indexOf(user.gender) !== -1 && user.pref.indexOf(userGender) !== -1){
 //
 //                                                    }
 //                                                    else {
 //                                                    }
-                                                    
+
                                                     ////////////////
-                                                    
-                                                    
+
+
                                                 });
                                             }
                                             else {
@@ -225,7 +232,7 @@ exports.post = function(request, response) {
                                 }
                                 else {
                                         response.send(statusCodes.OK, { boolean : false, message : '4. No online user available'});
-                                }                             
+                                }
                              }
                              else {
                                  // No requests
@@ -238,7 +245,7 @@ exports.post = function(request, response) {
             else {
                 // No request by user exist
                 var milliSeconds = new Date().getTime();
-                // Insert new request 
+                // Insert new request
                 request.insert({
                     id : milliSeconds,
                     user_id : user_id,
@@ -246,14 +253,14 @@ exports.post = function(request, response) {
                     type : 'text'
                 },{
                     success : function(){
-                        // Get block list 
+                        // Get block list
                         blockTable.where(function(u) {return this.both.indexOf(u) !== -1;},user_id).read({
                             success : function(blocks){
-                                //response.send(statusCodes.OK, { message : blocks });  // Test log 
+                                //response.send(statusCodes.OK, { message : blocks });  // Test log
                                 if(blocks.lenght > 0){
                                     blocks.forEach(function(block){
                                         if(block.blocker == user_id){
-                                            abc.push(block.blocky);    
+                                            abc.push(block.blocky);
                                         }
                                         else {
                                             abc.push(block.blocker);
@@ -271,7 +278,7 @@ exports.post = function(request, response) {
                                 //response.send(statusCodes.OK, { haha : requests,test1: abc,test: (abc.indexOf(user_id) == -1)});
                                  if(requests.length > 0){
                                      requests.forEach(function(request){
-                                         onlineUsers.push(request.user_id); 
+                                         onlineUsers.push(request.user_id);
                                      });
                                  }
                                  else {
@@ -280,8 +287,8 @@ exports.post = function(request, response) {
                                  }
                             }
                         });
-                        
-                        // Get online user information 
+
+                        // Get online user information
                         if(onlineUsers.length > 0){
                             // Get online user
                             userTable.where(function(u,ou){return ou.indexOf(u) !== -1;},user_id,onlineUsers).read({
@@ -290,10 +297,10 @@ exports.post = function(request, response) {
                                         // found online users
                                         users.forEach(function(user){
                                             countIDK++;
-                                            // Find user with your preference 
+                                            // Find user with your preference
                                             if(prefs.indexOf(user.gender) !== -1 && user.pref.indexOf(userGender) !== -1){
                                                 // User found with your preference
-                                                // Find Request 
+                                                // Find Request
                                                 requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
                                                     success : function(requests){
                                                         if(requests.length > 0){
@@ -313,7 +320,7 @@ exports.post = function(request, response) {
                                                                                         success : function(request){
                                                                                             if(request){
                                                                                                  check = true;
-                                                                                                 response.send(statusCodes.OK, { 
+                                                                                                 response.send(statusCodes.OK, {
                                                                                                  boolean        : true,
                                                                                                  requestId      : requestId,
                                                                                                  type           : '2. Partner exists and match first try',
@@ -323,15 +330,15 @@ exports.post = function(request, response) {
                                                                                                  city           : request.city,
                                                                                                  country        : request.country,
                                                                                                  age            : request.age,
-                                                                                                 profile_pic    : request.profile_pic, 
+                                                                                                 profile_pic    : request.profile_pic,
                                                                                                  vip            : request.vip
                                                                                                  });
-                                                                                                 //break;                                                                                            
+                                                                                                 //break;
                                                                                             }
                                                                                             else {
                                                                                                 request.completed = false;
                                                                                                 request.other_user = '';
-                                                                                                requestTable.update(request,{});   
+                                                                                                requestTable.update(request,{});
                                                                                             }
                                                                                         }
                                                                                     });
@@ -346,10 +353,10 @@ exports.post = function(request, response) {
                                                                         // error
                                                                     }
                                                                 }
-                                                            }); 
+                                                            });
                                                         }
                                                         else {
-                                                            // No requests found on critera 
+                                                            // No requests found on critera
                                                             requestTable.where(function(u){return this.user_id == u && this.other_user != null && this.other_user != '' && this.type == 'text' && this.completed == true},user_id).read({
                                                                 success : function(requests){
                                                                     if(requests.length > 0){
@@ -357,7 +364,7 @@ exports.post = function(request, response) {
                                                                         userTable.where({id : request.other_user}).read({
                                                                             success : function(users){
                                                                                 if(users > 0){
-                                                                                     response.send(statusCodes.OK, { 
+                                                                                     response.send(statusCodes.OK, {
                                                                                      boolean        : true,
                                                                                      requestId      : requestId,
                                                                                      type           : '2. Partner exists and match first try',
@@ -367,9 +374,9 @@ exports.post = function(request, response) {
                                                                                      city           : request.city,
                                                                                      country        : request.country,
                                                                                      age            : request.age,
-                                                                                     profile_pic    : request.profile_pic, 
+                                                                                     profile_pic    : request.profile_pic,
                                                                                      vip            : request.vip
-                                                                                     });                                                                                
+                                                                                     });
                                                                                 }
                                                                                 else {
                                                                                     response.send(statusCodes.OK, { boolean : false, message : '6. No user matched your preference.'});
@@ -402,18 +409,16 @@ exports.post = function(request, response) {
                                         // User not found
                                     }
                                 }
-                            });                            
-                        }   
+                            });
+                        }
                         else {
                             response.send(statusCodes.OK, { boolean : false, message : '11. No online user available'});
-                        }                     
+                        }
                     }
                 });
             }
-        }    
+        }
     });
-    
-    
-};
 
-    
+
+};
