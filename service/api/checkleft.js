@@ -14,7 +14,7 @@ exports.post = function(request, response) {
     else
     {
         
-        console.log("date:", (new Date()).getTime());
+         var dd = (new Date()).getTime();
         
         friendsTable.where({user_id:userId }).read({
 
@@ -22,7 +22,8 @@ exports.post = function(request, response) {
         
         if (r.length>0)
         {
-           response.send(statusCodes.OK, { message : "User has left", left: true }); 
+            
+           response.send(statusCodes.OK, { message : "User has left", left: true, time: r.__createdAt, myTime: dd }); 
         }
         else
         {
