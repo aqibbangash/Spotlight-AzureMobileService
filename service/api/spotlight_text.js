@@ -105,27 +105,26 @@ exports.post = function(request, response) {
                                                     if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
                                                         // User found with your preference
                                                         // Find Request
-                                                        //response.send(statusCodes.OK, { boolean : user});
-                                                        requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
+                                                        requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
                                                             success : function(requests){
                                                                 if(requests.length > 0){
                                                                     console.log("if");
                                                                     // Update request
                                                                     requests[0].completed = true;
-                                                                    requests[0].other_user = user.id;
+                                                                    requests[0].other_user = user_id;
                                                                     requestTable.update(requests[0],{
                                                                         success : function(request){
                                                                             if(request){
                                                                                 var tempUser;
                                                                                 // Find request of other user
-                                                                                requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
+                                                                                requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
                                                                                     success : function(requests){
                                                                                         if(requests.length > 0){
                                                                                             tempUser=requests;
                                                                                           userTable.where({id : user_id}).read({
                                                                                             success : function(users){
                                                                                               tempUser[0].completed = true;
-                                                                                              tempUser[0].other_user = user_id;
+                                                                                              tempUser[0].other_user = user.id;
                                                                                               requestTable.update(tempUser[0],{
                                                                                                   success : function(request){
                                                                                                       if(request){
