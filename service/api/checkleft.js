@@ -8,16 +8,17 @@ exports.post = function(request, response) {
     
     if (entry)
     {
-        friendsTable.insert({user_id:userId});   
+        friendsTable.insert({user_id:userId});  
+        response.send(statusCodes.OK, { message : "Entry has been made" }); 
     }
     else
     {
-        
+        response.send(statusCodes.OK, { message : "Entry has been received" }); 
     }
     
-     response.send(statusCodes.OK, { message : userId });
+     //response.send(statusCodes.OK, { message : userId });
      
-     friendsTable.where({ })
+     //friendsTable.where({ })
 };
 
 exports.get = function(request, response) {
