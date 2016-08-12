@@ -101,11 +101,11 @@ exports.post = function(request, response) {
                                     //function(ou,obj){return ou.indexOf(obj.id) != -1;},onlineUsers,this
                                     userTable.where(function(ou){return this.id in ou;},onlineUsers).read({
                                         success : function(users){
-                                            response.send(statusCodes.OK, { success : users});
-                                            //console.log("success 124 : ",users);
+                                            //response.send(statusCodes.OK, { success : users});
                                             if(users.length > 0){
                                                 // found online users
                                                 users.forEach(function(user){
+                                                    response.send(statusCodes.OK, { success : user});
                                                     countIDK++;
                                                     // Find user with your preference 
                                                     if(prefs.indexOf(user.gender) !== -1 && user.pref.indexOf(userGender) !== -1){
