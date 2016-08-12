@@ -23,7 +23,7 @@ exports.post = function(request, response) {
         if (r.length>0)
         {
             
-           response.send(statusCodes.OK, { message : "User has left", left: true, time: r.createdAt, myTime: dd }); 
+           response.send(statusCodes.OK, { message : "User has left", left: true, time: r[0].__createdAt, myTime: dd }); 
         }
         else
         {
