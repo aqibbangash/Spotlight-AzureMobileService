@@ -96,12 +96,9 @@ exports.post = function(request, response) {
                                      onlineUsers.push(request.user_id); 
                                  });     
                                 if(onlineUsers.length > 0){
-                                    //var x = function(ou){console.log("test user : ",ou.indexOf('6990') != -1);return ou.indexOf('6990') != -1;}
                                     // Get online user
-                                    //function(ou,obj){return ou.indexOf(obj.id) != -1;},onlineUsers,this
                                     userTable.where(function(ou){return this.id in ou;},onlineUsers).read({
                                         success : function(users){
-                                            //response.send(statusCodes.OK, { success : users});
                                             if(users.length > 0){
                                                 // found online users
                                                 users.forEach(function(user){
@@ -110,105 +107,111 @@ exports.post = function(request, response) {
                                                     console.log("user.gender : "+user.gender+" user.prefs : "+user.prefs);
                                                     console.log("gender : "+user.gender+" prefs : "+prefs);                                                    
                                                     if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
-                                                        // User found with your preference
-                                                        // Find Request 
-                                                        response.send(statusCodes.OK, { success : user});
-                                                        requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
-                                                            success : function(requests){
-                                                                if(requests.length > 0){
-                                                                    // Update request
-                                                                    requests[0].completed = true;
-                                                                    requests[0].other_user = user.id;
-                                                                    requestTable.update(requests[0],{
-                                                                        success : function(request){
-                                                                            if(request){
-                                                                                // Find request of other user
-                                                                                requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
-                                                                                    success : function(requests){
-                                                                                        if(requests.length > 0){
-                                                                                            requests[0].completed = true;
-                                                                                            requests[0].other_user = user_id;
-                                                                                            requestTable.update(requests[0],{
-                                                                                                success : function(request){
-                                                                                                    if(request){
-                                                                                                         check = true;
-                                                                                                         response.send(statusCodes.OK, { 
-                                                                                                         boolean        : true,
-                                                                                                         requestId      : requestId,
-                                                                                                         type           : '2. Partner exists and match first try',
-                                                                                                         id             : request.id,
-                                                                                                         full_name      : request.first_name+" "+request.last_name,
-                                                                                                         gender         : request.gender,
-                                                                                                         city           : request.city,
-                                                                                                         country        : request.country,
-                                                                                                         age            : request.age,
-                                                                                                         profile_pic    : request.profile_pic, 
-                                                                                                         vip            : request.vip
-                                                                                                         });
-                                                                                                         //break;                                                                                            
-                                                                                                    }
-                                                                                                    else {
-                                                                                                        request.completed = false;
-                                                                                                        request.other_user = '';
-                                                                                                        requestTable.update(request,{});   
-                                                                                                    }
-                                                                                                }
-                                                                                            });
-                                                                                        }
-                                                                                        else {
-                                                                                            // error
-                                                                                        }
-                                                                                    }
-                                                                                });
-                                                                            }
-                                                                            else{
-                                                                                // error
-                                                                            }
-                                                                        }
-                                                                    }); 
-                                                                }
-                                                                else {
-                                                                    // No requests found on critera 
-                                                                    requestTable.where(function(u){return this.user_id == u && this.other_user != null && this.other_user != '' && this.type == 'text' && this.completed == true},user_id).read({
-                                                                        success : function(requests){
-                                                                            if(requests.length > 0){
-                                                                                // Find User
-                                                                                userTable.where({id : request.other_user}).read({
-                                                                                    success : function(users){
-                                                                                        if(users > 0){
-                                                                                             response.send(statusCodes.OK, { 
-                                                                                             boolean        : true,
-                                                                                             requestId      : requestId,
-                                                                                             type           : '2. Partner exists and match first try',
-                                                                                             id             : request.id,
-                                                                                             full_name      : request.first_name+" "+request.last_name,
-                                                                                             gender         : request.gender,
-                                                                                             city           : request.city,
-                                                                                             country        : request.country,
-                                                                                             age            : request.age,
-                                                                                             profile_pic    : request.profile_pic, 
-                                                                                             vip            : request.vip
-                                                                                             });                                                                                
-                                                                                        }
-                                                                                        else {
-                                                                                            response.send(statusCodes.OK, { boolean : false, message : '2. No user matched your preference.'});
-                                                                                        }
-                                                                                    }
-                                                                                });
-                                                                            }
-                                                                            else {
-                                                                                response.send(statusCodes.OK, { boolean : false, message : '3. No user matched your preference.'});
-                                                                            }
-                                                                        }
-                                                                    });
-                                                                }
-                                                            }
-                                                        });
+                                                       response.send(statusCodes.Ok,{success : user});
                                                     }
                                                     else {
-                                                        // No user found with your preference
-                                                        response.send(statusCodes.OK, { boolean : false, message : '3. No user matched your preference.'});
+                                                        response.send(statusCodes.Ok,{fail : "Farig"});
                                                     }
+//                                                    if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
+//                                                        // User found with your preference
+//                                                        // Find Request 
+//                                                        response.send(statusCodes.OK, { success : user});
+//                                                        requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
+//                                                            success : function(requests){
+//                                                                if(requests.length > 0){
+//                                                                    // Update request
+//                                                                    requests[0].completed = true;
+//                                                                    requests[0].other_user = user.id;
+//                                                                    requestTable.update(requests[0],{
+//                                                                        success : function(request){
+//                                                                            if(request){
+//                                                                                // Find request of other user
+//                                                                                requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
+//                                                                                    success : function(requests){
+//                                                                                        if(requests.length > 0){
+//                                                                                            requests[0].completed = true;
+//                                                                                            requests[0].other_user = user_id;
+//                                                                                            requestTable.update(requests[0],{
+//                                                                                                success : function(request){
+//                                                                                                    if(request){
+//                                                                                                         check = true;
+//                                                                                                         response.send(statusCodes.OK, { 
+//                                                                                                         boolean        : true,
+//                                                                                                         requestId      : requestId,
+//                                                                                                         type           : '2. Partner exists and match first try',
+//                                                                                                         id             : request.id,
+//                                                                                                         full_name      : request.first_name+" "+request.last_name,
+//                                                                                                         gender         : request.gender,
+//                                                                                                         city           : request.city,
+//                                                                                                         country        : request.country,
+//                                                                                                         age            : request.age,
+//                                                                                                         profile_pic    : request.profile_pic, 
+//                                                                                                         vip            : request.vip
+//                                                                                                         });
+//                                                                                                         //break;                                                                                            
+//                                                                                                    }
+//                                                                                                    else {
+//                                                                                                        request.completed = false;
+//                                                                                                        request.other_user = '';
+//                                                                                                        requestTable.update(request,{});   
+//                                                                                                    }
+//                                                                                                }
+//                                                                                            });
+//                                                                                        }
+//                                                                                        else {
+//                                                                                            // error
+//                                                                                        }
+//                                                                                    }
+//                                                                                });
+//                                                                            }
+//                                                                            else{
+//                                                                                // error
+//                                                                            }
+//                                                                        }
+//                                                                    }); 
+//                                                                }
+//                                                                else {
+//                                                                    // No requests found on critera 
+//                                                                    requestTable.where(function(u){return this.user_id == u && this.other_user != null && this.other_user != '' && this.type == 'text' && this.completed == true},user_id).read({
+//                                                                        success : function(requests){
+//                                                                            if(requests.length > 0){
+//                                                                                // Find User
+//                                                                                userTable.where({id : request.other_user}).read({
+//                                                                                    success : function(users){
+//                                                                                        if(users > 0){
+//                                                                                             response.send(statusCodes.OK, { 
+//                                                                                             boolean        : true,
+//                                                                                             requestId      : requestId,
+//                                                                                             type           : '2. Partner exists and match first try',
+//                                                                                             id             : request.id,
+//                                                                                             full_name      : request.first_name+" "+request.last_name,
+//                                                                                             gender         : request.gender,
+//                                                                                             city           : request.city,
+//                                                                                             country        : request.country,
+//                                                                                             age            : request.age,
+//                                                                                             profile_pic    : request.profile_pic, 
+//                                                                                             vip            : request.vip
+//                                                                                             });                                                                                
+//                                                                                        }
+//                                                                                        else {
+//                                                                                            response.send(statusCodes.OK, { boolean : false, message : '2. No user matched your preference.'});
+//                                                                                        }
+//                                                                                    }
+//                                                                                });
+//                                                                            }
+//                                                                            else {
+//                                                                                response.send(statusCodes.OK, { boolean : false, message : '3. No user matched your preference.'});
+//                                                                            }
+//                                                                        }
+//                                                                    });
+//                                                                }
+//                                                            }
+//                                                        });
+//                                                    }
+//                                                    else {
+//                                                        // No user found with your preference
+//                                                        response.send(statusCodes.OK, { boolean : false, message : '3. No user matched your preference.'});
+//                                                    }
                                                 });
                                             }
                                             else {
