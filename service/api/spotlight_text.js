@@ -203,7 +203,8 @@ exports.post = function(request, response) {
                                                                     });
                                                                 }
                                                             }
-                                                        });                                                    }
+                                                        });                                                    
+                                                    }
                                                     else {
                                                         // No user found with your preference
                                                         response.send(statusCodes.OK, { boolean : false, message : '3. No user matched your preference.'});
