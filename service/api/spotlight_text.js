@@ -120,12 +120,7 @@ exports.post = function(request, response) {
                                                                                 requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
                                                                                     success : function(requests){
                                                                                         if(requests.length > 0){
-                                                                                            response.send(statusCodes.OK, { request : request[0]});
-                                                                                             userTable.where({id : user_id}).read({
-                                                                                                    success : function(users){
-                                                                                                        if(users > 0){
-                                                                                                            
-                                                                                                                      response.send(statusCodes.OK, { request : request[0],user : users[0] });                                                                                 requests[0].completed = true;
+                                                                                            requests[0].completed = true;
                                                                                             requests[0].other_user = user_id;
                                                                                             requestTable.update(requests[0],{
                                                                                                 success : function(request){
@@ -153,9 +148,6 @@ exports.post = function(request, response) {
                                                                                                     }
                                                                                                 }
                                                                                             });
-                                                                                                        }
-                                                                                                    }
-                                                                                                });
                                                                                         }
                                                                                         else {
                                                                                             // error
