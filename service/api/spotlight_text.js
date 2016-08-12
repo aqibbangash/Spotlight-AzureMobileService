@@ -244,7 +244,7 @@ exports.post = function(request, response) {
                 // No request by user exist
                 var milliSeconds = new Date().getTime();
                 // Insert new request
-                request.insert({
+                requestTable.insert({
                     id : milliSeconds,
                     user_id : user_id,
                     completed : false,
