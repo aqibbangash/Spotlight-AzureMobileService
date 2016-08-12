@@ -109,6 +109,7 @@ exports.post = function(request, response) {
                                                         requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
                                                             success : function(requests){
                                                                 if(requests.length > 0){
+                                                                    console.log("if");
                                                                     // Update request
                                                                     requests[0].completed = true;
                                                                     requests[0].other_user = user.id;
@@ -161,6 +162,7 @@ exports.post = function(request, response) {
                                                                     }); 
                                                                 }
                                                                 else {
+                                                                    console.log("else");
                                                                     // No requests found on critera 
                                                                     requestTable.where(function(u){return this.user_id == u && this.other_user != null && this.other_user != '' && this.type == 'text' && this.completed == true},user_id).read({
                                                                         success : function(requests){
