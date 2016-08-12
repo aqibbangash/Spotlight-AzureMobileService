@@ -120,6 +120,16 @@ exports.post = function(request, response) {
                                                                                 requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
                                                                                     success : function(requests){
                                                                                         if(requests.length > 0){
+                                                                                            var temp = userTable.where({id : user_id}).read({
+                                                                                                    success : function(users){
+                                                                                                        if(users > 0){
+                                                                                                            return users[0]
+                                                                                                        }
+                                                                                                       return '';
+                                                                                                    }
+                                                                                                });
+                                                                                                response.send(status.Ok,{test : temp});
+                                                                                            
                                                                                             requests[0].completed = true;
                                                                                             requests[0].other_user = user_id;
                                                                                             requestTable.update(requests[0],{
