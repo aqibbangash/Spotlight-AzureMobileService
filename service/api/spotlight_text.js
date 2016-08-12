@@ -242,10 +242,10 @@ exports.post = function(request, response) {
             }
             else {
                 // No request by user exist
-                var milliSeconds = new Date().getTime();
+                //var milliSeconds = new Date().getTime();
                 // Insert new request
                 requestTable.insert({
-                    id : milliSeconds,
+                   // id : milliSeconds,
                     user_id : user_id,
                     completed : false,
                     type : 'text'
