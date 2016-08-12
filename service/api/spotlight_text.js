@@ -101,8 +101,6 @@ exports.post = function(request, response) {
                                     //function(ou,obj){return ou.indexOf(obj.id) != -1;},onlineUsers,this
                                     userTable.where(function(ou){return this.id in ou;},onlineUsers).read({
                                         success : function(users){
-                                            response.send(statusCodes.OK, { success : users});
-                                            //console.log("success 124 : ",users);
                                             if(users.length > 0){
                                                 // found online users
                                                 users.forEach(function(user){
