@@ -110,7 +110,7 @@ exports.post = function(request, response) {
                                                        response.send(statusCodes.Ok,{success : user});
                                                     }
                                                     else {
-                                                        response.send(statusCodes.Ok,{fail : false});
+                                                        //response.send(statusCodes.Ok,{fail : false});
                                                     }
 //                                                    if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
 //                                                        // User found with your preference
