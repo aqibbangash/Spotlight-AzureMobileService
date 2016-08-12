@@ -109,7 +109,7 @@ exports.post = function(request, response) {
                                                     // Find user with your preference 
                                                     console.log("user.gender : "+user.gender+" user.prefs : "+user.prefs);
                                                     console.log("gender : "+userGender+" prefs : "+prefs);
-                                                    console.log("con1 : "+prefs.indexOf(user.gender)+" con2 : "+user.prefs.indexOf(userGender));                                                    
+                                                    console.log("con1 : "+prefs.indexOf(user.gender)!= -1+" con2 : "+user.prefs.indexOf(userGender)!=-1);                                                    
                                                     if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
                                                         // User found with your preference
                                                         // Find Request 
