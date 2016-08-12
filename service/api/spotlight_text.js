@@ -116,12 +116,14 @@ exports.post = function(request, response) {
                                                                     requestTable.update(requests[0],{
                                                                         success : function(request){
                                                                             if(request){
+                                                                                var ttt;
                                                                                 // Find request of other user
                                                                                 requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
                                                                                     success : function(requests){
                                                                                         if(requests.length > 0){
+                                                                                            ttt=requests;
                                                                                           userTable.where({id : user_id}).read({
-                                                                                            success : function(users,requests){
+                                                                                            success : function(users){
                                                                                               console.log("request : ",requests);
                                                                                               console.log("user : ",users);
 
