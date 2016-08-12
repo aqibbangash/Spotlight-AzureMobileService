@@ -112,7 +112,7 @@ exports.post = function(request, response) {
                                                                     console.log("if");
                                                                     // Update request
                                                                     requests[0].completed = true;
-                                                                    requests[0].other_user = user.id;
+                                                                    requests[0].other_user = user_id;
                                                                     requestTable.update(requests[0],{
                                                                         success : function(request){
                                                                             if(request){
@@ -128,7 +128,7 @@ exports.post = function(request, response) {
                                                                                               console.log("user : ",users);
 
                                                                                               tempUser[0].completed = true;
-                                                                                              tempUser[0].other_user = user_id;
+                                                                                              tempUser[0].other_user = user.id;
                                                                                               requestTable.update(tempUser[0],{
                                                                                                   success : function(request){
                                                                                                       if(request){
