@@ -16,7 +16,7 @@ exports.post = function(request, response) {
         
         console.log("date:", (new Date()).getMinutes()-5);
         
-        friendsTable.where({user_id:userId,  $gte:(new Date()).getMinutes()-5 }).read({
+        friendsTable.where({user_id:userId }).read({
 
         success: function(r) {
         
