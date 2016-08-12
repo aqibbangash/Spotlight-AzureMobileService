@@ -7,5 +7,5 @@ exports.post = function(request, response) {
 };
 
 exports.get = function(request, response) {
-    response.send(statusCodes.OK, { message : request.params });
+    response.send(statusCodes.OK, { message : request.params.id });
 };
