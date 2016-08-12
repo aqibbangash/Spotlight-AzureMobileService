@@ -156,7 +156,6 @@ exports.post = function(request, response) {
                                                                                                         }
                                                                                                     }
                                                                                                 });
-                                                                                                response.send(status.Ok,{test : xyz});
                                                                                         }
                                                                                         else {
                                                                                             // error
