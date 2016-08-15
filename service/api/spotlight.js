@@ -30,9 +30,6 @@ exports.post = function(request, response) {
                     if(request.completed){
                         connectedWith = request.other_user;
                     }
-                    ///////
-                
-                    //////
                 });
             }
             else {
@@ -305,7 +302,7 @@ exports.post = function(request, response) {
                                                                                 if(request){
                                                                                     var tempUser;
                                                                                     // Find request of other user
-                                                                                    requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
+                                                                                    requestTable.where({user_id : user_id, type : user_type, completed : false, other_user : null}).read({
                                                                                         success : function(requests){
                                                                                             if(requests.length > 0){
                                                                                                 tempUser=requests;
