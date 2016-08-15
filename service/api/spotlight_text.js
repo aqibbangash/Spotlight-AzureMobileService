@@ -29,12 +29,7 @@ exports.post = function(request, response) {
                     if(request.completed){
                         connectedWith = request.other_user;
                     }
-                });
-            }
-            else {
-             //response.send(statusCodes.OK, { message : 'No request are present for this user.' });
-            }
-
+                    ///////
             if(numAlready > 0){
                 //response.send(statusCodes.OK, { message : numAlready });  // Test log
                 // Requests by user exists
@@ -417,7 +412,16 @@ exports.post = function(request, response) {
 
                     }
                 });
+            }                    
+                    //////
+                });
             }
+            else {
+             //response.send(statusCodes.OK, { message : 'No request are present for this user.' });
+            }
+///////
+
+//////
         }
     });
 
