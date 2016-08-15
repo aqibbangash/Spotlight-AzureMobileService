@@ -30,9 +30,18 @@ exports.post = function(request, response) {
                         connectedWith = request.other_user;
                     }
                     ///////
+                
+                    //////
+                });
+            }
+            else {
+             //response.send(statusCodes.OK, { message : 'No request are present for this user.' });
+            }
+///////
             if(numAlready > 0){
                 //response.send(statusCodes.OK, { message : numAlready });  // Test log
                 // Requests by user exists
+                console.log("Connected with : ",connectedWith);
                 if(connectedWith != ""){
                     // Request complete partner exists
                     // Find other user
@@ -412,15 +421,7 @@ exports.post = function(request, response) {
 
                     }
                 });
-            }                    
-                    //////
-                });
-            }
-            else {
-             //response.send(statusCodes.OK, { message : 'No request are present for this user.' });
-            }
-///////
-
+            }    
 //////
         }
     });
