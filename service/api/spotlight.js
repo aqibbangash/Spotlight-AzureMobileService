@@ -3,7 +3,6 @@ exports.post = function(request, response) {
     var user_id     = request.body.user_id;
     var userGender  = request.body.gender;
     var prefs       = request.body.prefs;
-    var tt       = request.body.type;
     // local variable
     var blockUsers     =   "";
     var numAlready     = 0;
@@ -20,7 +19,7 @@ exports.post = function(request, response) {
     var blockTable   = request.service.tables.getTable('Block');
 
     // Get all request type text and user_id equals user_id
-        requestTable.where({type : tt, user_id : user_id}).read({
+        requestTable.where({type : 'text', user_id : user_id}).read({
         success : function(requests){
          //response.send(statusCodes.OK, { message : requests[0] });  // Test log
             if(requests.length > 0){
@@ -93,7 +92,7 @@ exports.post = function(request, response) {
                         }
                     });
                     // Get Online users
-                    requestTable.where(function(u,abc){return this.user_id != u  && this.type == tt && this.completed == false && (abc.indexOf(u) == -1);},user_id,abc).read({
+                    requestTable.where(function(u,abc){return this.user_id != u  && this.type == 'text' && this.completed == false && (abc.indexOf(u) == -1);},user_id,abc).read({
                         success : function(requests){
                             if(requests.length > 0){
                                  requests.forEach(function(request){
@@ -112,7 +111,7 @@ exports.post = function(request, response) {
                                                     if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
                                                         // User found with your preference
                                                         // Find Request
-                                                        requestTable.where({user_id : user.id, type : tt, completed : false, other_user : null}).read({
+                                                        requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
                                                             success : function(requests){
                                                                 if(requests.length > 0){
                                                                     //console.log("if");
@@ -125,7 +124,7 @@ exports.post = function(request, response) {
                                                                             if(request){
                                                                                 var tempUser;
                                                                                 // Find request of other user
-                                                                                requestTable.where({user_id : user_id, type : tt, completed : false, other_user : null}).read({
+                                                                                requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
                                                                                     success : function(requests){
                                                                                         if(requests.length > 0){
                                                                                             tempUser=requests;
@@ -179,7 +178,7 @@ exports.post = function(request, response) {
                                                                 else {
                                                                     //console.log("else");
                                                                     // No requests found on critera
-                                                                    requestTable.where(function(u){return this.user_id == u && this.other_user != null && this.other_user != '' && this.type == tt && this.completed == true},user_id).read({
+                                                                    requestTable.where(function(u){return this.user_id == u && this.other_user != null && this.other_user != '' && this.type == 'text' && this.completed == true},user_id).read({
                                                                         success : function(requests){
                                                                             if(requests.length > 0){
                                                                                 // Find User
@@ -250,7 +249,7 @@ exports.post = function(request, response) {
                    // id : milliSeconds,
                     user_id : user_id,
                     completed : false,
-                    type : tt
+                    type : 'text'
                 },{
                     success : function(){
                         // Get block list
@@ -273,7 +272,7 @@ exports.post = function(request, response) {
                             }
                         });
                         // Get Online users
-                        requestTable.where(function(u,abc){return this.user_id != u  && this.type == tt && this.completed == false && (abc.indexOf(u) == -1);},user_id,abc).read({
+                        requestTable.where(function(u,abc){return this.user_id != u  && this.type == 'text' && this.completed == false && (abc.indexOf(u) == -1);},user_id,abc).read({
                             success : function(requests){
                                 //response.send(statusCodes.OK, { haha : requests,test1: abc,test: (abc.indexOf(user_id) == -1)});
                                  if(requests.length > 0){
@@ -293,7 +292,7 @@ exports.post = function(request, response) {
                                                         if(prefs.indexOf(user.gender) !== -1 && user.prefs.indexOf(userGender) !== -1){
                                                             // User found with your preference
                                                             // Find Request
-                                                            requestTable.where({user_id : user.id, type : tt, completed : false, other_user : null}).read({
+                                                            requestTable.where({user_id : user.id, type : 'text', completed : false, other_user : null}).read({
                                                                 success : function(requests){
                                                                     if(requests.length > 0){
                                                                         //console.log("if");
@@ -305,7 +304,7 @@ exports.post = function(request, response) {
                                                                                 if(request){
                                                                                     var tempUser;
                                                                                     // Find request of other user
-                                                                                    requestTable.where({user_id : user_id, type : tt, completed : false, other_user : null}).read({
+                                                                                    requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
                                                                                         success : function(requests){
                                                                                             if(requests.length > 0){
                                                                                                 tempUser=requests;
@@ -358,7 +357,7 @@ exports.post = function(request, response) {
                                                                     else {
                                                                         //console.log("else");
                                                                         // No requests found on critera
-                                                                        requestTable.where(function(u){return this.user_id == u && this.other_user != null && this.other_user != '' && this.type == tt && this.completed == true},user_id).read({
+                                                                        requestTable.where(function(u){return this.user_id == u && this.other_user != null && this.other_user != '' && this.type == 'text' && this.completed == true},user_id).read({
                                                                             success : function(requests){
                                                                                 if(requests.length > 0){
                                                                                     // Find User
@@ -429,6 +428,7 @@ exports.post = function(request, response) {
 
 
 };
+
 
 
 
