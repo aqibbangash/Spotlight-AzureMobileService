@@ -41,13 +41,16 @@ exports.post = function(request, response) {
             if(numAlready > 0){
                 //response.send(statusCodes.OK, { message : numAlready });  // Test log
                 // Requests by user exists
+                console.log("Connected with : ",connectedWith);
                 if(connectedWith != ""){
                     // Request complete partner exists
                     // Find other user
                     userTable.where({id : connectedWith}).read({
                         success : function(users){
+                            console.log("Mill gaya user  :",users);
                             if(users.length > 0){
-                            // Other user found
+                                // Other user found
+                                
                              response.send(statusCodes.OK, {
                              boolean        : true,
                              requestId      : requestId,
