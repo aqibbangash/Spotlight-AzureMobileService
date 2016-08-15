@@ -18,7 +18,6 @@ exports.post = function(request, response) {
     var userTable    = request.service.tables.getTable('Users');
     var requestTable = request.service.tables.getTable('Request');
     var blockTable   = request.service.tables.getTable('Block');
-    console.log("type : ",type);
     // Get all request type text and user_id equals user_id
         requestTable.where({type : 'text', user_id : user_id}).read({
         success : function(requests){
@@ -92,8 +91,9 @@ exports.post = function(request, response) {
                            // }
                         }
                     });
+                    console.log("type : ",type);
                     // Get Online users
-                    requestTable.where(function(u,abc){return this.user_id != u  && this.type == 'text' && this.completed == false && (abc.indexOf(u) == -1);},user_id,abc).read({
+                    requestTable.where(function(u,abc){return this.user_id != u  && this.type == type && this.completed == false && (abc.indexOf(u) == -1);},user_id,abc).read({
                         success : function(requests){
                             if(requests.length > 0){
                                  requests.forEach(function(request){
@@ -280,7 +280,6 @@ exports.post = function(request, response) {
                                      requests.forEach(function(request){
                                          onlineUsers.push(request.user_id);
                                      });
-                                     console.log("yo yo online : ",onlineUsers);
                                     if(onlineUsers.length > 0){
                                         // Get online user
                                         userTable.where(function(ou){return this.id in ou;},onlineUsers).read({
