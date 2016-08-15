@@ -47,9 +47,10 @@ exports.post = function(request, response) {
                     // Find other user
                     userTable.where({id : connectedWith}).read({
                         success : function(users){
+                            console.log("Mill gaya user  :",users);
                             if(users.lenght > 0){
                                 // Other user found
-                                console.log("Mill gaya user  :",users);
+                                
                              response.send(statusCodes.OK, {
                              boolean        : true,
                              requestId      : requestId,
