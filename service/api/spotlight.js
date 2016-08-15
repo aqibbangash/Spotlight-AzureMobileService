@@ -286,6 +286,7 @@ exports.post = function(request, response) {
                                             success : function(users){
                                                 var usersList=users;
                                                 if(users.length > 0){
+                                                    console.log("Users : ",users);
                                                     traverse(usersList.pop()); // Initiale call
                                                     function traverse(user){
                                                         countIDK++;
