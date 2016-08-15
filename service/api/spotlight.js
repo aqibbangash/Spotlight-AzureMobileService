@@ -305,7 +305,7 @@ exports.post = function(request, response) {
                                                                                 if(request){
                                                                                     var tempUser;
                                                                                     // Find request of other user
-                                                                                    requestTable.where({user_id : user_id, type : type, completed : false, other_user : null}).read({
+                                                                                    requestTable.where({user_id : user_id, type : 'text', completed : false, other_user : null}).read({
                                                                                         success : function(requests){
                                                                                             if(requests.length > 0){
                                                                                                 tempUser=requests;
@@ -358,7 +358,7 @@ exports.post = function(request, response) {
                                                                     else {
                                                                         //console.log("else");
                                                                         // No requests found on critera
-                                                                        requestTable.where(function(u){return this.user_id == u && this.other_user != null && this.other_user != '' && this.type == type && this.completed == true},user_id).read({
+                                                                        requestTable.where(function(u){return this.user_id == u && this.other_user != null && this.other_user != '' && this.type == 'text' && this.completed == true},user_id).read({
                                                                             success : function(requests){
                                                                                 if(requests.length > 0){
                                                                                     // Find User
