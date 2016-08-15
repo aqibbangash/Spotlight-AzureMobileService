@@ -280,7 +280,7 @@ exports.post = function(request, response) {
                                      requests.forEach(function(request){
                                          onlineUsers.push(request.user_id);
                                      });
-                                     console.log("yo yo online : ",onlineUsers);
+                                     //console.log("yo yo online : ",onlineUsers);
                                     if(onlineUsers.length > 0){
                                         // Get online user
                                         userTable.where(function(ou){return this.id in ou;},onlineUsers).read({
