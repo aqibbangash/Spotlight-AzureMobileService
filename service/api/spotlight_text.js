@@ -49,6 +49,7 @@ exports.post = function(request, response) {
                         success : function(users){
                             if(users.lenght > 0){
                                 // Other user found
+                                console.log("Mill gaya user  :",users);
                              response.send(statusCodes.OK, {
                              boolean        : true,
                              requestId      : requestId,
