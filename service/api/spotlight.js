@@ -3,6 +3,7 @@ exports.post = function(request, response) {
     var user_id     = request.body.user_id;
     var userGender  = request.body.gender;
     var prefs       = request.body.prefs;
+    var type        = request.body.type;
     // local variable
     var blockUsers     =   "";
     var numAlready     = 0;
