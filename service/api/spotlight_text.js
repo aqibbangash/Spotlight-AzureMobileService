@@ -304,7 +304,7 @@ exports.post = function(request, response) {
                                                                                         success : function(requests){
                                                                                             if(requests.length > 0){
                                                                                                 tempUser=requests;
-                                                                                              userTable.where({id : user_id}).read({
+                                                                                              userTable.where({id : user.id}).read({
                                                                                                 success : function(users){
                                                                                                   tempUser[0].completed = true;
                                                                                                   tempUser[0].other_user = user.id;
