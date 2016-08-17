@@ -31,6 +31,17 @@ exports.post = function(request, response) {
                 leftRoomTable.insert({user_id : user_id},{
                     success : function(user){
                         // 2nd phase
+                       var currentSecond = (new Date()).getSeconds();
+                       leftRoomTable.where(function(d_id,u_id){return this.user_id ==  u_id && this.dialog_id == d_id && ((new Date(this.__createdAt.getSeconds())).getSeconds() - currentSecond) > 5}).read({
+                           success : function(users){
+                               if(users.length > 0){
+                                   // online
+                               }
+                               else {
+                                   // offline
+                               }
+                           }
+                       });                        
                     }
                 });
             }        
