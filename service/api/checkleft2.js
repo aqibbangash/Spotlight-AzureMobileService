@@ -5,6 +5,26 @@ exports.post = function(request, response) {
 
     var leftTable = request.service.tables.getTable('leftRoom');
     
+    var thisFn = function(){
+        leftTable.where().read({
+         
+                 seccess: function(gotIt){
+                     
+                     if (gotIt.length>0)
+                     {
+                         response.send({"boolean": true});
+                     }else
+                     {
+                          response.send({"boolean": false});
+                     }
+                     
+                 }   
+            
+        }
+     )
+        
+    }
+    
     leftTable.where({user_id:user_id, dialog_id:dialog_id }).read(
         {
             success: function(entries)
@@ -17,7 +37,7 @@ exports.post = function(request, response) {
                         
                         success: function(inserted){
                             console.log("Entry updated: ", inserted.timecreated);
-                            response.send({"Entry updated: ": inserted.timecreated});
+                            //response.send({"Entry updated: ": inserted.timecreated});
                         }
                     })
                 }
@@ -27,7 +47,7 @@ exports.post = function(request, response) {
                         
                         success: function(inserted){
                             console.log("Entry placed: ", inserted.timecreated);
-                            response.send({"Entry created: ": inserted.timecreated});
+                            //response.send({"Entry created: ": inserted.timecreated});
                         }
                     })
                 }
