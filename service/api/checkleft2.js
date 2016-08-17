@@ -12,7 +12,7 @@ exports.post = function(request, response) {
         
        
 
-        leftTable.where(function(u_id){ return true}, user_id).read({
+        leftTable.where(function(c_time, u_id, d_id){ return true}, currentTime, user_id, dialog_id).read({
          
          success: function(en)
          {
