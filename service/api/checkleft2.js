@@ -5,8 +5,13 @@ exports.post = function(request, response) {
 
     var leftTable = request.service.tables.getTable('leftRoom');
     
+    var currentTime = (new Date()).getTime();
+    
+    
     var thisFn = function(){
-        leftTable.where().read({
+        
+        
+        leftTable.where( function(curr, created, u_id, d_id){ return (1==1) }, currentTime, this.timecreated, user_id, dialog_id ).read({
          
                  seccess: function(gotIt){
                      
@@ -29,7 +34,7 @@ exports.post = function(request, response) {
         {
             success: function(entries)
             {
-                var currentTime = (new Date()).getTime();
+                
                 if (entries.length> 0)
                 {
                     entries[0].timecreated = currentTime;
