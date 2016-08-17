@@ -12,7 +12,7 @@ exports.post = function(request, response) {
         
        
 
-        leftTable.where({user_id:user_id}).read({
+        leftTable.where(function(u_id){ return true}, user_id).read({
          
          success: function(en)
          {
