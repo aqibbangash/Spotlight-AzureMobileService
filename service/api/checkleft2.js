@@ -1,11 +1,31 @@
 exports.post = function(request, response) {
-    // Use "request.service" to access features of your mobile service, e.g.:
-    //   var tables = request.service.tables;
-    //   var push = request.service.push;
+   
+    var user_id = request.body.user_id;
+﻿    var dialog_id = request.body.dialog_id;
 
-    response.send(statusCodes.OK, { message : 'Hello World!' });
-};
-
-exports.get = function(request, response) {
-    response.send(statusCodes.OK, { message : 'Hello World!' });
-};
+    var leftTable = request.service.tables.getTable('leftRoom');
+    
+    leftTable.where({user_id:user_id, dialog_id:dialog_id }).read(
+        {
+            success: function(entries)
+            {
+                var currentTime = (new Date()).getTime();
+                if (entries.length> 0)
+                {
+                    
+                }
+                else
+                {
+                    leftTable.insert({user_id:user_id, dialog_id:dialog_id, timecreated: currentTime}, {
+                        
+                        success: function(inserted){
+                            console.log("Entry placed: ", inserted);
+                        }
+                    })
+                }
+            }
+        }
+    )
+    
+    
+  };
