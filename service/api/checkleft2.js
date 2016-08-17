@@ -18,7 +18,7 @@ exports.post = function(request, response) {
          {
              if (en.length>0)
              {
-              if (currentTime-parseFloat(en[0].timecreated)<10000)
+              if (currentTime-parseFloat(en[0].timecreated)<5000)
               response.send({"boolean": true, "found":en.length}); 
               else
               response.send({"boolean": false, "found":en.length });  
