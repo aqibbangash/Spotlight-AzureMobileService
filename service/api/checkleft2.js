@@ -18,11 +18,11 @@ exports.post = function(request, response) {
          {
              if (en.length>0)
              {
-              response.send({"boolean": true});   
+              response.send({"boolean": true, en:en});   
              }
              else
              {
-               response.send({"boolean": false});
+               response.send({"boolean": false, en:en});
              }
 
          }   
