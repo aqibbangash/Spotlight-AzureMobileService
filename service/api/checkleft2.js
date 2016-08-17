@@ -12,7 +12,7 @@ exports.post = function(request, response) {
         
        
 
-        leftTable.where(function(c_time, u_id, d_id){ return (this.user_id != u_id, this.dialog_id == d_id )}, currentTime, user_id, dialog_id).read({
+        leftTable.where(function(c_time, u_id, d_id){ return (this.user_id != u_id && this.dialog_id == d_id )}, currentTime, user_id, dialog_id).read({
          
          success: function(en)
          {
