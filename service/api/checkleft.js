@@ -12,7 +12,7 @@ exports.post = function(request, response) {
                 leftRoomTable.update(users[0],{
                    success : function(user){
                        // 2nd phase
-                       console.log("yep 2");
+                       console.log("yep 2 ", user);
                        var currentSecond = (new Date()).getSeconds();
                        leftRoomTable.where(function(d_id,u_id){return this.user_id ==  u_id && this.dialog_id == d_id && ((new Date(this.__updatedAt.getSeconds())).getSeconds() - currentSecond) > 5},dialog_id,user_id).read({
                            success : function(users){
