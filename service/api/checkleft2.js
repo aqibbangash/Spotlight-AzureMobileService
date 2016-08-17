@@ -20,6 +20,7 @@ exports.post = function(request, response) {
                         
                         success: function(inserted){
                             console.log("Entry placed: ", inserted);
+                            response.send({enntry: inserted});
                         }
                     })
                 }
