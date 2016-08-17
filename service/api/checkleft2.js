@@ -12,17 +12,20 @@ exports.post = function(request, response) {
         
        
 
-        leftTable.where(function(c_time, created_at, u_id, d_id){ return (this.user_id != u_id && this.dialog_id == d_id && (c_time-created_at)>5000 )}, currentTime, parseFloat(this.timecreated), user_id, dialog_id).read({
+        leftTable.where(function(c_time, created_at, u_id, d_id){ return (this.user_id != u_id)}, currentTime, parseFloat(this.timecreated), user_id, dialog_id).read({
          
          success: function(en)
          {
              if (en.length>0)
              {
-              response.send({"boolean": true, en:en, diff:currentTime-parseFloat(en[0].timecreated)});   
+              if (currentTime-parseFloat(en[0].timecreated)>5000)
+              response.send({"boolean": true, en:en, diff:currentTime-parseFloat(en[0].timecreated)}); 
+              else
+              response.send({"boolean": false });  
              }
              else
              {
-               response.send({"boolean": false, en:en, diff:currentTime-parseFloat(en[0].timecreated)});
+               response.send({"boolean": false});
              }
 
          }   
