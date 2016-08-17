@@ -5,18 +5,18 @@ exports.post = function(request, response) {
     
     var leftRoomTable    = request.service.tables.getTable('leftRoom');  
     leftRoomTable.where({dialog_id : dialog_id,user_id : user_id}).read({
-        success : function(users){
-            if(users.length > 0){
+        success : function(rows){
+            if(rows.length > 0){
                 // Update
-                users[0].timecreated = (new Date()).getTime();
-                leftRoomTable.update(users[0],{
-                   success : function(user){
+                rows[0].timecreated = (new Date()).getTime();
+                leftRoomTable.update(rows[0],{
+                   success : function(row){
                        // 2nd phase
                        var currentSecond = (new Date()).getTime();
                        leftRoomTable.where(function(d_id,u_id,cs,tt){return this.user_id !=  u_id && this.dialog_id == d_id && (tt - cs) > 5000},dialog_id,user_id,parseFloat(currentSecond),parseFloat(this.timecreated)).read({
-                           success : function(users){
-                               console.log("users : ",users);
-                               if(users.length > 0){
+                           success : function(rows){
+                               console.log("rows : ",rows);
+                               if(rows.length > 0){
                                    // online
                                    response.send(statusCodes.OK, { boolean : true });
                                }
@@ -33,7 +33,7 @@ exports.post = function(request, response) {
                 // Create
                 var currentSecond = (new Date()).getTime();
                 leftRoomTable.insert({dialog_id : dialog_id,user_id : user_id, timecreated : currentSecond},{
-                    success : function(user){
+                    success : function(row){
                         // 2nd phase
                         leftRoomTable.where(function(d_id,u_id,cs,tc)
                         {
@@ -41,8 +41,8 @@ exports.post = function(request, response) {
                         }
                         ,dialog_id,user_id,parseFloat(currentSecond),parseFloat(this.timecreated)
                         ).read({
-                           success : function(users){
-                               if(users.length > 0){
+                           success : function(rows){
+                               if(rows.length > 0){
                                    // online
                                    response.send(statusCodes.OK, { boolean : true });
                                }
