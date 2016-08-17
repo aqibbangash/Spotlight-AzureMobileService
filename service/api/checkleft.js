@@ -4,7 +4,7 @@ exports.post = function(request, response) {
 ﻿    var dialog_id = request.body.dialog_id;
     
     var leftRoomTable    = request.service.tables.getTable('leftRoom');  
-    
+    console.log("yep");
     leftRoomTable.where({id : dialog_id,user_id : user_id}).read({
         success : function(users){
             if(users.length > 0){
