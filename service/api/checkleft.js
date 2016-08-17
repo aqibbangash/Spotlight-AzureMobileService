@@ -13,7 +13,7 @@ exports.post = function(request, response) {
                    success : function(user){
                        // 2nd phase
                        var currentSecond = (new Date()).getTime();
-                       leftRoomTable.where(function(d_id,u_id,cs){return this.user_id ==  u_id && this.dialog_id == d_id && (this.timecreated - cs) > 5000},dialog_id,user_id,currentSecond).read({
+                       leftRoomTable.where(function(d_id,u_id,cs){return this.user_id ==  u_id && this.dialog_id == d_id && (parseInt(this.timecreated) - cs) > 5000},dialog_id,user_id,parseInt(currentSecond)).read({
                            success : function(users){
                                if(users.length > 0){
                                    // online
