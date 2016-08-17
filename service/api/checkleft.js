@@ -35,9 +35,9 @@ exports.post = function(request, response) {
                 leftRoomTable.insert({dialog_id : dialog_id,user_id : user_id, timecreated : currentSecond},{
                     success : function(user){
                         // 2nd phase
-                        leftRoomTable.where(function(d_id,u_id,cs,tt)
+                        leftRoomTable.where(function(d_id,u_id,cs,tc)
                         {
-                            return this.user_id ==  u_id && this.dialog_id == d_id && (tt - cs) > 5000
+                            return this.user_id ==  u_id && this.dialog_id == d_id && (tc - cs) > 5000
                         }
                         ,dialog_id,user_id,parseFloat(currentSecond),parseFloat(this.timecreated)
                         ).read({
