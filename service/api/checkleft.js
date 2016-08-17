@@ -17,9 +17,11 @@ exports.post = function(request, response) {
                            success : function(users){
                                if(users.length > 0){
                                    // online
+                                   response.send(statusCodes.OK, { boolean : true });
                                }
                                else {
                                    // offline
+                                   response.send(statusCodes.OK, { boolean : false });
                                }
                            }
                        });
@@ -36,9 +38,11 @@ exports.post = function(request, response) {
                            success : function(users){
                                if(users.length > 0){
                                    // online
+                                   response.send(statusCodes.OK, { boolean : true });
                                }
                                else {
                                    // offline
+                                   response.send(statusCodes.OK, { boolean : false });
                                }
                            }
                        });                        
@@ -47,15 +51,4 @@ exports.post = function(request, response) {
             }        
         }
     });
-    
-    // search dialog for user_id update time if present 
-     
-     
-     
-    // response.send(statusCodes.OK, { message : userId });
-   
-};
-
-exports.get = function(request, response) {
-    response.send(statusCodes.OK, { message : request.params.id });
-};
+  };
