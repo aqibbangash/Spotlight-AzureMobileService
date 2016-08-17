@@ -16,7 +16,15 @@ exports.post = function(request, response) {
          
          success: function(en)
          {
-              response.send({"boolean": false});
+             if (en.length>0)
+             {
+              response.send({"boolean": true});   
+             }
+             else
+             {
+               response.send({"boolean": false});
+             }
+
          }   
             
         })
