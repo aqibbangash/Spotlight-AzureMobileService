@@ -38,6 +38,7 @@ exports.post = function(request, response) {
                         success: function(inserted){
                             console.log("Entry updated: ", inserted.timecreated);
                             //response.send({"Entry updated: ": inserted.timecreated});
+                            thisFn();
                         }
                     })
                 }
@@ -48,6 +49,7 @@ exports.post = function(request, response) {
                         success: function(inserted){
                             console.log("Entry placed: ", inserted.timecreated);
                             //response.send({"Entry created: ": inserted.timecreated});
+                            thisFn();
                         }
                     })
                 }
