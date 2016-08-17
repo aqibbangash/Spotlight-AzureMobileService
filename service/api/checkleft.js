@@ -13,7 +13,7 @@ exports.post = function(request, response) {
                    success : function(user){
                        // 2nd phase
                        var currentSecond = (new Date()).getSeconds();
-                       leftRoomTable.where(function(d_id,u_id){return this.user_id ==  u_id && this.dialog_id == d_id && ((new Date(this.__updatedAt.getSeconds())).getSeconds() - currentSecond) > 5}).read({
+                       leftRoomTable.where(function(d_id,u_id){return this.user_id ==  u_id && this.dialog_id == d_id && ((new Date(this.__updatedAt.getSeconds())).getSeconds() - currentSecond) > 5},dialog_id,user_id).read({
                            success : function(users){
                                if(users.length > 0){
                                    // online
@@ -34,7 +34,7 @@ exports.post = function(request, response) {
                     success : function(user){
                         // 2nd phase
                        var currentSecond = (new Date()).getSeconds();
-                       leftRoomTable.where(function(d_id,u_id){return this.user_id ==  u_id && this.dialog_id == d_id && ((new Date(this.__createdAt.getSeconds())).getSeconds() - currentSecond) > 5}).read({
+                       leftRoomTable.where(function(d_id,u_id){return this.user_id ==  u_id && this.dialog_id == d_id && ((new Date(this.__createdAt.getSeconds())).getSeconds() - currentSecond) > 5},dialog_id,user_id).read({
                            success : function(users){
                                if(users.length > 0){
                                    // online
