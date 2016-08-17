@@ -12,15 +12,22 @@ exports.post = function(request, response) {
                 var currentTime = (new Date()).getTime();
                 if (entries.length> 0)
                 {
-                    
+                    entries[0].timecreated = currentTime;
+                    leftTable.update(entries[0], {
+                        
+                        success: function(inserted){
+                            console.log("Entry updated: ", inserted.timecreated);
+                            //response.send({entry: inserted});
+                        }
+                    })
                 }
                 else
                 {
                     leftTable.insert({user_id:user_id, dialog_id:dialog_id, timecreated: currentTime}, {
                         
                         success: function(inserted){
-                            console.log("Entry placed: ", inserted);
-                            response.send({enntry: inserted});
+                            console.log("Entry placed: ", inserted.timecreated);
+                            //response.send({entry: inserted});
                         }
                     })
                 }
