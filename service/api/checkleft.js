@@ -14,7 +14,7 @@ exports.post = function(request, response) {
                        // 2nd phase
                        var currentSecond = (new Date()).getTime();
                        var stringToInt = function(val){return parseInt(val);}
-                       leftRoomTable.where(function(d_id,u_id,cs,fun){return this.user_id ==  u_id && this.dialog_id == d_id && (fun(this.timecreated) - cs) > 5000},dialog_id,user_id,parseInt(currentSecond),stringToInt).read({
+                       leftRoomTable.where(function(d_id,u_id,cs,tt){return this.user_id ==  u_id && this.dialog_id == d_id && (tt - cs) > 5000},dialog_id,user_id,parseInt(currentSecond),parseInt(this.timecreated)).read({
                            success : function(users){
                                if(users.length > 0){
                                    // online
