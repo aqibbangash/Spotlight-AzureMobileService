@@ -16,7 +16,7 @@ exports.post = function(request, response) {
                        console.log("yep 2 ", user);
                        var currentSecond = (new Date()).getTime();
                        console.log("time ",currentSecond );
-                       leftRoomTable.where(function(d_id,u_id){return this.user_id ==  u_id && this.dialog_id == d_id && (this.timecreated- currentSecond) > 5},dialog_id,user_id).read({
+                       leftRoomTable.where(function(d_id,u_id,cs){return this.user_id ==  u_id && this.dialog_id == d_id && (this.timecreated- cs) > 5},dialog_id,user_id,currentSecond).read({
                            success : function(users){
                                console.log("yep 3");
                                if(users.length > 0){
