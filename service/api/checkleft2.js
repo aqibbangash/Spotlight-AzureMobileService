@@ -19,7 +19,7 @@ exports.post = function(request, response) {
              if (en.length>0)
              {
               if (currentTime-parseFloat(en[0].timecreated)<5000)
-              response.send({"boolean": true, en:en[0], diff:currentTime-parseFloat(en[0].timecreated)}); 
+              response.send({"boolean": true}); 
               else
               response.send({"boolean": false });  
              }
