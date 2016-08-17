@@ -11,7 +11,7 @@ exports.post = function(request, response) {
     var thisFn = function(){
         
         
-        leftTable.where( 
+        leftTable.where( {}
             
 //            function(curr, created, u_id, d_id)
 //            { return (1==1)
