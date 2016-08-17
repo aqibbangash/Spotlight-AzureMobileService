@@ -12,10 +12,10 @@ exports.post = function(request, response) {
         
         
         leftTable.where( 
-            function(curr, created, u_id, d_id)
-            { return (1==1)
-             }
-             , currentTime, this.timecreated, user_id, dialog_id 
+            
+//            function(curr, created, u_id, d_id)
+//            { return (1==1)
+//             } currentTime, this.timecreated, user_id, dialog_id 
              ).read({
          
                  seccess: function(gotIt){
