@@ -18,11 +18,11 @@ exports.post = function(request, response) {
          {
              if (en.length>0)
              {
-              response.send({"boolean": true, en:en, c_time:currentTime});   
+              response.send({"boolean": true, en:en, diff:currentTime-parseFloat(en[0].timecreated)});   
              }
              else
              {
-               response.send({"boolean": false, en:en, c_time:currentTime});
+               response.send({"boolean": false, en:en, diff:currentTime-parseFloat(en[0].timecreated)});
              }
 
          }   
