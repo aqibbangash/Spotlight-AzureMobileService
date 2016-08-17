@@ -10,28 +10,16 @@ exports.post = function(request, response) {
     
     var thisFn = function(){
         
-        response.send({"boolean": false});
-//        leftTable.where( {}
-//            
-////            function(curr, created, u_id, d_id)
-////            { return (1==1)
-////             } currentTime, this.timecreated, user_id, dialog_id 
-//             ).read({
-//         
-//                 seccess: function(gotIt){
-//                     
-//                     if (gotIt.length>0)
-//                     {
-//                         response.send({"boolean": true});
-//                     }else
-//                     {
-//                          response.send({"boolean": false});
-//                     }
-//                     
-//                 }   
-//            
-//        }
-//     )
+       
+
+        leftTable.where({user_id:user_id}).read({
+         
+         success: function(en)
+         {
+              response.send({"boolean": false});
+         }   
+            
+        })
         
     }
     
