@@ -14,6 +14,7 @@ exports.post = function(request, response) {
             //response.send(statusCodes.OK, {message: friends});
             if(friends.length > 0){
                 friends.forEach(function(friend){
+                    console.log("Friends : ",friends);
                     totalNumber++;
                     
                     var id = friend.replace(user_id,"");
