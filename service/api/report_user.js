@@ -14,7 +14,7 @@ exports.post = function(request, response) {
         success: function(results){
             //response.send(statusCodes.OK, { result : results});
             if(results.length == 0){
-                userTable.where({user_id : user_id}).read({
+                userTable.where({}).read({
                     success : function(users){
                         response.send(statusCodes.OK, { result : users,id: user_id});
                     }
