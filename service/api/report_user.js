@@ -14,10 +14,10 @@ exports.post = function(request, response) {
         success: function(results){
             //response.send(statusCodes.OK, { result : results});
             if(results.length == 0){
-                userTable.where({id : userId}).read({
+                userTable.where({user_id : userId}).read({
                     success : function(users){
                         if(users.count > 0){
-                            users[0].points += points;
+                            users[0].points += 1;
                             userTable.update(users[0],{
                                 // Insert new report
                                 success : function(user){
