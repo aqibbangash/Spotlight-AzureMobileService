@@ -9,7 +9,7 @@ exports.post = function(request, response) {
     var usersTable = request.service.tables.getTable('users');
     
     
-    friendsTable.where(function(id){return this.friend.indexOf(id)},user_id).read({
+    friendsTable.where(function(id){return this.friend.indexOf(id) != -1 ;},user_id).read({
         success : function(friends){
             response.send(statusCodes.OK, {message: friends});
             if(friends.length > 0){
