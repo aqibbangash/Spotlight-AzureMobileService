@@ -43,13 +43,13 @@ exports.post = function(request, response) {
                             });
                         }
                         else {
-                            response.send(statusCodes.OK, { result : "No such user exists.", status : 0});
+                            response.send(statusCodes.OK, { result : "1. No such user exists.", status : 0});
                         }
                     }
                 });
             }
             else {
-                response.send(statusCodes.OK, { result : "No report exists.", status : 0});
+                response.send(statusCodes.OK, { result : "2. No report exists.", status : 0});
             }
         }
     });
