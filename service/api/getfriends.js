@@ -29,7 +29,6 @@ exports.post = function(request, response) {
                     
                     usersTable.where({id : id}).read({
                         success : function(users){
-                            console.log("2 : ",users);
                             if(users.length > 0){
                                 users.forEach(function(user){
                                     oneFriend['gender']         = user.gender;
