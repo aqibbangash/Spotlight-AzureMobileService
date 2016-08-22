@@ -4,7 +4,7 @@ exports.post = function(request, response) {
     // Tables
     var requestTable    = request.service.tables.getTable('Request');  
     // Get all record with id equals userId  
-    requestTable.where({id : userId}).read({
+    requestTable.where({user_id : userId}).read({
         // Set _delete column to true
         success: function(results) {
             if (results.length > 0) {
