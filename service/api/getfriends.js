@@ -43,7 +43,7 @@ exports.post = function(request, response) {
                             onlineTable.where({userId : id}).read({
                                 success : function(onlineUsers){
                                     
-                                 console.log("3 : ",onlineUsers);
+                                 console.log("3 : ",id);
                                     if(onlineUsers.length > 0){
                                         onlineUsers.forEach(function(){
                                             onlineCount++;
