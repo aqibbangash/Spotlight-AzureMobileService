@@ -19,7 +19,7 @@ exports.post = function(request, response) {
                     var id = _friend.friend.replace(user_id,"");
                     var oneFriend = [];
                     oneFriend['id'] = id;
-                    
+                    console.log("1 : ",oneFriend);
                     if(_friend.sentby == id){
                         oneFriend['full_name'] = _friend.sendername;
                     }
@@ -37,6 +37,7 @@ exports.post = function(request, response) {
                                 oneFriend['age']            = _friend.age;
                                 oneFriend['vip']            = _friend.vip;
                             }
+                            ﻿﻿Console.log("2 : ",oneFriend);
                             onlineTable.where({userId : id}).read({
                                 success : function(onlineUsers){
                                     if(onlineUsers.length > 0){
