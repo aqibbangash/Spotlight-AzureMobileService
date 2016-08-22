@@ -17,7 +17,7 @@ exports.post = function(request, response) {
                     console.log("Friends : ",friends);
                     totalNumber++;
                     
-                    var id = friend.replace(user_id,"");
+                    var id = "Hello world".replace("Hello","");
                     console.log("Id : ",id);
                    
                 });
