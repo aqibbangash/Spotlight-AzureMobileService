@@ -38,6 +38,7 @@ exports.post = function(request, response) {
                                     oneFriend['age']            = user.age;
                                     oneFriend['vip']            = user.vip;
                                 });
+                                 console.log("2 : ",oneFriend);
                             }
                             onlineTable.where({userId : id}).read({
                                 success : function(onlineUsers){
