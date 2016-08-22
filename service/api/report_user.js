@@ -14,46 +14,41 @@ exports.post = function(request, response) {
         success: function(results){
             //response.send(statusCodes.OK, { result : results});
             if(results.length == 0){
-                userTable.where({}).read({
+                userTable.where({id : user_id}).read({
                     success : function(users){
                         response.send(statusCodes.OK, { result : users,id: user_id});
+                        if(users.length > 0){
+                            
+                            users[0].points += 1;
+                            userTable.update(users[0],{
+                                // Insert new report
+                                success : function(user){
+                                       reportTable.insert({
+                                            reporter : reporter,
+                                            culprit  : user_id
+                                        },{
+                                            // insert new block
+                                            success: function(obj){
+                                                blockTable.insert({
+                                                    blocker     : reporter,
+                                                    blocky      : user_id,
+                                                    both        : reporter+user_id,
+                                                    blocktype   : '1'
+                                                },{
+                                                    success : function(res){
+                                                        response.send(statusCodes.OK, { status : 1 });
+                                                    }
+                                                })
+                                            }
+                                        });  
+                                }
+                            });
+                        }
+                        else {
+                            response.send(statusCodes.OK, { result : "1. No such user exists.", status : 0});
+                        }
                     }
                 });
-//                userTable.where({user_id : user_id}).read({
-//                    success : function(users){
-//                        response.send(statusCodes.OK, { result : users,id: user_id});
-//                        if(users.length > 0){
-//                            
-//                            users[0].points += 1;
-//                            userTable.update(users[0],{
-//                                // Insert new report
-//                                success : function(user){
-//                                       reportTable.insert({
-//                                            reporter : reporter,
-//                                            culprit  : user_id
-//                                        },{
-//                                            // insert new block
-//                                            success: function(obj){
-//                                                blockTable.insert({
-//                                                    blocker     : reporter,
-//                                                    blocky      : user_id,
-//                                                    both        : reporter+user_id,
-//                                                    blocktype   : '1'
-//                                                },{
-//                                                    success : function(res){
-//                                                        response.send(statusCodes.OK, { status : 1 });
-//                                                    }
-//                                                })
-//                                            }
-//                                        });  
-//                                }
-//                            });
-//                        }
-//                        else {
-//                            response.send(statusCodes.OK, { result : "1. No such user exists.", status : 0});
-//                        }
-//                    }
-//                });
             }
             else {
                 response.send(statusCodes.OK, { result : "2. Report already exists.", status : 0});
