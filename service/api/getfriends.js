@@ -11,11 +11,13 @@ exports.post = function(request, response) {
     
     friendsTable.where(function(id){return this.friend.indexOf(id) != -1 ;},user_id).read({
         success : function(friends){
-            response.send(statusCodes.OK, {message: friends});
+            //response.send(statusCodes.OK, {message: friends});
             if(friends.length > 0){
                 friends.forEach(function(friend){
                     totalNumber++;
                     
+                    var id = friend.replace(user_id,"");
+                    console.log("Id : ",id);
                    
                 });
             }
