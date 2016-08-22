@@ -13,11 +13,10 @@ exports.post = function(request, response) {
         success : function(friends){
             //response.send(statusCodes.OK, {message: friends});
             if(friends.length > 0){
-                friends.forEach(function(friend){
-                    console.log("Friends : ",friends);
+                friends.forEach(function(_friend){
                     totalNumber++;
                     
-                    var id = friend.friend.replace(user_id,"");
+                    var id = _friend.friend.replace(user_id,"");
                     console.log("Id : ",id);
                    
                 });
