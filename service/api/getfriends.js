@@ -21,6 +21,7 @@ exports.post = function(request, response) {
             }
             else {
                 // no friends found
+                response.send(statusCodes.OK, {message: "No freinds for this user."});
             }
         }
     });
