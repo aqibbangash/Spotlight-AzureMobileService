@@ -1,67 +1,27 @@
 exports.post = function(request, response) {
     
-    var user_id = request.body.user_id;
+    var user_id     = request.body.user_id;
+    var allFriends  = [];
+    var totalNumber = 0;
+    var onlineCount = 0;
+    
     var friendsTable = request.service.tables.getTable('friends');
     var usersTable = request.service.tables.getTable('users');
     
-    var allFriends = "";//String];
     
-    var friendsFull = [];
-    
-    
-    friendsTable.where( 
-        
-        
-        
-        function(u)
-        {
-
-            
-            return (this.friend.indexOf(u) > -1)
-        
-        }, user_id
-        
-        ).read(
-        {
-            success: function(res)
-            {
-                
-                var i = 0;
-                for (i; i<res.length; i++)
-                {
-                   // allFriends.push(user_id)
+    friendsTable.where(function(id){return this.friend.indexOf(id)},user_id).read({
+        success : function(friends){
+            response.send(statusCodes.OK, {message: friends});
+            if(friends.length > 0){
+                friends.forEach(function(friend){
+                    totalNumber++;
+                    
                    
-                   allFriends += user_id+"||"
-                }
-                
-                //response.send(statusCodes.OK, { messages: "Success", results: allFriends});
-                
-                usersTable.where(
-                    function(allFriends)
-                        {
-                            
-                            console.log(this.id);
-                            
-                            //return (  allFriends.indexOf(this.id) > -1 ) ;
-                            return 1==1;
-                        }, allFriends).read(
-                    {
-                    success: function(r)
-                    {
-                        response.send(statusCodes.OK, {message: "Success", result: r, "allFr": allFriends});
-                    }
-                    
-                    
-                    }   
-                );
+                });
+            }
+            else {
+                // no friends found
             }
         }
-        
-    );
-    
-    
-    
-    
-    
-    
+    });
 };
