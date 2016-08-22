@@ -19,7 +19,6 @@ exports.post = function(request, response) {
                     var id = _friend.friend.replace(user_id,"");
                     var oneFriend = [];
                     oneFriend['id'] = id;
-                    console.log("1 : ",oneFriend);
                     if(_friend.sentby == id){
                         oneFriend['full_name'] = _friend.sendername;
                     }
@@ -38,17 +37,13 @@ exports.post = function(request, response) {
                                     oneFriend['age']            = user.age;
                                     oneFriend['vip']            = user.vip;
                                 });
-                                 console.log("2 : ",oneFriend);
                             }
                             onlineTable.where({userId : id}).read({
                                 success : function(onlineUsers){
-                                    
-                                 console.log("3 : ",id);
                                     if(onlineUsers.length > 0){
                                         onlineUsers.forEach(function(){
                                             onlineCount++;
                                         });
-                                        
                                         if(onlineCount > 0){
                                             oneFriend['online_status'] = 'online';
                                         }
@@ -61,6 +56,7 @@ exports.post = function(request, response) {
                                     }
                                     else {
                                         // no online user
+                                        response.send(statusCodes.OK, {message: "No Online user"});
                                     }
                                 }    
                             });
