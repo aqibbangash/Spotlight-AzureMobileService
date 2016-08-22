@@ -69,6 +69,5 @@ exports.post = function(request, response) {
                 response.send(statusCodes.OK, {message: "No freinds for this user."});
             }
         }
-        
     });
 };
