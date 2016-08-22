@@ -29,7 +29,7 @@ exports.post = function(request, response) {
                     
                     usersTable.where({id : id}).read({
                         success : function(users){
-                            Console.log("2 : ",users);
+                            console.log("2 : ",users);
                             if(users.length > 0){
                                 oneFriend['gender']         = _friend.gender;
                                 oneFriend['profile_pic']    = _friend.profile_picl
