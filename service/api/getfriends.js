@@ -56,7 +56,7 @@ exports.post = function(request, response) {
                                     }
                                     else {
                                         // no online user
-                                        response.send(statusCodes.OK, {message: "No Online user"});
+                                        response.send(statusCodes.OK, {message: "No online user"});
                                     }
                                 }    
                             });
