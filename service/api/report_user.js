@@ -17,7 +17,7 @@ exports.post = function(request, response) {
                 userTable.where({id : userId}).read({
                     success : function(users){
                         if(users.count > 0){
-                            users[0].points += 1;
+                            users[0].points += points;
                             userTable.update(users[0],{
                                 // Insert new report
                                 success : function(user){
