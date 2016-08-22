@@ -1,6 +1,6 @@
 exports.post = function(request, response) {
     // Request body values
-    var userId      = request.body.user_id;
+    var user_id      = request.body.user_id;
     var points      = request.body.points;
     var reporter    = request.body.reporter;
     // Tables
@@ -8,13 +8,13 @@ exports.post = function(request, response) {
     var reportTable = request.service.tables.getTable('Reports');  
     var blockTable = request.service.tables.getTable('Block');  
     
-    // Get all records with reporter equals reporter and culprit equals userId
-    reportTable.where({reporter : reporter, culprit : userId}).read({
+    // Get all records with reporter equals reporter and culprit equals user_id
+    reportTable.where({reporter : reporter, culprit : user_id}).read({
         // Set point column to points+request points
         success: function(results){
             //response.send(statusCodes.OK, { result : results});
             if(results.length == 0){
-                userTable.where({user_id : userId}).read({
+                userTable.where({user_id : user_id}).read({
                     success : function(users){
                         if(users.count > 0){
                             users[0].points += 1;
@@ -23,14 +23,14 @@ exports.post = function(request, response) {
                                 success : function(user){
                                        reportTable.insert({
                                             reporter : reporter,
-                                            culprit  : userId
+                                            culprit  : user_id
                                         },{
                                             // insert new block
                                             success: function(obj){
                                                 blockTable.insert({
                                                     blocker     : reporter,
-                                                    blocky      : userId,
-                                                    both        : reporter+userId,
+                                                    blocky      : user_id,
+                                                    both        : reporter+user_id,
                                                     blocktype   : '1'
                                                 },{
                                                     success : function(res){
