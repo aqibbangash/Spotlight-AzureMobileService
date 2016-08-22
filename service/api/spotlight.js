@@ -19,7 +19,13 @@ exports.post = function(request, response) {
     var requestTable = request.service.tables.getTable('Request');
     var blockTable   = request.service.tables.getTable('Block');
 
-    // Get all request type text and user_id equals user_id
+    userTable.where({id : user_id}).read({
+        success : function(users){
+            if(users.length > 0){
+                prefs = users[0];
+                if(users[0].points > 0){
+                 ////////////////////////////++++++++++++++++++
+                     // Get all request type text and user_id equals user_id
         requestTable.where({type : chat_type, user_id : user_id}).read({
         success : function(requests){
          //response.send(statusCodes.OK, { message : requests[0] });  // Test log
@@ -423,9 +429,18 @@ exports.post = function(request, response) {
                     }
                 });
             }    
-//////
         }
     });
-
-
+                 //////////////////////////////------------------   
+                }
+                else {
+                    // insufficient points
+                    response.send(statusCodes.OK, { boolean : false, message : '10. Insufficient points'});
+                }
+            }
+            else {
+                // User dose not exists
+            }
+        }
+    });
 };
