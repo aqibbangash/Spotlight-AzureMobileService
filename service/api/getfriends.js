@@ -29,6 +29,7 @@ exports.post = function(request, response) {
                     
                     usersTable.where({id : id}).read({
                         success : function(users){
+                            Console.log("2 : ",users);
                             if(users.length > 0){
                                 oneFriend['gender']         = _friend.gender;
                                 oneFriend['profile_pic']    = _friend.profile_picl
@@ -37,7 +38,6 @@ exports.post = function(request, response) {
                                 oneFriend['age']            = _friend.age;
                                 oneFriend['vip']            = _friend.vip;
                             }
-                            ﻿﻿Console.log("2 : ",oneFriend);
                             onlineTable.where({userId : id}).read({
                                 success : function(onlineUsers){
                                     if(onlineUsers.length > 0){
