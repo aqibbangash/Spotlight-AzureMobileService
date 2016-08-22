@@ -8,7 +8,7 @@ exports.post = function(request, response) {
         // Set _delete column to true
         success: function(results) {
             if (results.length > 0) {
-                requestTable.delete(results,{
+                requestTable.remove(results,{
                     success:function(res){
                         response.send(statusCodes.OK, { result : 'User request deleted.', status : 1, number:results.length});
                     }
