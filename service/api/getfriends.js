@@ -31,12 +31,14 @@ exports.post = function(request, response) {
                         success : function(users){
                             console.log("2 : ",users);
                             if(users.length > 0){
-                                oneFriend['gender']         = _friend.gender;
-                                oneFriend['profile_pic']    = _friend.profile_picl
-                                oneFriend['city']           = _friend.city;
-                                oneFriend['country']        = _friend.country;
-                                oneFriend['age']            = _friend.age;
-                                oneFriend['vip']            = _friend.vip;
+                                users.forEach(function(user){
+                                    oneFriend['gender']         = user.gender;
+                                    oneFriend['profile_pic']    = user.profile_pic;
+                                    oneFriend['city']           = user.city;
+                                    oneFriend['country']        = user.country;
+                                    oneFriend['age']            = user.age;
+                                    oneFriend['vip']            = user.vip;
+                                });
                             }
                             onlineTable.where({userId : id}).read({
                                 success : function(onlineUsers){
