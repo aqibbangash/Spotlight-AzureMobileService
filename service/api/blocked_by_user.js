@@ -12,9 +12,12 @@ exports.post = function(request, response) {
         // add Id present in object
         success : function(res){
             var flag = getFlag(res[0].both);
-            if(flag!=-1){
+            console.log("flag : ",flag);
+            if(flag!=-1 && flag){
                 result+=res[0].both;
+                console.log("yep")
             }
+            console.log("result 2: ",result);
             response.send(statusCodes.OK, { returning : result});
         }// Function success end
     });// Block table query end 
