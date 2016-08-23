@@ -22,7 +22,7 @@ exports.post = function(request, response) {
     userTable.where({id : user_id}).read({
         success : function(users){
             if(users.length > 0){
-                prefs = users[0];
+                prefs = users[0].prefs;
                 if(users[0].points > 0){
                  ////////////////////////////++++++++++++++++++
                      // Get all request type text and user_id equals user_id
