@@ -9,7 +9,10 @@
   "dependencies": {
     "cloudinary": "^1.4.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+
+    "cloudinary": "^1.4.1"
+  },
   "scripts": {},
   "author": "unknown",
   "licenses": [],
