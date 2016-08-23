@@ -11,11 +11,11 @@ exports.post = function(request, response) {
     blockTable.where(function(u){return this.both.indexOf(u)!== -1;},userId).read({
         // add Id present in object
         success : function(res){
-            console.log("result 1 : ",res);
             var flag = getFlag(res[0].both);
             console.log("flag : ",flag);
             if(flag!=-1 && flag){
                 result+=res[0].both;
+                console.log("yep")
             }
             console.log("result 2: ",result);
             response.send(statusCodes.OK, { returning : result});
