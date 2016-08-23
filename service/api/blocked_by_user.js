@@ -6,7 +6,7 @@ exports.post = function(request, response) {
     // Local variables
     var result    = "";
     
-    var getFlag = function(str){return str.indexOf(userId);}
+    var getFlag = function(str){return str.search(userId);}
     // Get block user by Id
     blockTable.where(function(u){return this.both.indexOf(u)!== -1;},userId).read({
         // add Id present in object
