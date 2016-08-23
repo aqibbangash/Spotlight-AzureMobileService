@@ -6,10 +6,12 @@
   "engines": {
     "node": ">= 0.8.19"
   },
-  "dependencies": {},
+  "dependencies": {
+    "cloudinary": "^1.4.1"
+  },
   "devDependencies": {},
   "scripts": {},
   "author": "unknown",
   "licenses": [],
-  "keywords":[]
+  "keywords": []
 }
