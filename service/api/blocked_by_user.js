@@ -21,5 +21,5 @@ exports.post = function(request, response) {
             response.send(statusCodes.OK, { returning : result});
         }// Function success end
     });// Block table query end 
-    response.send(statusCodes.OK, { returning : result});
+    //response.send(statusCodes.OK, { returning : result});
 };
