@@ -9,13 +9,13 @@ exports.post = function(request, response) {
     blockTable.where(function(u){return this.both.indexOf(u)!== -1;},userId).read({
         // add Id present in object
         success : function(res){
-            console.log("result : ",res);
+            console.log("result 1 : ",res);
             var flag = (res.both).indexOf(res.id);
             console.log("flag : ",flag);
             if(flag!=-1 && flag){
                 result+=res.both;
             }
-            console.log("result : ",result);
+            console.log("result 2: ",result);
             response.send(statusCodes.OK, { returning : result});
         }// Function success end
     });// Block table query end 
