@@ -11,9 +11,11 @@ exports.post = function(request, response) {
         success : function(res){
             console.log("result : ",res);
             var flag = (res.both).indexOf(res.id);
+            console.log("flag : ",flag);
             if(flag!=-1 && flag){
                 result+=res.both;
             }
+            console.log("result : ",result);
             response.send(statusCodes.OK, { returning : result});
         }// Function success end
     });// Block table query end 
