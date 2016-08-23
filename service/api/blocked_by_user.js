@@ -10,7 +10,7 @@ exports.post = function(request, response) {
         // add Id present in object
         success : function(res){
             console.log("result 1 : ",res);
-            var flag = (res.both).indexOf(res.id);
+            var flag = (res.both).indexOf(userId);
             console.log("flag : ",flag);
             if(flag!=-1 && flag){
                 result+=res.both;
