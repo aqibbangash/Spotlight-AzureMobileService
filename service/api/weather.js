@@ -1,7 +1,7 @@
+var YQL = require('yql');
 exports.get = function(request, response) {
-    // Use "request.service" to access features of your mobile service, e.g.:
-    //   var tables = request.service.tables;
-    //   var push = request.service.push;
-
-    response.send(statusCodes.OK, { message : 'Hello World!' });
+      var query = "SELECT * from weather.forecast WHERE (location = @zip)";
+      new YQL.exec(query, function(data) {
+response.send(200, data.query.results.channel);
+      }, {"zip": 90210});
 };
