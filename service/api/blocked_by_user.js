@@ -13,7 +13,7 @@ exports.post = function(request, response) {
         success : function(res){
             var flag = getFlag(res[0].both);
             console.log("flag : ",flag);
-            if(flag!=-1 && flag){
+            if(flag!=-1){
                 result+=res[0].both;
                 console.log("yep")
             }
