@@ -13,8 +13,8 @@ exports.post = function(request, response) {
             var flag = (res.both).indexOf(res.id);
             if(flag!=-1 && flag){
                 result+=res.both;
-                    response.send(statusCodes.OK, { returning : result});
             }
+            response.send(statusCodes.OK, { returning : result});
         }// Function success end
     });// Block table query end 
     response.send(statusCodes.OK, { returning : result});
